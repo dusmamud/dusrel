@@ -17,6 +17,12 @@ export const en = {
     sub: 'Dusrel crafts free apps that truly respect your privacy. Your data stays yours — we never sell it.',
     ctaApps: 'Explore the apps',
     ctaPrivacy: 'Our privacy promise',
+    stats: [
+      { value: '4', label: 'apps live today' },
+      { value: '8', label: 'apps coming soon' },
+      { value: '2', label: 'languages' },
+      { value: '100%', label: 'free core' },
+    ],
   },
   ecosystem: {
     title: 'The Dusrel ecosystem',

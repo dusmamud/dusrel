@@ -25,6 +25,17 @@ const altHref = lang === 'en' ? 'https://dusrel.com/hi/' : 'https://dusrel.com/'
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('dusrel-theme') || 'system';
+          var dark =
+            t === 'dark' ||
+            (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={altLang} href={altHref} />
     <link rel="alternate" hreflang="x-default" href="https://dusrel.com/" />
