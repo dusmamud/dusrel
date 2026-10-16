@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+import { dict, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+}
+
+const { lang, title: titleOverride, description: descriptionOverride } = Astro.props;
+const t = dict[lang];
+const title = titleOverride ?? t.meta.title;
+const description = descriptionOverride ?? t.meta.description;
+const canonical = lang === 'en' ? 'https://dusrel.com/' : `https://dusrel.com/${lang}/`;
+const altLang = lang === 'en' ? 'hi' : 'en';
+const altHref = lang === 'en' ? 'https://dusrel.com/hi/' : 'https://dusrel.com/';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={altLang} href={altHref} />
+    <link rel="alternate" hreflang="x-default" href="https://dusrel.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dusrel" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Dusrel",
+        "url": "https://dusrel.com/",
+        "logo": "https://dusrel.com/favicon.svg",
+        "slogan": "YOUR PRIVACY MATTERS",
+        "description": "Dusrel crafts free apps that truly respect your privacy."
+      }
+    </script>
+    <slot name="head" />
+  </head>
+  <body class="bg-white text-slate-900 dark:bg-[#121212] dark:text-[#e8eaed]">
+    <slot />
+  </body>
+</html>

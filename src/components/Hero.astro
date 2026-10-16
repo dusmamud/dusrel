@@ -1,0 +1,56 @@
+---
+import { dict, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang];
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-[#121212]/90">
+  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+    <a href={lang === 'hi' ? '/hi/' : '/'} class="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-[#e8eaed]">
+      Dusrel
+    </a>
+    <div class="flex items-center gap-6 text-sm font-medium">
+      <a href="#apps" class="hidden text-slate-600 transition-colors hover:text-[#4d90fe] sm:inline dark:text-slate-300">{t.nav.apps}</a>
+      <a href="#why" class="hidden text-slate-600 transition-colors hover:text-[#4d90fe] sm:inline dark:text-slate-300">{t.nav.why}</a>
+      <a href="#privacy" class="hidden text-slate-600 transition-colors hover:text-[#4d90fe] sm:inline dark:text-slate-300">{t.nav.privacy}</a>
+      <a href="#contact" class="hidden text-slate-600 transition-colors hover:text-[#4d90fe] sm:inline dark:text-slate-300">{t.nav.contact}</a>
+      <span class="text-xs font-semibold tracking-wide text-slate-500 dark:text-slate-400">
+        <a href="/" class:list={[{ 'text-[#4d90fe]': lang === 'en' }]}>EN</a>
+        <span class="mx-1">|</span>
+        <a href="/hi/" class:list={[{ 'text-[#4d90fe]': lang === 'hi' }]}>HI</a>
+      </span>
+    </div>
+  </nav>
+</header>
+
+<section class="relative overflow-hidden bg-white dark:bg-[#121212]">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(circle,#cbd5e1_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)] dark:opacity-40 dark:[background-image:radial-gradient(circle,#3a3a3a_1px,transparent_1px)]"
+  ></div>
+  <div class="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
+    <span class="inline-block rounded-full border border-[#4d90fe]/50 px-4 py-1.5 text-xs font-semibold tracking-widest text-[#4d90fe]">
+      {t.hero.eyebrow}
+    </span>
+    <h1 class="font-display mt-8 text-5xl font-bold leading-tight tracking-tight text-slate-900 sm:text-6xl lg:text-7xl dark:text-[#e8eaed]">
+      <span class="text-[#4d90fe]">{t.hero.titleAccent}</span>{' '}{t.hero.title}
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+      {t.hero.sub}
+    </p>
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a
+        href="#apps"
+        class="rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+      >
+        {t.hero.ctaApps}
+      </a>
+      <a
+        href="#privacy"
+        class="rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-[#e8eaed]"
+      >
+        {t.hero.ctaPrivacy}
+      </a>
+    </div>
+  </div>
+</section>
