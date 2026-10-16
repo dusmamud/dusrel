@@ -12,6 +12,15 @@ const links = [
   { href: '#contact', label: t.nav.contact },
 ];
 
+// Mobile hamburger menu: actual pages, not landing anchors
+const lp = (enPath: string) => (lang === 'en' ? enPath : `/hi${enPath}`);
+const pageLinks = [
+  { href: lp('/apps'), label: t.nav.apps },
+  { href: lp('/about'), label: t.nav.about },
+  { href: lp('/open-source'), label: t.nav.openSource },
+  { href: lp('/contact'), label: t.nav.contact },
+];
+
 const orbitApps = t.ecosystem.apps.map((app, i) => {
   const logos = [
     '/icons/image-quill.svg',
@@ -79,10 +88,10 @@ const soonItems = [...t.ecosystem.soon, ...t.ecosystem.soon];
       </div>
     </nav>
 
-    <!-- Mobile menu -->
+    <!-- Mobile menu : actual pages -->
     <div id="mobile-menu" class="hidden md:hidden">
       <nav class="flex flex-col gap-1 border-t border-slate-200/70 px-4 py-4 dark:border-white/10">
-        {links.map((l) => (
+        {pageLinks.map((l) => (
           <a
             href={l.href}
             class="mobile-link rounded-xl px-3 py-2.5 text-[15px] font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#4d90fe] dark:text-slate-200 dark:hover:bg-white/5"

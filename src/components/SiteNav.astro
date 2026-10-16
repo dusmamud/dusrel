@@ -72,6 +72,68 @@ const links = [
       >
         {t.nav.cta}
       </a>
+
+      <button
+        id="sitenav-menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        class="ml-1 flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 md:hidden dark:border-white/10 dark:text-slate-300"
+      >
+        <svg id="sitenav-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="h-5 w-5">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+        <svg id="sitenav-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden h-5 w-5">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile menu : actual pages, not anchors -->
+  <div id="sitenav-mobile-menu" class="hidden md:hidden">
+    <nav class="flex flex-col gap-1 border-t border-slate-200/70 px-4 py-4 dark:border-white/10" aria-label="Mobile">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="sitenav-mobile-link rounded-xl px-3 py-2.5 text-[15px] font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#4d90fe] dark:text-slate-200 dark:hover:bg-white/5"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href={lp('/apps')}
+        class="sitenav-mobile-link mt-2 rounded-xl bg-[#4d90fe] px-3 py-2.5 text-center text-[15px] font-semibold text-white"
+      >
+        {t.nav.cta}
+      </a>
+    </nav>
+  </div>
 </header>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('sitenav-menu-btn');
+    var menu = document.getElementById('sitenav-mobile-menu');
+    if (!btn || !menu) return;
+    var iconOpen = document.getElementById('sitenav-icon-open');
+    var iconClose = document.getElementById('sitenav-icon-close');
+    function setOpen(open) {
+      menu.classList.toggle('hidden', !open);
+      if (iconOpen) iconOpen.classList.toggle('hidden', open);
+      if (iconClose) iconClose.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    btn.addEventListener('click', function () {
+      setOpen(menu.classList.contains('hidden'));
+    });
+    menu.querySelectorAll('.sitenav-mobile-link').forEach(function (a) {
+      a.addEventListener('click', function () {
+        setOpen(false);
+      });
+    });
+  })();
+</script>
