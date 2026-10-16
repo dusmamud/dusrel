@@ -11,6 +11,7 @@ export const hi: Dict = {
     why: 'क्यों दुसरेल',
     privacy: 'प्राइवेसी',
     contact: 'संपर्क',
+    cta: 'ऐप्स देखें',
   },
   hero: {
     eyebrow: 'YOUR PRIVACY MATTERS',

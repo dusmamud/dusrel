@@ -33,6 +33,19 @@ section[id] {
       transform: translateY(8px);
     }
   }
+  --animate-orbit: orbit 70s linear infinite;
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-orbit {
+    animation: none;
+  }
 }
 
 body {

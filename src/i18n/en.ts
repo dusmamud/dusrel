@@ -9,6 +9,7 @@ export const en = {
     why: 'Why Dusrel',
     privacy: 'Privacy',
     contact: 'Contact',
+    cta: 'Explore apps',
   },
   hero: {
     eyebrow: 'YOUR PRIVACY MATTERS',
