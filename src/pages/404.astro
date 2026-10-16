@@ -47,4 +47,26 @@ const altHref = isHi ? '/' : '/hi/';
     </section>
   </main>
   <Footer lang={lang} />
+
+  <script define:vars={{ hiNotFound: dict.hi.notFound, enNotFound: dict.en.notFound }}>
+    // Static 404.html is served for every unknown path — swap to Hindi client-side
+    // when the requested URL is under /hi/.
+    if (location.pathname.startsWith('/hi')) {
+      document.documentElement.lang = 'hi';
+      document.title = 'पेज नहीं मिला — Dusrel';
+      const h1 = document.querySelector('main h1');
+      const sub = document.querySelector('main section p.text-lg');
+      const btns = document.querySelectorAll('main section div a');
+      if (h1) h1.textContent = hiNotFound.title;
+      if (sub) sub.textContent = hiNotFound.sub;
+      if (btns[0]) {
+        btns[0].textContent = hiNotFound.homeButton;
+        btns[0].setAttribute('href', '/hi/');
+      }
+      if (btns[1]) {
+        btns[1].textContent = hiNotFound.contactButton;
+        btns[1].setAttribute('href', '/hi/contact');
+      }
+    }
+  </script>
 </Base>
