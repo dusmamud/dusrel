@@ -1,0 +1,203 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SiteNav from '../../../components/SiteNav.astro';
+import Footer from '../../../components/Footer.astro';
+import { dict, type Lang } from '../../../i18n';
+
+const lang: Lang = 'hi';
+const t = dict[lang];
+const p = t.appPages.pdftools;
+
+const appUrl = 'https://dusrel.com/hi/apps/pdf-tools';
+
+const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+const external = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>`;
+const shield = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>`;
+
+const featureIcons = [
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88"/><path d="M14.47 14.48 20 20"/><path d="M8.12 8.12 12 12"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="m14 10 7-7"/><path d="m3 21 7-7"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>`,
+];
+
+const slugByName: Record<string, string> = {
+  'Image Quill': 'image-quill',
+  Ricsline: 'ricsline',
+  ResumeForge: 'resumeforge',
+};
+const others = t.ecosystem.apps
+  .filter((a) => a.name !== p.name)
+  .map((a) => ({ ...a, slug: `/hi/apps/${slugByName[a.name]}`, logo: `/icons/${slugByName[a.name]}.svg` }));
+---
+
+<Base
+  lang={lang}
+  title="PDF Tools — मुफ्त ऑनलाइन PDF टूल्स | Dusrel"
+  description="11 मुफ्त ऑनलाइन टूल्स से PDF मर्ज, स्प्लिट, कंप्रेस, रोटेट और वॉटरमार्क करें। 100% क्लाइंट-साइड — आपकी फाइलें आपके डिवाइस से बाहर नहीं जातीं।"
+  canonical={appUrl}
+>
+  <SiteNav lang={lang} altHref="/apps/pdf-tools" />
+
+  <main>
+    <!-- Breadcrumb + hero -->
+    <section class="mx-auto max-w-6xl px-6 pt-10 md:pt-14">
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500 dark:text-slate-400">
+        <ol class="flex items-center gap-2">
+          <li><a href="/hi/" class="hover:text-[#4d90fe]">Dusrel</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/hi/#apps" class="hover:text-[#4d90fe]">{t.nav.apps}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="font-medium text-slate-900 dark:text-[#e8eaed]">{p.name}</li>
+        </ol>
+      </nav>
+
+      <div class="mx-auto mt-10 max-w-3xl text-center">
+        <img
+          src="/icons/pdf-tools.svg"
+          alt={`${p.name} logo`}
+          class="mx-auto h-20 w-20"
+          width="80"
+          height="80"
+        />
+        <h1 class="font-display mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-[#e8eaed]">
+          {p.name}
+        </h1>
+        <p class="mt-3 text-xl font-medium text-[#4d90fe]">{p.tagline}</p>
+        <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+          {p.heroSub}
+        </p>
+
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="https://dusmamud.github.io/pdf-tools/"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#3b7de0] hover:shadow-md sm:w-auto"
+          >
+            {p.openApp}
+            <span set:html={external} />
+          </a>
+          <a
+            href="/hi/#apps"
+            class="inline-flex w-full items-center justify-center rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:text-[#e8eaed]"
+          >
+            {t.nav.apps}
+          </a>
+        </div>
+
+        <ul class="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-600 dark:text-slate-400">
+          {
+            p.bullets.map((b) => (
+              <li class="flex items-center gap-2">
+                <span class="text-[#4d90fe]" set:html={check} />
+                {b}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Visual -->
+    <section class="mx-auto max-w-6xl px-6 py-14 md:py-20">
+      <img
+        src="/images/showcase-pdf-tools.jpg"
+        alt={p.name}
+        loading="lazy"
+        class="aspect-[16/8] w-full rounded-[2rem] border border-slate-200 object-cover shadow-sm dark:border-white/10"
+      />
+    </section>
+
+    <!-- Features -->
+    <section class="mx-auto max-w-6xl px-6 pb-20 md:pb-24">
+      <h2 class="font-display text-center text-3xl font-bold text-slate-900 md:text-4xl dark:text-[#e8eaed]">
+        {p.featuresTitle}
+      </h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          p.features.map((f, i) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-[#1e1e1e]">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]">
+                <span set:html={featureIcons[i % featureIcons.length]} />
+              </div>
+              <h3 class="mt-4 font-semibold text-slate-900 dark:text-[#e8eaed]">{f.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{f.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Privacy strip -->
+    <section class="mx-auto max-w-6xl px-6 pb-20 md:pb-24">
+      <div class="flex flex-col items-start gap-5 rounded-[2rem] border border-[#4d90fe]/20 bg-[#4d90fe]/5 p-8 md:flex-row md:items-center md:gap-8 md:p-10 dark:border-[#4d90fe]/25 dark:bg-[#4d90fe]/10">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#4d90fe] text-white">
+          <span set:html={shield} />
+        </div>
+        <div>
+          <h2 class="font-display text-2xl font-bold text-slate-900 md:text-3xl dark:text-[#e8eaed]">
+            {p.privacyTitle}
+          </h2>
+          <p class="mt-2 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-400">
+            {p.privacyBody}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- More from Dusrel -->
+    <section class="mx-auto max-w-6xl px-6 pb-20 md:pb-24">
+      <h2 class="font-display text-center text-3xl font-bold text-slate-900 md:text-4xl dark:text-[#e8eaed]">
+        {p.moreTitle}
+      </h2>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          others.map((a) => (
+            <a
+              href={a.slug}
+              class="group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-[#4d90fe]/40 hover:shadow-lg dark:border-white/10 dark:bg-[#1e1e1e] dark:hover:border-[#4d90fe]/50"
+            >
+              <img src={a.logo} alt={`${a.name} logo`} class="h-12 w-12" width="48" height="48" loading="lazy" />
+              <h3 class="font-display mt-4 text-xl font-bold text-slate-900 group-hover:text-[#4d90fe] dark:text-[#e8eaed]">
+                {a.name}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{a.desc}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="mx-auto max-w-6xl px-6 pb-20 text-center md:pb-24">
+      <h2 class="font-display mx-auto max-w-2xl text-3xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-[#e8eaed]">
+        {p.ctaTitle}
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-base text-slate-600 md:text-lg dark:text-slate-400">
+        {p.ctaSub}
+      </p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href="https://dusmamud.github.io/pdf-tools/"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#3b7de0] hover:shadow-md sm:w-auto"
+        >
+          {p.ctaButton}
+          <span set:html={external} />
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex w-full items-center justify-center rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:text-[#e8eaed]"
+        >
+          {t.nav.contact}
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Base>

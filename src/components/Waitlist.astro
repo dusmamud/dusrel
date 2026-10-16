@@ -1,0 +1,65 @@
+---
+import { dict, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang];
+
+const apps = t.ecosystem.soon;
+---
+
+<section id="notify" class="py-20 md:py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto">
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#4d90fe]">{t.waitlist.eyebrow}</p>
+      <h2 class="font-display mt-3 text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#e8eaed]">
+        {t.waitlist.title}
+      </h2>
+      <p class="mt-3 text-lg text-slate-600 dark:text-slate-400">{t.waitlist.sub}</p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        apps.map((app) => (
+          <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] p-6 flex flex-col">
+            <div class="w-11 h-11 rounded-xl bg-[#4d90fe]/10 text-[#4d90fe] flex items-center justify-center">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-6 h-6"
+                aria-hidden="true"
+              >
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+              </svg>
+            </div>
+            <h3 class="mt-4 font-semibold text-slate-900 dark:text-[#e8eaed]">{app}</h3>
+            <button
+              type="button"
+              data-notify={app}
+              data-prefix={t.waitlist.subjectPrefix}
+              class="mt-4 w-full rounded-xl border border-[#4d90fe]/40 px-4 py-2.5 text-sm font-semibold text-[#4d90fe] transition-colors hover:bg-[#4d90fe] hover:text-white dark:hover:bg-[#4d90fe]"
+            >
+              {t.waitlist.notifyButton}
+            </button>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">{t.waitlist.note}</p>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-notify]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const app = btn.getAttribute('data-notify') || '';
+      const prefix = btn.getAttribute('data-prefix') || '';
+      const subject = encodeURIComponent(prefix + app);
+      window.location.href = `mailto:hello@dusrel.com?subject=${subject}`;
+    });
+  });
+</script>

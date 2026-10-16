@@ -1,0 +1,181 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Footer from '../components/Footer.astro';
+import { dict, type Lang } from '../i18n';
+
+const lang: Lang = 'en';
+const t = dict[lang];
+const b = t.brandPage;
+
+const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
+const cross = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-5 h-5" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
+const downloadIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>`;
+const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+
+const downloads = [
+  { href: '/logo.svg', label: 'SVG' },
+  { href: '/logo.png', label: 'PNG' },
+  { href: '/favicon.svg', label: 'Favicon' },
+];
+---
+
+<Base
+  lang="en"
+  title="Brand — Dusrel"
+  description="Dusrel brand assets and guidelines: logo downloads, colors, typography and usage rules."
+  canonical="https://dusrel.com/brand"
+>
+  <SiteNav lang="en" altHref="/hi/brand" />
+  <main>
+    <section class="py-20 md:py-24">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <p class="text-sm font-semibold tracking-widest uppercase text-[#4d90fe]">{b.eyebrow}</p>
+        <h1 class="font-display mt-3 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-[#e8eaed]">
+          {b.title}
+        </h1>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{b.sub}</p>
+      </div>
+    </section>
+
+    <section class="pb-20 md:pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-[#e8eaed]">{b.logoTitle}</h2>
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-[#1e1e1e]">
+            <div class="flex h-56 items-center justify-center rounded-xl bg-white border border-slate-100">
+              <img src="/logo.svg" alt="Dusrel logo" class="h-28 w-28" width="112" height="112" />
+            </div>
+            <p class="mt-4 text-sm font-medium text-slate-600 dark:text-slate-400">{b.logoLightLabel}</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-[#1e1e1e]">
+            <div class="flex h-56 items-center justify-center rounded-xl bg-[#121212] border border-white/10">
+              <img src="/logo.svg" alt="Dusrel logo" class="h-28 w-28" width="112" height="112" />
+            </div>
+            <p class="mt-4 text-sm font-medium text-slate-600 dark:text-slate-400">{b.logoDarkLabel}</p>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          {
+            downloads.map((d) => (
+              <a
+                href={d.href}
+                download
+                class="inline-flex items-center gap-2 rounded-2xl bg-[#4d90fe] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+              >
+                <span set:html={downloadIcon} />
+                {b.download} {d.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20 md:pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-[#e8eaed]">{b.colorsTitle}</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            b.colors.map((c) => (
+              <div class="rounded-2xl border border-slate-200 bg-white overflow-hidden dark:border-white/10 dark:bg-[#1e1e1e]">
+                <div class="h-28 w-full border-b border-slate-200 dark:border-white/10" style={`background-color: ${c.hex}`} />
+                <div class="flex items-center justify-between p-5">
+                  <div>
+                    <p class="font-semibold text-slate-900 dark:text-[#e8eaed]">{c.name}</p>
+                    <code class="mt-1 block text-sm text-slate-500 dark:text-slate-400">{c.hex}</code>
+                  </div>
+                  <button
+                    type="button"
+                    data-copy-hex={c.hex}
+                    class="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/15 dark:text-slate-400"
+                    aria-label={`Copy ${c.hex}`}
+                    title={`Copy ${c.hex}`}
+                  >
+                    <span set:html={copyIcon} />
+                  </button>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20 md:pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-[#e8eaed]">{b.typeTitle}</h2>
+        <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">{b.typeBody}</p>
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-[#1e1e1e]">
+            <p class="font-display text-7xl font-bold text-slate-900 dark:text-[#e8eaed]">Aa</p>
+            <p class="font-display mt-4 text-2xl font-bold text-slate-900 dark:text-[#e8eaed]">Sora</p>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Display · Wordmark · Headings</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-[#1e1e1e]">
+            <p class="text-7xl font-semibold text-slate-900 dark:text-[#e8eaed]">Aa</p>
+            <p class="mt-4 text-2xl font-semibold text-slate-900 dark:text-[#e8eaed]">Inter</p>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Body · UI · Text</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20 md:pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-[#e8eaed]">{b.taglineTitle}</h2>
+        <div class="mt-8 rounded-2xl border border-slate-200 bg-white px-6 py-14 text-center dark:border-white/10 dark:bg-[#1e1e1e]">
+          <p class="font-display text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+            Dusrel
+          </p>
+          <p class="mt-4 text-sm font-semibold tracking-[0.3em] text-[#4d90fe]">YOUR PRIVACY MATTERS</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20 md:pb-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-[#1e1e1e]">
+            <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-[#e8eaed]">{b.doTitle}</h2>
+            <ul class="mt-6 flex flex-col gap-4">
+              {
+                b.dos.map((item) => (
+                  <li class="flex items-start gap-3 text-slate-600 dark:text-slate-300">
+                    <span class="mt-0.5 text-emerald-500" set:html={check} />
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-8 dark:border-white/10 dark:bg-[#1e1e1e]">
+            <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-[#e8eaed]">{b.dontTitle}</h2>
+            <ul class="mt-6 flex flex-col gap-4">
+              {
+                b.donts.map((item) => (
+                  <li class="flex items-start gap-3 text-slate-600 dark:text-slate-300">
+                    <span class="mt-0.5 text-red-500" set:html={cross} />
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang="en" />
+</Base>
+
+<script is:inline>
+  document.querySelectorAll('[data-copy-hex]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var hex = btn.getAttribute('data-copy-hex');
+      if (hex && navigator.clipboard) {
+        navigator.clipboard.writeText(hex).catch(function () {});
+      }
+    });
+  });
+</script>

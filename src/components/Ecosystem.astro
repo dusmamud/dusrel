@@ -16,6 +16,10 @@ const icons = [
 
 const iconSvg = (inner: string) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+
+// App detail page slugs, same order as t.ecosystem.apps
+const slugs = ['image-quill', 'ricsline', 'resumeforge', 'pdf-tools'];
+const appHref = (slug: string) => `${lang === 'hi' ? '/hi' : ''}/apps/${slug}`;
 ---
 
 <section id="apps" class="mx-auto max-w-6xl px-6 py-20">
@@ -45,6 +49,12 @@ const iconSvg = (inner: string) =>
             class="mt-4 inline-block text-sm font-medium text-[#4d90fe] hover:underline"
           >
             {t.ecosystem.visit} &rarr;
+          </a>
+          <a
+            href={appHref(slugs[i])}
+            class="mt-1.5 block text-sm text-slate-500 hover:text-[#4d90fe] dark:text-slate-400 dark:hover:text-[#4d90fe]"
+          >
+            {t.ecosystem.learnMore} &rarr;
           </a>
         </article>
       ))

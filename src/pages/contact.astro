@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Footer from '../components/Footer.astro';
+import { dict, type Lang } from '../i18n';
+
+const lang: Lang = 'en';
+const t = dict[lang];
+const c = t.contactPage;
+---
+
+<Base lang="en" title="Contact — Dusrel" description="Contact Dusrel — questions, feedback or just to say hello. We read every email." canonical="https://dusrel.com/contact">
+  <SiteNav lang="en" altHref="/hi/contact" />
+  <main>
+    <section class="py-16 md:py-24">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#4d90fe]">{c.eyebrow}</p>
+        <h1 class="font-display mt-3 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-[#e8eaed]">{c.title}</h1>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{c.sub}</p>
+      </div>
+    </section>
+    <section class="pb-16 md:pb-20">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <p class="text-sm font-medium text-slate-500 dark:text-slate-400">{c.emailLabel}</p>
+        <a href="mailto:hello@dusrel.com" class="font-display mt-2 inline-block text-2xl font-bold text-[#4d90fe] hover:underline">hello@dusrel.com</a>
+        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{c.emailHint}</p>
+      </div>
+    </section>
+    <section class="pb-16 md:pb-20">
+      <div class="mx-auto max-w-6xl px-6">
+        <h2 class="font-display text-center text-2xl font-bold text-slate-900 dark:text-[#e8eaed]">{c.topicsTitle}</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          {c.topics.map((tp) => (
+            <a href={`mailto:hello@dusrel.com?subject=${encodeURIComponent(tp.subject)}`} class="rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-[#4d90fe]/50 dark:border-white/10 dark:bg-[#1e1e1e]">
+              <h3 class="font-display text-lg font-bold text-slate-900 dark:text-[#e8eaed]">{tp.label}</h3>
+              <p class="mt-2 text-sm text-[#4d90fe]">{c.emailLabel} &rarr;</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="pb-20 md:pb-24">
+      <div class="mx-auto max-w-3xl px-6">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-[#1e1e1e]">
+          <h2 class="font-display text-lg font-bold text-slate-900 dark:text-[#e8eaed]">{c.noteTitle}</h2>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{c.noteBody}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang="en" />
+</Base>

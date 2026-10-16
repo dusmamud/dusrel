@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Footer from '../components/Footer.astro';
+import { dict, type Lang } from '../i18n';
+
+// 404 is served for any unknown path — pick the locale from the URL.
+const isHi = Astro.url.pathname.startsWith('/hi');
+const lang: Lang = isHi ? 'hi' : 'en';
+const t = dict[lang].notFound;
+const home = isHi ? '/hi/' : '/';
+// Single 404.html serves both locales, so the switcher goes to the other locale's home.
+const altHref = isHi ? '/' : '/hi/';
+---
+
+<Base
+  lang={lang}
+  title={isHi ? 'पेज नहीं मिला — Dusrel' : 'Page not found — Dusrel'}
+  description={t.sub}
+  canonical={isHi ? 'https://dusrel.com/hi/404' : 'https://dusrel.com/404'}
+  noindex={true}
+>
+  <SiteNav lang={lang} altHref={altHref} />
+  <main>
+    <section class="py-24 md:py-32">
+      <div class="mx-auto max-w-2xl px-6 text-center">
+        <p class="font-display text-8xl font-bold text-[#4d90fe]/20 dark:text-[#4d90fe]/30">404</p>
+        <h1 class="font-display mt-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-[#e8eaed]">
+          {t.title}
+        </h1>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{t.sub}</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href={home}
+            class="rounded-full bg-[#4d90fe] px-8 py-3 font-semibold text-white hover:opacity-90"
+          >
+            {t.homeButton}
+          </a>
+          <a
+            href={isHi ? '/hi/contact' : '/contact'}
+            class="rounded-full border border-slate-300 px-8 py-3 font-semibold text-slate-700 hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-300"
+          >
+            {t.contactButton}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Base>

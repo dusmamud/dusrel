@@ -2,6 +2,38 @@
 import { dict, type Lang } from '../i18n';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
+
+const root = lang === 'en' ? '' : '/hi';
+const page = (path: string) => `${root}${path}`;
+const anchor = (hash: string) => `${root === '' ? '/' : root}${hash}`;
+
+const companyLinks = [
+  { label: t.nav.about, href: page('/about') },
+  { label: t.nav.openSource, href: page('/open-source') },
+  { label: t.footNav.changelog, href: page('/changelog') },
+  { label: t.footNav.brand, href: page('/brand') },
+  { label: t.nav.contact, href: page('/contact') },
+];
+
+const legalLinks = [
+  { label: t.footNav.privacyPolicy, href: page('/privacy-policy') },
+  { label: t.footNav.terms, href: page('/terms') },
+];
+
+const appSlugs = ['image-quill', 'ricsline', 'resumeforge', 'pdf-tools'];
+const appLinks = t.ecosystem.apps.map((app, i) => ({
+  label: app.name,
+  href: page(`/apps/${appSlugs[i] ?? appSlugs[0]}`),
+}));
+
+const anchorLinks = [
+  { label: t.nav.apps, href: anchor('#apps') },
+  { label: t.nav.why, href: anchor('#why') },
+  { label: t.nav.privacy, href: anchor('#privacy') },
+  { label: t.nav.faq, href: anchor('#faq') },
+];
+
+const linkCls = 'hover:text-slate-900 dark:hover:text-white';
 ---
 
 <footer
@@ -9,60 +41,106 @@ const t = dict[lang];
   class="border-t border-slate-200 bg-slate-50 py-12 text-slate-600 dark:border-white/10 dark:bg-black/40 dark:text-slate-400"
 >
   <div class="mx-auto max-w-6xl px-6">
-    <div class="flex flex-col gap-8">
-      <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-        <div>
-          <p class="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="Dusrel logo" class="h-7 w-7" width="28" height="28" />
-            <span class="font-display text-2xl font-bold text-slate-900 dark:text-white">Dusrel</span>
-          </p>
-          <p class="mt-2 text-sm">{t.footer.tagline}</p>
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div>
+        <p class="flex items-center gap-2.5">
+          <img src="/logo.svg" alt="Dusrel logo" class="h-7 w-7" width="28" height="28" />
+          <span class="font-display text-2xl font-bold text-slate-900 dark:text-white">Dusrel</span>
+        </p>
+        <p class="mt-2 text-sm">{t.footer.tagline}</p>
+        <a
+          href="mailto:hello@dusrel.com"
+          class="mt-4 inline-block text-sm font-medium text-[#4d90fe] hover:underline"
+        >
+          hello@dusrel.com
+        </a>
+        <div class="mt-4 flex items-center gap-2 text-sm">
+          {
+            lang === 'en' ? (
+              <span class="font-semibold text-slate-900 dark:text-white">EN</span>
+            ) : (
+              <a href="/" class={linkCls}>
+                EN
+              </a>
+            )
+          }
+          <span aria-hidden="true" class="text-slate-300 dark:text-slate-700">
+            |
+          </span>
+          {
+            lang === 'hi' ? (
+              <span class="font-semibold text-slate-900 dark:text-white">HI</span>
+            ) : (
+              <a href="/hi/" class={linkCls}>
+                HI
+              </a>
+            )
+          }
         </div>
+      </div>
 
-        <div class="flex flex-col gap-5 md:items-end">
-          <a
-            href="mailto:hello@dusrel.com"
-            class="text-sm font-medium text-[#4d90fe] hover:underline"
-          >
-            hello@dusrel.com
+      <nav aria-label={t.footNav.company}>
+        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.footNav.company}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            companyLinks.map((l) => (
+              <li>
+                <a href={l.href} class={linkCls}>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={t.footNav.legal}>
+        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.footNav.legal}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            legalLinks.map((l) => (
+              <li>
+                <a href={l.href} class={linkCls}>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={t.footNav.apps}>
+        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.footNav.apps}</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            appLinks.map((l) => (
+              <li>
+                <a href={l.href} class={linkCls}>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <nav
+      aria-label={t.nav.apps}
+      class="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-slate-200 pt-6 text-sm dark:border-white/10"
+    >
+      {
+        anchorLinks.map((l) => (
+          <a href={l.href} class={linkCls}>
+            {l.label}
           </a>
+        ))
+      }
+    </nav>
 
-          <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm md:justify-end">
-            <a href="#apps" class="hover:text-slate-900 dark:hover:text-white">{t.nav.apps}</a>
-            <a href="#why" class="hover:text-slate-900 dark:hover:text-white">{t.nav.why}</a>
-            <a href="#privacy" class="hover:text-slate-900 dark:hover:text-white">{t.nav.privacy}</a>
-          </nav>
-
-          <div class="flex items-center gap-2 text-sm">
-            {
-              lang === 'en' ? (
-                <span class="font-semibold text-slate-900 dark:text-white">EN</span>
-              ) : (
-                <a href="/" class="hover:text-slate-900 dark:hover:text-white">
-                  EN
-                </a>
-              )
-            }
-            <span aria-hidden="true" class="text-slate-300 dark:text-slate-700">
-              |
-            </span>
-            {
-              lang === 'hi' ? (
-                <span class="font-semibold text-slate-900 dark:text-white">HI</span>
-              ) : (
-                <a href="/hi/" class="hover:text-slate-900 dark:hover:text-white">
-                  HI
-                </a>
-              )
-            }
-          </div>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2 border-t border-slate-200 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-white/10">
-        <p>{t.footer.rights}</p>
-        <p class="tracking-widest text-slate-400 dark:text-slate-600">YOUR PRIVACY MATTERS</p>
-      </div>
+    <div class="mt-6 flex flex-col gap-2 border-t border-slate-200 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-white/10">
+      <p>{t.footer.rights}</p>
+      <p class="tracking-widest text-slate-400 dark:text-slate-600">YOUR PRIVACY MATTERS</p>
     </div>
   </div>
 </footer>

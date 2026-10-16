@@ -1,0 +1,71 @@
+---
+import { dict, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang];
+
+const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
+
+const githubIcon = `<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>`;
+---
+
+<section id="open-source" class="py-20 md:py-24">
+  <div class="max-w-6xl mx-auto px-6 grid gap-10 md:grid-cols-2 md:gap-14 items-center">
+    <div>
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#4d90fe]">
+        {t.osSection.eyebrow}
+      </p>
+      <h2 class="font-display mt-3 text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#e8eaed]">
+        {t.osSection.title}
+      </h2>
+      <p class="mt-3 text-lg text-slate-600 dark:text-slate-400">{t.osSection.sub}</p>
+
+      <ul class="mt-8 space-y-4">
+        {
+          t.osSection.points.map((point) => (
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#4d90fe]/10 text-[#4d90fe]">
+                <span set:html={check} />
+              </span>
+              <span class="text-slate-700 dark:text-slate-300">{point}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href="https://github.com/dusmamud/dusrel"
+        target="_blank"
+        rel="noopener"
+        class="mt-8 inline-flex items-center gap-2.5 rounded-2xl bg-slate-900 px-6 py-3 font-semibold text-white transition-colors hover:bg-slate-700 dark:bg-[#e8eaed] dark:text-[#121212] dark:hover:bg-white"
+      >
+        <span set:html={githubIcon} />
+        {t.osSection.button}
+      </a>
+    </div>
+
+    <div>
+      <div class="overflow-hidden rounded-2xl border border-slate-800 bg-[#0d1117] shadow-xl">
+        <div class="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+          <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
+          <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
+          <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
+          <span class="ml-2 font-mono text-xs text-slate-500">terminal</span>
+        </div>
+        <div class="p-5 font-mono text-sm leading-7">
+          <p class="text-slate-200">
+            <span class="text-[#4d90fe]">$</span> git log --oneline
+          </p>
+          <div class="mt-2 space-y-1.5">
+            {
+              t.osSection.codeLines.map((line) => (
+                <p class="text-slate-400">
+                  <span class="text-[#8ab4f8]">{line.hash}</span> {line.msg}
+                </p>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

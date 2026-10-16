@@ -6,15 +6,21 @@ interface Props {
   lang: Lang;
   title?: string;
   description?: string;
+  canonical?: string;
+  noindex?: boolean;
 }
 
-const { lang, title: titleOverride, description: descriptionOverride } = Astro.props;
+const { lang, title: titleOverride, description: descriptionOverride, canonical: canonicalOverride, noindex = false } = Astro.props;
 const t = dict[lang];
 const title = titleOverride ?? t.meta.title;
 const description = descriptionOverride ?? t.meta.description;
-const canonical = lang === 'en' ? 'https://dusrel.com/' : `https://dusrel.com/${lang}/`;
+const canonical = canonicalOverride ?? (lang === 'en' ? 'https://dusrel.com/' : `https://dusrel.com/${lang}/`);
 const altLang = lang === 'en' ? 'hi' : 'en';
-const altHref = lang === 'en' ? 'https://dusrel.com/hi/' : 'https://dusrel.com/';
+// Derive the alternate-locale URL from the canonical: insert or strip the /hi/ prefix.
+const altHref =
+  lang === 'en'
+    ? canonical.replace('https://dusrel.com/', 'https://dusrel.com/hi/')
+    : canonical.replace('https://dusrel.com/hi/', 'https://dusrel.com/');
 ---
 
 <!doctype html>
@@ -24,6 +30,7 @@ const altHref = lang === 'en' ? 'https://dusrel.com/hi/' : 'https://dusrel.com/'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" data-theme-color />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" data-theme-color />
