@@ -39,12 +39,51 @@ section[id] {
       transform: rotate(360deg);
     }
   }
+  --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  @keyframes rise {
+    from {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+  --animate-marquee: marquee 32s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.parallax {
+  transform: translate3d(calc(var(--mx, 0) * var(--pd, 12px)), calc(var(--my, 0) * var(--pd, 12px)), 0);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+#site-header {
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+#site-header.is-scrolled {
+  box-shadow: 0 12px 40px rgba(2, 6, 23, 0.12);
+}
+.dark #site-header.is-scrolled {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
-  .animate-orbit {
+  .animate-orbit,
+  .animate-rise,
+  .animate-marquee,
+  .parallax {
     animation: none;
+    transition: none;
   }
 }
 

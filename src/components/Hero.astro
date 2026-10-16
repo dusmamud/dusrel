@@ -22,11 +22,19 @@ const iconSvg = (inner: string) =>
 
 const orbitApps = t.ecosystem.apps.map((app, i) => ({ ...app, icon: appIcons[i] }));
 const delays = ['0s', '1.4s', '2.8s', '4.2s'];
+
+const accentWords = t.hero.titleAccent.split(' ');
+const titleWords = t.hero.title.split(' ');
+const step = 0.07;
+const accentStart = 0.15;
+const titleStart = accentStart + accentWords.length * step;
+
+const soonItems = [...t.ecosystem.soon, ...t.ecosystem.soon];
 ---
 
 <!-- Floating pill header -->
 <div class="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
-  <header class="mx-auto max-w-5xl rounded-2xl border border-slate-200/80 bg-white/85 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#161616]/85 dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
+  <header id="site-header" class="mx-auto max-w-5xl rounded-2xl border border-slate-200/80 bg-white/85 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#161616]/85 dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
     <nav class="flex h-14 items-center justify-between px-4 sm:px-5">
       <a href={homeHref} class="flex items-center gap-2.5">
         <img src="/logo.svg" alt="Dusrel logo" class="h-8 w-8" width="32" height="32" />
@@ -89,88 +97,103 @@ const delays = ['0s', '1.4s', '2.8s', '4.2s'];
 </div>
 
 <!-- Hero -->
-<section class="relative overflow-hidden">
+<section id="hero" class="relative overflow-hidden">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0">
     <div class="absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(77,144,254,0.10),transparent)] dark:bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(77,144,254,0.16),transparent)]"></div>
     <div class="absolute inset-0 opacity-50 [background-image:radial-gradient(circle,#cbd5e1_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_70%_55%_at_50%_32%,black,transparent)] dark:opacity-30 dark:[background-image:radial-gradient(circle,#3a3a3a_1px,transparent_1px)]"></div>
   </div>
 
   <div class="relative mx-auto max-w-4xl px-4 pt-32 text-center sm:px-6 sm:pt-40">
-    <p>
-      <span class="inline-block rounded-full border border-[#4d90fe]/40 bg-[#4d90fe]/5 px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[#4d90fe]">
-        {t.hero.eyebrow}
-      </span>
-    </p>
-    <h1 class="font-display mt-7 text-[2.6rem] font-bold leading-[1.08] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl dark:text-[#e8eaed]">
-      <span class="text-[#4d90fe]">{t.hero.titleAccent}</span>{' '}{t.hero.title}
-    </h1>
-    <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-      {t.hero.sub}
-    </p>
-    <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-      <a
-        href="#apps"
-        class="w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#3b7de0] hover:shadow-md sm:w-auto"
-      >
-        {t.hero.ctaApps}
-      </a>
-      <a
-        href="#privacy"
-        class="w-full rounded-2xl border border-slate-300 bg-white px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:bg-transparent dark:text-[#e8eaed]"
-      >
-        {t.hero.ctaPrivacy}
-      </a>
+    <div class="parallax" style="--pd:10px">
+      <p class="animate-rise" style="animation-delay:0.05s">
+        <span class="inline-block rounded-full border border-[#4d90fe]/40 bg-[#4d90fe]/5 px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[#4d90fe]">
+          {t.hero.eyebrow}
+        </span>
+      </p>
+      <h1 class="font-display mt-7 text-[2.6rem] font-bold leading-[1.08] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl dark:text-[#e8eaed]">
+        {accentWords.map((w, i) => (
+          <span
+            class="animate-rise inline-block bg-gradient-to-r from-[#4d90fe] to-[#2b6bf0] bg-clip-text text-transparent"
+            style={`animation-delay:${(accentStart + i * step).toFixed(2)}s`}
+          >{w}</span>
+        )).reduce((acc: any, el: any, i: number) => i === 0 ? [el] : [...acc, ' ', el], [])}{' '}
+        {titleWords.map((w, i) => (
+          <span
+            class="animate-rise inline-block"
+            style={`animation-delay:${(titleStart + i * step).toFixed(2)}s`}
+          >{w}</span>
+        )).reduce((acc: any, el: any, i: number) => i === 0 ? [el] : [...acc, ' ', el], [])}
+      </h1>
+      <p class="animate-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300" style="animation-delay:0.55s">
+        {t.hero.sub}
+      </p>
+      <div class="animate-rise mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4" style="animation-delay:0.7s">
+        <a
+          href="#apps"
+          class="w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#3b7de0] hover:shadow-md sm:w-auto"
+        >
+          {t.hero.ctaApps}
+        </a>
+        <a
+          href="#privacy"
+          class="w-full rounded-2xl border border-slate-300 bg-white px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:bg-transparent dark:text-[#e8eaed]"
+        >
+          {t.hero.ctaPrivacy}
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- Ecosystem orbit visual -->
   <div class="relative mx-auto mt-16 max-w-3xl px-4 sm:mt-20">
-    <!-- desktop orbit -->
-    <div class="relative hidden h-[400px] sm:block" aria-hidden="true">
-      <div class="animate-orbit absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/80 dark:border-white/10"></div>
-      <div class="animate-orbit absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/60 dark:border-white/[0.07]" style="animation-direction:reverse;animation-duration:100s"></div>
-      <!-- center hub -->
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div class="flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-slate-200/80 bg-white p-4 shadow-[0_12px_40px_rgba(77,144,254,0.18)] dark:border-white/10 dark:bg-[#1e1e1e]">
-          <img src="/logo.svg" alt="" class="h-full w-full" />
+    <div class="animate-rise" style="animation-delay:0.85s">
+      <div class="parallax" style="--pd:-16px">
+        <!-- desktop orbit -->
+        <div class="relative hidden h-[400px] sm:block" aria-hidden="true">
+          <div class="animate-orbit absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/80 dark:border-white/10"></div>
+          <div class="animate-orbit absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/60 dark:border-white/[0.07]" style="animation-direction:reverse;animation-duration:100s"></div>
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-slate-200/80 bg-white p-4 shadow-[0_12px_40px_rgba(77,144,254,0.18)] dark:border-white/10 dark:bg-[#1e1e1e]">
+              <img src="/logo.svg" alt="" class="h-full w-full" />
+            </div>
+          </div>
+          <a href={orbitApps[0].url} target="_blank" rel="noopener" style={`animation-delay:${delays[0]}`}
+            class="animate-float absolute left-[1%] top-[6%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[0].icon)} />
+            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[0].name}</span>
+          </a>
+          <a href={orbitApps[1].url} target="_blank" rel="noopener" style={`animation-delay:${delays[1]}`}
+            class="animate-float absolute right-[1%] top-[2%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[1].icon)} />
+            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[1].name}</span>
+          </a>
+          <a href={orbitApps[2].url} target="_blank" rel="noopener" style={`animation-delay:${delays[2]}`}
+            class="animate-float absolute bottom-[8%] left-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[2].icon)} />
+            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[2].name}</span>
+          </a>
+          <a href={orbitApps[3].url} target="_blank" rel="noopener" style={`animation-delay:${delays[3]}`}
+            class="animate-float absolute bottom-[4%] right-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[3].icon)} />
+            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[3].name}</span>
+          </a>
+        </div>
+
+        <!-- mobile: simple 2x2 grid -->
+        <div class="grid grid-cols-2 gap-3 sm:hidden">
+          {orbitApps.map((app) => (
+            <a href={app.url} target="_blank" rel="noopener"
+              class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 dark:border-white/10 dark:bg-[#1e1e1e]">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(app.icon)} />
+              <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
+            </a>
+          ))}
         </div>
       </div>
-      <!-- orbiting app chips -->
-      <a href={orbitApps[0].url} target="_blank" rel="noopener" style={`animation-delay:${delays[0]}`}
-        class="animate-float absolute left-[1%] top-[6%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[0].icon)} />
-        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[0].name}</span>
-      </a>
-      <a href={orbitApps[1].url} target="_blank" rel="noopener" style={`animation-delay:${delays[1]}`}
-        class="animate-float absolute right-[1%] top-[2%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[1].icon)} />
-        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[1].name}</span>
-      </a>
-      <a href={orbitApps[2].url} target="_blank" rel="noopener" style={`animation-delay:${delays[2]}`}
-        class="animate-float absolute bottom-[8%] left-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[2].icon)} />
-        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[2].name}</span>
-      </a>
-      <a href={orbitApps[3].url} target="_blank" rel="noopener" style={`animation-delay:${delays[3]}`}
-        class="animate-float absolute bottom-[4%] right-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[3].icon)} />
-        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[3].name}</span>
-      </a>
-    </div>
-
-    <!-- mobile: simple 2x2 grid -->
-    <div class="grid grid-cols-2 gap-3 sm:hidden">
-      {orbitApps.map((app) => (
-        <a href={app.url} target="_blank" rel="noopener"
-          class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 dark:border-white/10 dark:bg-[#1e1e1e]">
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(app.icon)} />
-          <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
-        </a>
-      ))}
     </div>
 
     <!-- stats strip -->
-    <dl class="mx-auto mt-14 grid max-w-2xl grid-cols-2 gap-y-6 pb-20 sm:grid-cols-4 sm:pb-24">
+    <dl class="animate-rise mx-auto mt-14 grid max-w-2xl grid-cols-2 gap-y-6 sm:grid-cols-4" style="animation-delay:1.05s">
       {t.hero.stats.map((s) => (
         <div class="px-4">
           <dt class="sr-only">{s.label}</dt>
@@ -180,27 +203,70 @@ const delays = ['0s', '1.4s', '2.8s', '4.2s'];
       ))}
     </dl>
   </div>
+
+  <!-- coming-soon marquee -->
+  <div class="animate-rise relative mt-14 overflow-hidden border-y border-slate-200/70 py-4 dark:border-white/10" style="animation-delay:1.2s" aria-hidden="true">
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent dark:from-[#121212]"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent dark:from-[#121212]"></div>
+    <div class="animate-marquee flex w-max items-center gap-10">
+      {soonItems.map((name) => (
+        <span class="flex items-center gap-10 whitespace-nowrap text-sm font-semibold tracking-wide text-slate-400 dark:text-slate-500">
+          {name}
+          <span class="h-1.5 w-1.5 rounded-full bg-[#4d90fe]/50"></span>
+        </span>
+      ))}
+    </div>
+  </div>
+  <div class="h-16 sm:h-20"></div>
 </section>
 
 <script is:inline>
   (function () {
+    // Mobile menu
     var btn = document.getElementById('menu-btn');
     var menu = document.getElementById('mobile-menu');
-    if (!btn || !menu) return;
-    var iconOpen = document.getElementById('menu-icon-open');
-    var iconClose = document.getElementById('menu-icon-close');
-    function setOpen(open) {
-      menu.classList.toggle('hidden', !open);
-      if (iconOpen) iconOpen.classList.toggle('hidden', open);
-      if (iconClose) iconClose.classList.toggle('hidden', !open);
-      btn.setAttribute('aria-expanded', String(open));
-      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (btn && menu) {
+      var iconOpen = document.getElementById('menu-icon-open');
+      var iconClose = document.getElementById('menu-icon-close');
+      function setOpen(open) {
+        menu.classList.toggle('hidden', !open);
+        if (iconOpen) iconOpen.classList.toggle('hidden', open);
+        if (iconClose) iconClose.classList.toggle('hidden', !open);
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      btn.addEventListener('click', function () {
+        setOpen(menu.classList.contains('hidden'));
+      });
+      menu.querySelectorAll('.mobile-link').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
     }
-    btn.addEventListener('click', function () {
-      setOpen(menu.classList.contains('hidden'));
-    });
-    menu.querySelectorAll('.mobile-link').forEach(function (a) {
-      a.addEventListener('click', function () { setOpen(false); });
-    });
+
+    // Header shadow on scroll
+    var header = document.getElementById('site-header');
+    if (header) {
+      var onScroll = function () {
+        header.classList.toggle('is-scrolled', window.scrollY > 12);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Mouse parallax on hero
+    var hero = document.getElementById('hero');
+    if (hero && window.matchMedia('(pointer: fine)').matches) {
+      hero.addEventListener('mousemove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        hero.style.setProperty('--mx', x.toFixed(3));
+        hero.style.setProperty('--my', y.toFixed(3));
+      });
+      hero.addEventListener('mouseleave', function () {
+        hero.style.setProperty('--mx', '0');
+        hero.style.setProperty('--my', '0');
+      });
+    }
   })();
 </script>
