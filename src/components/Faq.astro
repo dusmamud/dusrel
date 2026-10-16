@@ -1,0 +1,64 @@
+---
+import { dict, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = dict[lang];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: t.faq.items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<section id="faq" class="py-20 md:py-24">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto">
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#4d90fe]">{t.faq.eyebrow}</p>
+      <h2 class="font-display mt-3 text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#e8eaed]">
+        {t.faq.title}
+      </h2>
+      <p class="mt-3 text-lg text-slate-600 dark:text-slate-400">{t.faq.sub}</p>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-4">
+      {
+        t.faq.items.map((item, i) => (
+          <details
+            open={i === 0}
+            class="group rounded-2xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#1e1e1e]"
+          >
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-slate-900 dark:text-[#e8eaed] [&::-webkit-details-marker]:hidden">
+              <span>{item.q}</span>
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#4d90fe]/10 text-[#4d90fe] transition-transform duration-300 group-open:rotate-45">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  class="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+            </summary>
+            <div class="px-6 pb-6 text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">
+              {item.a}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />

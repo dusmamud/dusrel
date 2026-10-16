@@ -8,6 +8,7 @@ export const en = {
     apps: 'Apps',
     why: 'Why Dusrel',
     privacy: 'Privacy',
+    faq: 'FAQ',
     contact: 'Contact',
     cta: 'Explore apps',
   },
@@ -90,10 +91,130 @@ export const en = {
     title: 'Our privacy promise',
     quote: 'Your data stays yours — we never sell it.',
     body: 'Dusrel exists because your privacy matters. Our apps are built to work without harvesting your life: no data brokers, no creepy profiles, nothing sold that was never ours to sell.',
+    imgAlt: 'Shield illustration representing Dusrel’s privacy promise — your data stays yours',
   },
   footer: {
     tagline: 'Free, privacy-first apps for everyone.',
     rights: '© 2026 Dusrel. All rights reserved.',
+  },
+  how: {
+    eyebrow: 'How it works',
+    title: 'Up and running in seconds',
+    sub: 'No installs, no sign-ups, no learning curve.',
+    steps: [
+      {
+        title: 'Pick an app',
+        desc: 'Choose any app from the Dusrel ecosystem.',
+      },
+      {
+        title: 'Use it instantly',
+        desc: 'No signup, no install — it just runs in your browser.',
+      },
+      {
+        title: 'Your data stays yours',
+        desc: 'Nothing is uploaded, nothing is sold. Ever.',
+      },
+    ],
+  },
+  roadmap: {
+    eyebrow: 'Roadmap',
+    title: 'Where Dusrel is headed',
+    sub: 'Live now, next up, and on the horizon.',
+    live: 'Live now',
+    next: 'Coming next',
+    later: 'On the horizon',
+  },
+  faq: {
+    eyebrow: 'FAQ',
+    title: 'Questions, answered',
+    sub: 'Everything you might want to know about Dusrel.',
+    items: [
+      {
+        q: 'Is Dusrel really free?',
+        a: 'Yes. Every app’s core features are free, forever — no trials, no paywalls for the basics.',
+      },
+      {
+        q: 'Do I need to create an account?',
+        a: 'No. The apps work right away with no sign-up. A single optional Dusrel account will sync your stuff across the ecosystem.',
+      },
+      {
+        q: 'How do you make money if you never sell data?',
+        a: 'Dusrel is built by an independent solo developer and is free for everyone. If paid options ever come, they will stay honest and privacy-respecting — your data will never be for sale.',
+      },
+      {
+        q: 'Do the apps work offline?',
+        a: 'Most processing happens right on your device, so your files never leave it. An internet connection is only needed to load the app itself.',
+      },
+      {
+        q: 'Which devices are supported?',
+        a: 'Any modern browser on phone, tablet or desktop works today. Native Android and iOS apps, plus browser extensions, are on the roadmap.',
+      },
+      {
+        q: 'What data do you collect?',
+        a: 'As little as possible. We don’t build profiles or sell anything — read our privacy promise for the plain-language details.',
+      },
+    ],
+  },
+  cta: {
+    title: 'Your privacy matters.',
+    sub: 'Join the ecosystem of free apps that respect you. Your data stays yours — always.',
+    ctaApps: 'Explore the apps',
+    ctaContact: 'Contact us',
+  },
+  showcase: {
+    eyebrow: 'APP SPOTLIGHT',
+    title: 'Loved apps, built right',
+    sub: 'A closer look at what each app does — and why people keep coming back.',
+    details: [
+      {
+        tagline: 'A full image studio that runs entirely in your browser.',
+        features: [
+          'Compress, resize, crop, convert and more — 8 tools in one',
+          'Your photos never leave your device',
+          'No watermarks, no limits, no signup',
+        ],
+      },
+      {
+        tagline: 'Make perfect LRC lyric files, synced to the beat.',
+        features: [
+          'Tap-to-sync timing with millisecond precision',
+          'Built-in library to save and manage your lyrics',
+          'Export clean .lrc files in one click',
+        ],
+      },
+      {
+        tagline: 'A beautiful resume in minutes, ready to print.',
+        features: [
+          '20 professional templates to choose from',
+          'Live A4 preview with page-break markers',
+          'Download a print-ready PDF — free',
+        ],
+      },
+      {
+        tagline: 'Everyday PDF tasks, done privately on your device.',
+        features: [
+          'Merge, split, compress, rotate and watermark',
+          '100% client-side — files never touch a server',
+          'Works offline once loaded',
+        ],
+      },
+    ],
+  },
+  pricing: {
+    eyebrow: 'PRICING',
+    title: 'Free. Forever.',
+    sub: 'One simple plan. It costs nothing.',
+    price: 'Free',
+    tagline: 'Every app. Every feature. No catch.',
+    features: [
+      'All 4 live apps included',
+      'No account or signup needed',
+      'No ads, no trackers',
+      'Your data is never sold',
+      'New apps free as they launch',
+    ],
+    note: 'Dusrel is built by an independent developer — free for everyone, forever.',
+    cta: 'Explore the apps',
   },
 };
 
