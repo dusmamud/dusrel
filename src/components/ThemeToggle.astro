@@ -16,9 +16,6 @@
   <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden h-[18px] w-[18px]">
     <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
   </svg>
-  <svg id="theme-icon-system" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="h-[18px] w-[18px]">
-    <rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" />
-  </svg>
 </button>
 
 <script is:inline>
@@ -29,19 +26,22 @@
     var icons = {
       light: document.getElementById('theme-icon-sun'),
       dark: document.getElementById('theme-icon-moon'),
-      system: document.getElementById('theme-icon-system'),
     };
+    function osDark() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
     function stored() {
       try {
         var v = localStorage.getItem(KEY);
-        return v === 'light' || v === 'dark' || v === 'system' ? v : 'system';
+        return v === 'light' || v === 'dark' ? v : 'system';
       } catch (e) {
         return 'system';
       }
     }
     function effective(mode) {
-      if (mode === 'light' || mode === 'dark') return mode;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (mode === 'dark') return 'dark';
+      if (mode === 'light') return 'light';
+      return osDark() ? 'dark' : 'light';
     }
     function apply(mode) {
       var eff = effective(mode);
@@ -52,25 +52,24 @@
       document.querySelectorAll('meta[data-theme-color]').forEach(function (m) {
         m.setAttribute('content', color);
       });
-      Object.keys(icons).forEach(function (k) {
-        if (icons[k]) icons[k].classList.toggle('hidden', k !== mode);
-      });
-      btn.setAttribute('aria-label', 'Theme: ' + mode + ' (click to change)');
+      // show the icon of the current effective theme
+      if (icons.light) icons.light.classList.toggle('hidden', dark);
+      if (icons.dark) icons.dark.classList.toggle('hidden', !dark);
+      btn.setAttribute('aria-label', 'Theme: ' + eff + ' (click to switch to ' + (dark ? 'light' : 'dark') + ')');
     }
-    function switchTo(mode) {
+    function toggle() {
       var before = effective(stored());
+      var next = before === 'dark' ? 'light' : 'dark';
       try {
-        localStorage.setItem(KEY, mode);
+        localStorage.setItem(KEY, next);
       } catch (e) {}
-      var after = effective(mode);
       // Circular reveal from the button — same technique as dusmamud/shrinkit.
-      // Skip the animation when the effective theme didn't change or VT is unavailable.
+      // Skip the animation when VT is unavailable or reduced motion is preferred.
       if (
-        before === after ||
         !document.startViewTransition ||
         window.matchMedia('(prefers-reduced-motion: reduce)').matches
       ) {
-        apply(mode);
+        apply(next);
         return;
       }
       var rect = btn.getBoundingClientRect();
@@ -81,7 +80,7 @@
         Math.max(cy, window.innerHeight - cy)
       );
       var transition = document.startViewTransition(function () {
-        apply(mode);
+        apply(next);
       });
       transition.ready.then(function () {
         document.documentElement.animate(
@@ -101,7 +100,7 @@
     }
     // reflect stored/system theme on load
     apply(stored());
-    // keep in sync if OS theme changes while on "system"
+    // keep following the OS theme until the user picks explicitly
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
       if (stored() === 'system') apply('system');
     });
@@ -109,10 +108,6 @@
     window.addEventListener('storage', function (e) {
       if (e.key === KEY) apply(stored());
     });
-    btn.addEventListener('click', function () {
-      var order = ['light', 'dark', 'system'];
-      var next = order[(order.indexOf(stored()) + 1) % order.length];
-      switchTo(next);
-    });
+    btn.addEventListener('click', toggle);
   })();
 </script>
