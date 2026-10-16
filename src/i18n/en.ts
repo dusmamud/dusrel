@@ -250,6 +250,7 @@ export const en = {
     changelog: 'Changelog',
     brand: 'Brand',
     privacyPolicy: 'Privacy policy',
+    security: 'Security',
     terms: 'Terms',
   },
   contactPage: {
@@ -697,6 +698,52 @@ export const en = {
       ctaSub: 'Free PDF tools that respect your privacy — right in your browser.',
       ctaButton: 'Open PDF Tools',
     }
+  },
+
+
+  appsPage: {
+    eyebrow: 'APPS',
+    title: 'Every app, one promise',
+    sub: 'Free apps that respect you. Your data stays yours — we never sell it.',
+    liveTitle: 'Live now',
+    liveSub: 'Four apps, ready to use in your browser — no installs, no accounts.',
+    openApp: 'Open app',
+    soonTitle: 'Coming soon',
+    soonSub: 'Eight more on the way. Pick one and we’ll email you at launch.',
+    notifyButton: 'Notify me',
+    ctaTitle: 'Start with any app',
+    ctaSub: 'Free forever, private by design.',
+    ctaButton: 'Explore the apps',
+  },
+  securityPage: {
+    eyebrow: 'SECURITY',
+    title: 'Security you don’t have to think about',
+    sub: 'The safest data is data we never hold. Here’s how Dusrel keeps you secure.',
+    sections: [
+      {
+        title: 'Client-side by design',
+        body: 'Our apps process your files right on your device. There’s no server full of your documents to leak, breach or subpoena — because your files never leave your hands.',
+      },
+      {
+        title: 'No accounts, nothing to steal',
+        body: 'No passwords, no login databases, no password-reset emails to phish. With no accounts to hack, there’s simply less that can go wrong.',
+      },
+      {
+        title: 'Encrypted in transit',
+        body: 'Everything is served over HTTPS. Between your browser and our pages, your connection is encrypted.',
+      },
+      {
+        title: 'Minimal data, minimal risk',
+        body: 'We collect almost nothing — and you can’t lose what you don’t have. Read the privacy policy for the full picture.',
+      },
+      {
+        title: 'Open and auditable',
+        body: 'The source of this website is public on GitHub. Open code keeps our security claims honest — anyone can check.',
+      },
+    ],
+    reportTitle: 'Found a security issue?',
+    reportBody: 'Email us at hello@dusrel.com with the details. We read every message and take reports seriously.',
+    reportButton: 'Report an issue',
   },
 
 };

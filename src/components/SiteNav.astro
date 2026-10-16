@@ -14,7 +14,7 @@ const home = lang === 'en' ? '/' : '/hi/';
 const lp = (enPath: string) => (lang === 'en' ? enPath : `/hi${enPath}`);
 
 const links = [
-  { href: `${home}#apps`, label: t.nav.apps },
+  { href: lp('/apps'), label: t.nav.apps },
   { href: lp('/about'), label: t.nav.about },
   { href: lp('/open-source'), label: t.nav.openSource },
   { href: lp('/contact'), label: t.nav.contact },
@@ -67,7 +67,7 @@ const links = [
       <ThemeToggle />
 
       <a
-        href={`${home}#apps`}
+        href={lp('/apps')}
         class="ml-1 hidden rounded-xl bg-[#4d90fe] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#3b7de0] sm:inline-block"
       >
         {t.nav.cta}

@@ -18,6 +18,7 @@ const companyLinks = [
 const legalLinks = [
   { label: t.footNav.privacyPolicy, href: page('/privacy-policy') },
   { label: t.footNav.terms, href: page('/terms') },
+  { label: t.footNav.security, href: page('/security') },
 ];
 
 const appSlugs = ['image-quill', 'ricsline', 'resumeforge', 'pdf-tools'];
@@ -110,7 +111,9 @@ const linkCls = 'hover:text-slate-900 dark:hover:text-white';
       </nav>
 
       <nav aria-label={t.footNav.apps}>
-        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.footNav.apps}</h3>
+        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
+          <a href={page('/apps')} class={linkCls}>{t.footNav.apps}</a>
+        </h3>
         <ul class="mt-4 space-y-2.5 text-sm">
           {
             appLinks.map((l) => (
