@@ -23,6 +23,7 @@
 
 <script is:inline>
   (function () {
+    var KEY = 'dusrel-theme';
     var btn = document.getElementById('theme-toggle');
     if (!btn) return;
     var icons = {
@@ -30,36 +31,88 @@
       dark: document.getElementById('theme-icon-moon'),
       system: document.getElementById('theme-icon-system'),
     };
-    function current() {
+    function stored() {
       try {
-        return localStorage.getItem('dusrel-theme') || 'system';
+        var v = localStorage.getItem(KEY);
+        return v === 'light' || v === 'dark' || v === 'system' ? v : 'system';
       } catch (e) {
         return 'system';
       }
     }
+    function effective(mode) {
+      if (mode === 'light' || mode === 'dark') return mode;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
     function apply(mode) {
-      var dark =
-        mode === 'dark' ||
-        (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var eff = effective(mode);
+      var dark = eff === 'dark';
       document.documentElement.classList.toggle('dark', dark);
+      document.documentElement.style.colorScheme = eff;
+      var color = dark ? '#121212' : '#ffffff';
+      document.querySelectorAll('meta[data-theme-color]').forEach(function (m) {
+        m.setAttribute('content', color);
+      });
       Object.keys(icons).forEach(function (k) {
         if (icons[k]) icons[k].classList.toggle('hidden', k !== mode);
       });
       btn.setAttribute('aria-label', 'Theme: ' + mode + ' (click to change)');
     }
+    function switchTo(mode) {
+      var before = effective(stored());
+      try {
+        localStorage.setItem(KEY, mode);
+      } catch (e) {}
+      var after = effective(mode);
+      // Circular reveal from the button — same technique as dusmamud/shrinkit.
+      // Skip the animation when the effective theme didn't change or VT is unavailable.
+      if (
+        before === after ||
+        !document.startViewTransition ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        apply(mode);
+        return;
+      }
+      var rect = btn.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var max = Math.hypot(
+        Math.max(cx, window.innerWidth - cx),
+        Math.max(cy, window.innerHeight - cy)
+      );
+      var transition = document.startViewTransition(function () {
+        apply(mode);
+      });
+      transition.ready.then(function () {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              'circle(0px at ' + cx + 'px ' + cy + 'px)',
+              'circle(' + max + 'px at ' + cx + 'px ' + cy + 'px)',
+            ],
+          },
+          {
+            duration: 650,
+            easing: 'ease-in-out',
+            pseudoElement: '::view-transition-new(root)',
+          }
+        );
+      });
+    }
     // reflect stored/system theme on load
-    apply(current());
+    apply(stored());
     // keep in sync if OS theme changes while on "system"
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
-      if (current() === 'system') apply('system');
+      if (stored() === 'system') apply('system');
+    });
+    // cross-tab sync
+    window.addEventListener('storage', function (e) {
+      if (e.key === KEY) apply(stored());
     });
     btn.addEventListener('click', function () {
       var order = ['light', 'dark', 'system'];
-      var next = order[(order.indexOf(current()) + 1) % order.length];
-      try {
-        localStorage.setItem('dusrel-theme', next);
-      } catch (e) {}
-      apply(next);
+      var next = order[(order.indexOf(stored()) + 1) % order.length];
+      switchTo(next);
     });
   })();
 </script>

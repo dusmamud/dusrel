@@ -76,6 +76,19 @@ section[id] {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
 }
 
+/* Circular View Transition for theme switch (logic ported from dusmamud/shrinkit) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-orbit,
@@ -84,6 +97,10 @@ section[id] {
   .parallax {
     animation: none;
     transition: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }
 

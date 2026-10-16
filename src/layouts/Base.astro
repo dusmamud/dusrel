@@ -25,6 +25,8 @@ const altHref = lang === 'en' ? 'https://dusrel.com/hi/' : 'https://dusrel.com/'
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" data-theme-color />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" data-theme-color />
     <script is:inline>
       (function () {
         try {
@@ -32,7 +34,13 @@ const altHref = lang === 'en' ? 'https://dusrel.com/hi/' : 'https://dusrel.com/'
           var dark =
             t === 'dark' ||
             (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var resolved = dark ? 'dark' : 'light';
           document.documentElement.classList.toggle('dark', dark);
+          document.documentElement.style.colorScheme = resolved;
+          var color = dark ? '#121212' : '#ffffff';
+          document.querySelectorAll('meta[data-theme-color]').forEach(function (meta) {
+            meta.setAttribute('content', color);
+          });
         } catch (e) {}
       })();
     </script>
