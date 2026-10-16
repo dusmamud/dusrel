@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="PDF Tools logo">
+  <defs>
+    <linearGradient id="dusrel-pdftools-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5b9dff"/>
+      <stop offset="1" stop-color="#2b6bf0"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#dusrel-pdftools-g)"/>
+  <path d="M15 8h11l7 7v25a1 1 0 0 1-1 1H15a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="#fff" opacity="0.96"/>
+  <path d="M26 8l7 7h-7V8z" fill="#2b6bf0" opacity="0.55"/>
+  <g stroke="#2b6bf0" stroke-width="2.4" stroke-linecap="round">
+    <line x1="18" y1="24" x2="30" y2="24"/>
+    <line x1="18" y1="29.5" x2="30" y2="29.5"/>
+    <line x1="18" y1="35" x2="26" y2="35"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="ResumeForge logo">
+  <defs>
+    <linearGradient id="dusrel-resumeforge-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2AA5E4"/>
+      <stop offset="1" stop-color="#0069A8"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#dusrel-resumeforge-g)"/>
+  <g stroke="#fff" stroke-width="3.2" stroke-linecap="round">
+    <line x1="14" y1="17" x2="34" y2="17"/>
+    <line x1="14" y1="24" x2="28" y2="24"/>
+    <line x1="14" y1="31" x2="32" y2="31"/>
+  </g>
+</svg>

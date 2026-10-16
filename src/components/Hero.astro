@@ -11,16 +11,17 @@ const links = [
   { href: '#contact', label: t.nav.contact },
 ];
 
-const appIcons = [
-  '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',
-  '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
-  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
-  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
-];
-const iconSvg = (inner: string) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
-
-const orbitApps = t.ecosystem.apps.map((app, i) => ({ ...app, icon: appIcons[i] }));
+const orbitApps = t.ecosystem.apps.map((app, i) => {
+  const logos = [
+    '/icons/image-quill.svg',
+    '/icons/ricsline.svg',
+    '/icons/resumeforge.svg',
+    '/icons/pdf-tools.svg',
+  ];
+  // quill mark has generous transparent padding — render slightly larger to match tile logos
+  const imgClass = i === 0 ? 'h-12 w-12' : 'h-10 w-10';
+  return { ...app, logo: logos[i], imgClass };
+});
 const delays = ['0s', '1.4s', '2.8s', '4.2s'];
 
 const accentWords = t.hero.titleAccent.split(' ');
@@ -149,7 +150,8 @@ const soonItems = [...t.ecosystem.soon, ...t.ecosystem.soon];
     <div class="animate-rise" style="animation-delay:0.85s">
       <div class="parallax" style="--pd:-16px">
         <!-- desktop orbit -->
-        <div class="relative hidden h-[400px] sm:block" aria-hidden="true">
+        <div class="relative hidden h-[400px] sm:block">
+          <img src="/logo.svg" alt="" aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.05] dark:opacity-[0.08]" />
           <div class="animate-orbit absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/80 dark:border-white/10"></div>
           <div class="animate-orbit absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/60 dark:border-white/[0.07]" style="animation-direction:reverse;animation-duration:100s"></div>
           <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -159,22 +161,22 @@ const soonItems = [...t.ecosystem.soon, ...t.ecosystem.soon];
           </div>
           <a href={orbitApps[0].url} target="_blank" rel="noopener" style={`animation-delay:${delays[0]}`}
             class="animate-float absolute left-[1%] top-[6%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[0].icon)} />
+            <img src={orbitApps[0].logo} alt="" class={orbitApps[0].imgClass} width="48" height="48" />
             <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[0].name}</span>
           </a>
           <a href={orbitApps[1].url} target="_blank" rel="noopener" style={`animation-delay:${delays[1]}`}
             class="animate-float absolute right-[1%] top-[2%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[1].icon)} />
+            <img src={orbitApps[1].logo} alt="" class={orbitApps[1].imgClass} width="48" height="48" />
             <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[1].name}</span>
           </a>
           <a href={orbitApps[2].url} target="_blank" rel="noopener" style={`animation-delay:${delays[2]}`}
             class="animate-float absolute bottom-[8%] left-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[2].icon)} />
+            <img src={orbitApps[2].logo} alt="" class={orbitApps[2].imgClass} width="48" height="48" />
             <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[2].name}</span>
           </a>
           <a href={orbitApps[3].url} target="_blank" rel="noopener" style={`animation-delay:${delays[3]}`}
             class="animate-float absolute bottom-[4%] right-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(orbitApps[3].icon)} />
+            <img src={orbitApps[3].logo} alt="" class={orbitApps[3].imgClass} width="48" height="48" />
             <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[3].name}</span>
           </a>
         </div>
@@ -184,7 +186,7 @@ const soonItems = [...t.ecosystem.soon, ...t.ecosystem.soon];
           {orbitApps.map((app) => (
             <a href={app.url} target="_blank" rel="noopener"
               class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 dark:border-white/10 dark:bg-[#1e1e1e]">
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#4d90fe]/10 text-[#4d90fe]" set:html={iconSvg(app.icon)} />
+              <img src={app.logo} alt="" class={`${app.imgClass} shrink-0`} width="48" height="48" />
               <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
             </a>
           ))}
