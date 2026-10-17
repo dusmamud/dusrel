@@ -1,0 +1,202 @@
+---
+/**
+ * THE single detail-page template for every live app.
+ *
+ * Build generates one page per live app in src/data/apps.ts:
+ *   /apps/image-quill, /apps/ricsline, /apps/resumeforge, /apps/pdf-tools, ...
+ *
+ * To add a new app's detail page (no new .astro file needed):
+ *  1. Add the app to `apps` in src/data/apps.ts (status: 'live')
+ *  2. Add `appPages['<slug>']` content to src/i18n/en.ts + hi.ts
+ *     (metaTitle, metaDesc, name, tagline, heroSub, openApp, bullets,
+ *      featuresTitle, features[], privacyTitle, privacyBody,
+ *      moreTitle, ctaTitle, ctaSub, ctaButton)
+ *  3. Add 6 feature icons to src/data/feature-icons.ts under '<slug>'
+ *  4. Drop public/icons/<slug>.svg + public/images/showcase-<slug>.jpg
+ *  5. npm run build — the page appears automatically.
+ */
+import Base from '../../../layouts/Base.astro';
+import SiteNav from '../../../components/SiteNav.astro';
+import Footer from '../../../components/Footer.astro';
+import { dict, type Lang } from '../../../i18n';
+import { liveApps, appIcon, appShowcaseImage, appDetailHref, appContentFor } from '../../../data/apps';
+import { featureIcons } from '../../../data/feature-icons';
+
+export async function getStaticPaths() {
+  return liveApps.map((app) => ({ params: { slug: app.slug } }));
+}
+
+const lang: Lang = 'hi';
+const app = liveApps.find((a) => a.slug === Astro.params.slug);
+if (!app) return Astro.redirect('/404');
+const slug = app.slug;
+
+const t = dict[lang];
+const d = t.appPages[slug as keyof typeof t.appPages];
+const icons = featureIcons[slug] ?? [];
+
+const content = (s: string) => appContentFor(t.appContent, s);
+// Other live apps, derived from src/data/apps.ts — a new app appears here automatically.
+const otherApps = liveApps
+  .filter((a) => a.slug !== slug)
+  .map((a) => ({ ...content(a.slug), href: appDetailHref(a.slug, lang), icon: appIcon(a.slug) }));
+
+const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
+const shield = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 mx-auto text-[#4d90fe]" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>`;
+
+const appJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: d.name,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  url: app.url,
+};
+---
+
+<Base
+  lang="hi"
+  title={d.metaTitle}
+  description={d.metaDesc}
+  canonical={`https://dusrel.com/hi/apps/${slug}`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
+  </Fragment>
+
+  <SiteNav lang="hi" altHref={`/apps/${slug}`} />
+
+  <main>
+    {/* Hero */}
+    <section class="pt-14 pb-10 md:pt-20 md:pb-14">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <img
+          src={appIcon(slug)}
+          alt=""
+          aria-hidden="true"
+          class="mx-auto h-20 w-20 md:h-24 md:w-24"
+          width="96"
+          height="96"
+        />
+        <h1 class="font-display mt-6 text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-[#e8eaed]">
+          {d.name}
+        </h1>
+        <p class="mt-3 text-xl md:text-2xl font-medium text-[#4d90fe]">{d.tagline}</p>
+        <p class="mt-4 text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+          {d.heroSub}
+        </p>
+
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <a
+            href={app.url}
+            target="_blank"
+            rel="noopener"
+            class="w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#3b7de0] sm:w-auto"
+          >
+            {d.openApp} &nearr;
+          </a>
+          <a
+            href="#more"
+            class="w-full rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:text-[#e8eaed]"
+          >
+            {d.moreTitle}
+          </a>
+        </div>
+
+        <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5">
+          {d.bullets.map((b) => (
+            <li class="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+              <span class="text-[#4d90fe]" set:html={check} />
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* Visual */}
+    <section class="pb-16 md:pb-20">
+      <div class="mx-auto max-w-5xl px-6">
+        <img
+          src={appShowcaseImage(slug)}
+          alt={d.name}
+          loading="lazy"
+          class="aspect-[16/10] w-full rounded-3xl border border-slate-200 object-cover shadow-sm dark:border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* Features grid */}
+    <section class="py-16 md:py-24 bg-slate-50 dark:bg-black/30">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-[#e8eaed]">
+          {d.featuresTitle}
+        </h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {d.features.map((f, i) => (
+            <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] p-6">
+              <div class="w-11 h-11 rounded-xl bg-[#4d90fe]/10 text-[#4d90fe] flex items-center justify-center">
+                {icons.length > 0 && <span set:html={icons[i % icons.length]} />}
+              </div>
+              <h3 class="mt-4 font-semibold text-slate-900 dark:text-[#e8eaed]">{f.title}</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Privacy strip */}
+    <section class="py-16 md:py-24">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <span set:html={shield} />
+        <h2 class="font-display mt-4 text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#e8eaed]">
+          {d.privacyTitle}
+        </h2>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{d.privacyBody}</p>
+      </div>
+    </section>
+
+    {/* More from Dusrel */}
+    <section id="more" class="py-16 md:py-24 bg-slate-50 dark:bg-black/30 scroll-mt-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-[#e8eaed]">
+          {d.moreTitle}
+        </h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {otherApps.map((a) => (
+            <a
+              href={a.href}
+              class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] p-6 transition-colors hover:border-[#4d90fe]/60"
+            >
+              <img src={a.icon} alt="" class="w-12 h-12" width="48" height="48" aria-hidden="true" />
+              <h3 class="mt-4 font-semibold text-slate-900 dark:text-[#e8eaed]">{a.name}</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{a.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Final CTA */}
+    <section class="py-16 md:py-24">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#e8eaed]">
+          {d.ctaTitle}
+        </h2>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{d.ctaSub}</p>
+        <a
+          href={app.url}
+          target="_blank"
+          rel="noopener"
+          class="mt-8 inline-block rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+        >
+          {d.ctaButton} &nearr;
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang="hi" />
+</Base>

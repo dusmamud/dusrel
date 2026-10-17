@@ -522,8 +522,10 @@ export const en = {
     contactButton: 'Contact us',
   },
   appPages: {
-    quill: {
+    'image-quill': {
       name: 'Image Quill',
+      metaTitle: 'Image Quill — Free online image tools | Dusrel',
+      metaDesc: 'Image Quill by Dusrel — free online image tools: compress, resize, crop, convert (incl. HEIC), rotate, watermark, meme generator and photo editor. 100% client-side — your photos never leave your device.',
       tagline: 'A full image studio in your browser',
       heroSub:
         'Free online image tools — compress, convert, resize and edit images right in your browser.',
@@ -570,6 +572,8 @@ export const en = {
     },
     ricsline: {
       name: 'Ricsline',
+      metaTitle: 'Ricsline — Make LRC lyrics files | Dusrel',
+      metaDesc: 'Ricsline by Dusrel — a free LRC lyrics maker that runs in your browser. Sync lines to the music, manage your lyrics library, and export clean .lrc files — no installs, no sign-ups.',
       tagline: 'Make perfect LRC lyrics, synced to the beat.',
       heroSub: 'A free LRC lyrics maker that runs right in your browser. Sync lines to the music, manage your lyrics library, and export clean .lrc files — no installs, no sign-ups.',
       openApp: 'Open app',
@@ -596,6 +600,8 @@ export const en = {
     },
     resumeforge: {
       name: 'ResumeForge',
+      metaTitle: 'ResumeForge — Free resume builder | Dusrel',
+      metaDesc: 'ResumeForge is a free resume builder that runs entirely in your browser. Pick a template, fill in your details, and download a print-ready PDF — no account, no watermark.',
       tagline: 'A beautiful resume in minutes, ready to print.',
       heroSub:
         'ResumeForge is a free resume builder that runs entirely in your browser. Pick a template, fill in your details, and download a print-ready PDF — no account, no watermark.',
@@ -640,8 +646,10 @@ export const en = {
       ctaSub: 'Free, private, and ready when you are. Your data stays yours — always.',
       ctaButton: 'Open ResumeForge',
     },
-    pdftools: {
+    'pdf-tools': {
       name: 'PDF Tools',
+      metaTitle: 'PDF Tools — Free online PDF tools | Dusrel',
+      metaDesc: 'PDF Tools by Dusrel — merge, split, compress and edit PDFs right in your browser. 100% free, fully client-side — your files never touch a server.',
       tagline: 'Everyday PDF tasks, done privately',
       heroSub:
         'Merge, split, compress and edit PDFs right in your browser — 100% free, fully client-side.',

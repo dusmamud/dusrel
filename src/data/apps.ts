@@ -5,10 +5,15 @@
  *  1. Add one line below: { slug: 'my-app', url: 'https://...', status: 'live' }
  *     (use status: 'soon' for unreleased apps — they appear in Roadmap/Waitlist automatically)
  *  2. Add its name/description/features to src/i18n/en.ts + hi.ts under `appContent['my-app']`
- *  3. Drop `public/icons/my-app.svg` and `public/images/showcase-my-app.jpg` into public/
- *  4. (optional) Create src/pages/apps/my-app.astro (+ hi version) for the "Learn more" page
- *  5. npm run build — hero orbit, ecosystem grid, showcase, roadmap, waitlist,
- *     apps hub and footer all pick it up automatically. No other code changes needed.
+ *  3. Add its detail-page content to src/i18n/en.ts + hi.ts under `appPages['my-app']`
+ *     (metaTitle, metaDesc, name, tagline, heroSub, openApp, bullets,
+ *      featuresTitle, features[], privacyTitle, privacyBody,
+ *      moreTitle, ctaTitle, ctaSub, ctaButton)
+ *  4. Add 6 feature icons to src/data/feature-icons.ts under 'my-app'
+ *  5. Drop `public/icons/my-app.svg` and `public/images/showcase-my-app.jpg` into public/
+ *  6. npm run build — hero orbit, ecosystem grid, showcase, roadmap, waitlist,
+ *     apps hub, footer AND the /apps/<slug> detail page all pick it up
+ *     automatically (via src/pages/apps/[slug].astro). No new .astro file needed.
  *
  * Asset convention (do not rename — components derive these paths from the slug):
  *  icon           -> /icons/<slug>.svg
