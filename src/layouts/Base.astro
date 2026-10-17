@@ -82,6 +82,20 @@ const altHref =
   <body class="bg-white text-slate-900 dark:bg-[#121212] dark:text-[#e8eaed]">
     <slot />
     <script is:inline>
+      // Scroll ownership: stop the browser from ever auto-restoring a
+      // mid-page scroll position (Chrome session restore / reload / back).
+      // Fresh loads always start at the top; deep-link hashes (/#faq shared
+      // or typed) keep working natively.
+      (function () {
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual';
+        }
+        var hash = window.location.hash;
+        if (!hash || hash.length < 2 || !document.getElementById(hash.slice(1))) {
+          window.scrollTo(0, 0);
+        }
+      })();
+
       // Scoped smooth scrolling for in-page anchor links only.
       // Wheel, trackpad and keyboard scrolling stay native 1:1 (instant);
       // only anchor jumps animate — and instantly when the user prefers
@@ -108,9 +122,9 @@ const altHref =
             behavior: reduceMotion ? 'auto' : 'smooth',
             block: 'start',
           });
-          try {
-            history.replaceState(null, '', hash);
-          } catch (err) {}
+          // NOTE: no history.replaceState here on purpose — writing the hash
+          // into the URL makes Chrome reopen the page mid-scroll on session
+          // restore. Shared/typed deep links (/#faq) still work natively.
         });
       })();
     </script>
