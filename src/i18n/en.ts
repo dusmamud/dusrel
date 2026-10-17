@@ -411,7 +411,7 @@ export const en = {
       },
       {
         title: 'Cookies & analytics',
-        body: 'Dusrel apps and this website do not use tracking cookies. To understand which pages are visited, this site uses Cloudflare Web Analytics — a privacy-friendly, cookie-less analytics tool. It records aggregate page views without identifying you and without storing cookies in your browser.',
+        body: 'Dusrel apps and this website do not use tracking cookies. To understand which pages are visited, this site uses Cloudflare Web Analytics — a privacy-friendly, cookie-less analytics tool. It measures aggregate page views, referrers, device and browser types, and page load performance. It does not identify you, does not store cookies or use browser storage, does not fingerprint your device, and does not track you across websites. Cloudflare processes this analytics data under its own privacy policy (cloudflare.com/privacypolicy).',
       },
       {
         title: 'Data security',
