@@ -121,6 +121,7 @@ export const hi: Dict = {
   },
   footer: {
     tagline: 'सबके लिए मुफ्त, प्राइवेसी-फर्स्ट ऐप्स।',
+    follow: 'Dusrel ko follow karein',
     rights: '© 2026 Dusrel. सर्वाधिकार सुरक्षित।',
   },
   how: {

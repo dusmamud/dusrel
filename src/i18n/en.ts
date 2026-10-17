@@ -119,6 +119,7 @@ export const en = {
   },
   footer: {
     tagline: 'Free, privacy-first apps for everyone.',
+    follow: 'Follow Dusrel',
     rights: '© 2026 Dusrel. All rights reserved.',
   },
   how: {
