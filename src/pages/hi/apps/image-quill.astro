@@ -3,6 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import SiteNav from '../../../components/SiteNav.astro';
 import Footer from '../../../components/Footer.astro';
 import { dict, type Lang } from '../../../i18n';
+import { liveApps, appIcon, appDetailHref, appContentFor } from '../../../data/apps';
 
 const lang: Lang = 'hi';
 const t = dict[lang].appPages.quill;
@@ -10,11 +11,11 @@ const lp = (enPath: string) => (lang === 'en' ? enPath : `/hi${enPath}`);
 const home = '/hi/';
 const appUrl = 'https://imagequill.dusrel.com';
 
-const otherApps = [
-  { name: dict[lang].ecosystem.apps[1].name, desc: dict[lang].ecosystem.apps[1].desc, href: lp('/apps/ricsline'), icon: '/icons/ricsline.svg' },
-  { name: dict[lang].ecosystem.apps[2].name, desc: dict[lang].ecosystem.apps[2].desc, href: lp('/apps/resumeforge'), icon: '/icons/resumeforge.svg' },
-  { name: dict[lang].ecosystem.apps[3].name, desc: dict[lang].ecosystem.apps[3].desc, href: lp('/apps/pdf-tools'), icon: '/icons/pdf-tools.svg' },
-];
+const content = (slug: string) => appContentFor(dict[lang].appContent, slug);
+// Other live apps, derived from src/data/apps.ts — a new app appears here automatically.
+const otherApps = liveApps
+  .filter((a) => a.slug !== 'image-quill')
+  .map((a) => ({ ...content(a.slug), href: appDetailHref(a.slug, lang), icon: appIcon(a.slug) }));
 
 const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
 

@@ -35,38 +35,59 @@ export const en = {
     soonLabel: 'Coming soon',
     visit: 'Open app',
     learnMore: 'Learn more',
-    apps: [
-      {
-        name: 'Image Quill',
-        desc: 'Free online image tools — compress, convert, resize and edit images right in your browser.',
-        url: 'https://imagequill.dusrel.com',
-      },
-      {
-        name: 'Ricsline',
-        desc: 'Make LRC lyrics files with tap-to-sync precision and a built-in library.',
-        url: 'https://dusmamud.github.io/ricsline/',
-      },
-      {
-        name: 'ResumeForge',
-        desc: 'Build a beautiful resume and download a print-ready PDF — free.',
-        url: 'https://dusmamud.github.io/resumeforge/',
-      },
-      {
-        name: 'PDF Tools',
-        desc: 'Merge, split, compress and edit PDFs — 100% free, fully client-side.',
-        url: 'https://dusmamud.github.io/pdf-tools/',
-      },
-    ],
-    soon: [
-      'Dusrel Drive',
-      'Dusrel Chat',
-      'Dusrel Docs',
-      'Dusrel Sheets',
-      'Dusrel Notes',
-      'Dusrel Mail',
-      'Dusrel Meet',
-      'Dusrel Calendar',
-    ],
+  },
+  // Per-app content, keyed by slug from src/data/apps.ts.
+  // `name` is required for every app; desc/tagline/features power
+  // the ecosystem grid + showcase (live apps). New app = one new entry here.
+  appContent: {
+    'image-quill': {
+      name: 'Image Quill',
+      desc: 'Free online image tools — compress, convert, resize and edit images right in your browser.',
+      tagline: 'A full image studio that runs entirely in your browser.',
+      features: [
+        'Compress, resize, crop, convert and more — 8 tools in one',
+        'Your photos never leave your device',
+        'No watermarks, no limits, no signup',
+      ],
+    },
+    'ricsline': {
+      name: 'Ricsline',
+      desc: 'Make LRC lyrics files with tap-to-sync precision and a built-in library.',
+      tagline: 'Make perfect LRC lyric files, synced to the beat.',
+      features: [
+        'Tap-to-sync timing with millisecond precision',
+        'Built-in library to save and manage your lyrics',
+        'Export clean .lrc files in one click',
+      ],
+    },
+    'resumeforge': {
+      name: 'ResumeForge',
+      desc: 'Build a beautiful resume and download a print-ready PDF — free.',
+      tagline: 'A beautiful resume in minutes, ready to print.',
+      features: [
+        '20 professional templates to choose from',
+        'Live A4 preview with page-break markers',
+        'Download a print-ready PDF — free',
+      ],
+    },
+    'pdf-tools': {
+      name: 'PDF Tools',
+      desc: 'Merge, split, compress and edit PDFs — 100% free, fully client-side.',
+      tagline: 'Everyday PDF tasks, done privately on your device.',
+      features: [
+        'Merge, split, compress, rotate and watermark',
+        '100% client-side — files never touch a server',
+        'Works offline once loaded',
+      ],
+    },
+    'drive': { name: 'Dusrel Drive' },
+    'chat': { name: 'Dusrel Chat' },
+    'docs': { name: 'Dusrel Docs' },
+    'sheets': { name: 'Dusrel Sheets' },
+    'notes': { name: 'Dusrel Notes' },
+    'mail': { name: 'Dusrel Mail' },
+    'meet': { name: 'Dusrel Meet' },
+    'calendar': { name: 'Dusrel Calendar' },
   },
   why: {
     title: 'Why Dusrel?',
@@ -168,40 +189,6 @@ export const en = {
     eyebrow: 'APP SPOTLIGHT',
     title: 'Loved apps, built right',
     sub: 'A closer look at what each app does — and why people keep coming back.',
-    details: [
-      {
-        tagline: 'A full image studio that runs entirely in your browser.',
-        features: [
-          'Compress, resize, crop, convert and more — 8 tools in one',
-          'Your photos never leave your device',
-          'No watermarks, no limits, no signup',
-        ],
-      },
-      {
-        tagline: 'Make perfect LRC lyric files, synced to the beat.',
-        features: [
-          'Tap-to-sync timing with millisecond precision',
-          'Built-in library to save and manage your lyrics',
-          'Export clean .lrc files in one click',
-        ],
-      },
-      {
-        tagline: 'A beautiful resume in minutes, ready to print.',
-        features: [
-          '20 professional templates to choose from',
-          'Live A4 preview with page-break markers',
-          'Download a print-ready PDF — free',
-        ],
-      },
-      {
-        tagline: 'Everyday PDF tasks, done privately on your device.',
-        features: [
-          'Merge, split, compress, rotate and watermark',
-          '100% client-side — files never touch a server',
-          'Works offline once loaded',
-        ],
-      },
-    ],
   },
   pricing: {
     eyebrow: 'PRICING',

@@ -1,5 +1,6 @@
 ---
 import { dict, type Lang } from '../i18n';
+import { liveApps, appDetailHref, appContentFor } from '../data/apps';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
 
@@ -21,10 +22,9 @@ const legalLinks = [
   { label: t.footNav.security, href: page('/security') },
 ];
 
-const appSlugs = ['image-quill', 'ricsline', 'resumeforge', 'pdf-tools'];
-const appLinks = t.ecosystem.apps.map((app, i) => ({
-  label: app.name,
-  href: page(`/apps/${appSlugs[i] ?? appSlugs[0]}`),
+const appLinks = liveApps.map((app) => ({
+  label: appContentFor(t.appContent, app.slug).name,
+  href: appDetailHref(app.slug, lang),
 }));
 
 const anchorLinks = [

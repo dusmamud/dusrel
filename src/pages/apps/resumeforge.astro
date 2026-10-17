@@ -3,22 +3,19 @@ import Base from '../../layouts/Base.astro';
 import SiteNav from '../../components/SiteNav.astro';
 import Footer from '../../components/Footer.astro';
 import { dict, type Lang } from '../../i18n';
+import { liveApps, appIcon, appDetailHref, appContentFor } from '../../data/apps';
 
 const lang: Lang = 'en';
 const t = dict[lang];
 const app = t.appPages.resumeforge;
 const lp = (enPath: string) => `/hi${enPath}`;
 
-const appUrl =
-  t.ecosystem.apps.find((a) => a.name === app.name)?.url ??
-  'https://dusmamud.github.io/resumeforge/';
+const appUrl = liveApps.find((a) => a.slug === 'resumeforge')?.url ?? 'https://dusmamud.github.io/resumeforge/';
 
-const iconFor: Record<string, string> = {
-  'Image Quill': '/icons/image-quill.svg',
-  'Ricsline': '/icons/ricsline.svg',
-  'PDF Tools': '/icons/pdf-tools.svg',
-};
-const others = t.ecosystem.apps.filter((a) => a.name !== app.name);
+const content = (slug: string) => appContentFor(t.appContent, slug);
+const others = liveApps
+  .filter((a) => a.slug !== 'resumeforge')
+  .map((a) => ({ ...a, ...content(a.slug) }));
 
 const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
 
@@ -172,11 +169,11 @@ const appJsonLd = {
           {
             others.map((a) => (
               <a
-                href={lp(`/apps/${a.name === 'Image Quill' ? 'image-quill' : a.name === 'Ricsline' ? 'ricsline' : 'pdf-tools'}`)}
+                href={appDetailHref(a.slug, lang)}
                 class="group rounded-2xl border border-slate-200 bg-white p-6 transition-colors hover:border-[#4d90fe]/60 dark:border-white/10 dark:bg-[#1e1e1e]"
               >
                 <img
-                  src={iconFor[a.name] ?? '/logo.svg'}
+                  src={appIcon(a.slug)}
                   alt=""
                   aria-hidden="true"
                   class="h-12 w-12"

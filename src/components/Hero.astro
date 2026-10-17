@@ -1,6 +1,7 @@
 ---
 import { dict, type Lang } from '../i18n';
 import ThemeToggle from './ThemeToggle.astro';
+import { liveApps, soonApps, appIcon, appContentFor } from '../data/apps';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
 const homeHref = lang === 'hi' ? '/hi/' : '/';
@@ -13,16 +14,11 @@ const links = [
   { href: lp('/contact'), label: t.nav.contact },
 ];
 
-const orbitApps = t.ecosystem.apps.map((app, i) => {
-  const logos = [
-    '/icons/image-quill.svg',
-    '/icons/ricsline.svg',
-    '/icons/resumeforge.svg',
-    '/icons/pdf-tools.svg',
-  ];
+const orbitApps = liveApps.map((app) => {
+  const content = appContentFor(t.appContent, app.slug);
   // quill mark has generous transparent padding — render slightly larger to match tile logos
-  const imgClass = i === 0 ? 'h-12 w-12' : 'h-10 w-10';
-  return { ...app, logo: logos[i], imgClass };
+  const imgClass = app.slug === 'image-quill' ? 'h-12 w-12' : 'h-10 w-10';
+  return { ...app, name: content.name, logo: appIcon(app.slug), imgClass };
 });
 const delays = ['0s', '1.4s', '2.8s', '4.2s'];
 
@@ -32,7 +28,8 @@ const step = 0.07;
 const accentStart = 0.15;
 const titleStart = accentStart + accentWords.length * step;
 
-const soonItems = [...t.ecosystem.soon, ...t.ecosystem.soon];
+const soonNames = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
+const soonItems = [...soonNames, ...soonNames];
 ---
 
 <!-- Floating pill header -->

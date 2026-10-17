@@ -3,18 +3,17 @@ import Base from '../../../layouts/Base.astro';
 import SiteNav from '../../../components/SiteNav.astro';
 import Footer from '../../../components/Footer.astro';
 import { dict, type Lang } from '../../../i18n';
+import { liveApps, appIcon, appDetailHref, appContentFor } from '../../../data/apps';
 
 const lang: Lang = 'hi';
 const t = dict[lang];
 const p = t.appPages.ricsline;
 const appUrl = 'https://dusmamud.github.io/ricsline/';
-const pagePath = (slug: string) => `/hi/apps/${slug}`;
 
-const others = [
-  { slug: 'image-quill', name: 'Image Quill', desc: t.ecosystem.apps[0].desc },
-  { slug: 'resumeforge', name: 'ResumeForge', desc: t.ecosystem.apps[2].desc },
-  { slug: 'pdf-tools', name: 'PDF Tools', desc: t.ecosystem.apps[3].desc },
-];
+const content = (slug: string) => appContentFor(t.appContent, slug);
+const others = liveApps
+  .filter((a) => a.slug !== 'ricsline')
+  .map((a) => ({ slug: a.slug, name: content(a.slug).name, desc: content(a.slug).desc ?? '' }));
 
 const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
 
@@ -134,7 +133,7 @@ const featureIcons = [
           {
             others.map((o) => (
               <a
-                href={pagePath(o.slug)}
+                href={appDetailHref(o.slug, lang)}
                 class="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] p-6 transition-colors hover:border-[#4d90fe]/60"
               >
                 <h3 class="font-semibold text-slate-900 dark:text-[#e8eaed] group-hover:text-[#4d90fe]">

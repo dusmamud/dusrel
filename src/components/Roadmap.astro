@@ -1,7 +1,10 @@
 ---
 import { dict, type Lang } from '../i18n';
+import { liveApps, soonApps, appContentFor } from '../data/apps';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
+
+const content = (slug: string) => appContentFor(t.appContent, slug);
 
 const groups = [
   {
@@ -21,8 +24,8 @@ const groups = [
   },
 ];
 
-const comingNext = t.ecosystem.soon.slice(0, 4);
-const onHorizon = t.ecosystem.soon.slice(4);
+const comingNext = soonApps.slice(0, 4);
+const onHorizon = soonApps.slice(4);
 ---
 
 <section id="roadmap" class="py-20 md:py-24">
@@ -55,22 +58,22 @@ const onHorizon = t.ecosystem.soon.slice(4);
             </p>
             {group.kind === 'live' ? (
               <div class="mt-4 flex flex-wrap gap-3">
-                {t.ecosystem.apps.map((app) => (
+                {liveApps.map((app) => (
                   <a
                     href={app.url}
                     target="_blank"
                     rel="noopener"
                     class="rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 transition hover:border-[#4d90fe] hover:text-[#4d90fe]"
                   >
-                    {app.name}
+                    {content(app.slug).name}
                   </a>
                 ))}
               </div>
             ) : (
               <div class="mt-4 flex flex-wrap gap-3">
-                {(group.kind === 'next' ? comingNext : onHorizon).map((name) => (
+                {(group.kind === 'next' ? comingNext : onHorizon).map((app) => (
                   <span class="rounded-full border border-dashed border-slate-300 dark:border-white/10 px-4 py-2 text-sm font-medium text-slate-500 dark:text-slate-400">
-                    {name}
+                    {content(app.slug).name}
                   </span>
                 ))}
               </div>

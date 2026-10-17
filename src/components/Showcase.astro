@@ -1,15 +1,11 @@
 ---
 import { dict, type Lang } from '../i18n';
+import { liveApps, appShowcaseImage, appContentFor } from '../data/apps';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
 
-const apps = t.ecosystem.apps;
-const images = [
-  '/images/showcase-image-quill.jpg',
-  '/images/showcase-ricsline.jpg',
-  '/images/showcase-resumeforge.jpg',
-  '/images/showcase-pdf-tools.jpg',
-];
+// Localized content by slug — images derive from the slug, no index matching.
+const content = (slug: string) => appContentFor(t.appContent, slug);
 
 const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>`;
 ---
@@ -30,26 +26,26 @@ const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 
     <div class="mt-14 md:mt-20 space-y-14 md:space-y-20">
       {
-        apps.map((app, i) => {
-          const detail = t.showcase.details[i];
+        liveApps.map((app, i) => {
+          const detail = content(app.slug);
           const flip = i % 2 === 1;
           return (
             <div class="grid items-center gap-8 md:grid-cols-2 md:gap-12">
               <div class={flip ? 'md:order-2' : ''}>
                 <img
-                  src={images[i]}
-                  alt={app.name}
+                  src={appShowcaseImage(app.slug)}
+                  alt={detail.name}
                   loading="lazy"
                   class="aspect-[4/3] w-full rounded-3xl border border-slate-200 object-cover shadow-sm dark:border-white/10"
                 />
               </div>
               <div class={flip ? 'md:order-1' : ''}>
                 <h3 class="font-display text-2xl font-bold text-slate-900 dark:text-[#e8eaed]">
-                  {app.name}
+                  {detail.name}
                 </h3>
                 <p class="mt-2 text-slate-600 dark:text-slate-400">{detail.tagline}</p>
                 <ul class="mt-5 space-y-2.5">
-                  {detail.features.map((f) => (
+                  {(detail.features ?? []).map((f) => (
                     <li class="flex items-start gap-2.5 text-sm text-slate-700 dark:text-slate-300">
                       <span class="mt-0.5 text-[#4d90fe]" set:html={check} />
                       {f}

@@ -1,9 +1,10 @@
 ---
 import { dict, type Lang } from '../i18n';
+import { soonApps, appContentFor } from '../data/apps';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
 
-const apps = t.ecosystem.soon;
+const names = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
 ---
 
 <section id="notify" class="py-20 md:py-24">
@@ -18,7 +19,7 @@ const apps = t.ecosystem.soon;
 
     <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {
-        apps.map((app) => (
+        names.map((app) => (
           <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] p-6 flex flex-col">
             <div class="w-11 h-11 rounded-xl bg-[#4d90fe]/10 text-[#4d90fe] flex items-center justify-center">
               <svg

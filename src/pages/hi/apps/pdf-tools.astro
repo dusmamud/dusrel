@@ -3,6 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import SiteNav from '../../../components/SiteNav.astro';
 import Footer from '../../../components/Footer.astro';
 import { dict, type Lang } from '../../../i18n';
+import { liveApps, appIcon, appDetailHref, appContentFor } from '../../../data/apps';
 
 const lang: Lang = 'hi';
 const t = dict[lang];
@@ -23,14 +24,10 @@ const featureIcons = [
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>`,
 ];
 
-const slugByName: Record<string, string> = {
-  'Image Quill': 'image-quill',
-  Ricsline: 'ricsline',
-  ResumeForge: 'resumeforge',
-};
-const others = t.ecosystem.apps
-  .filter((a) => a.name !== p.name)
-  .map((a) => ({ ...a, slug: `/hi/apps/${slugByName[a.name]}`, logo: `/icons/${slugByName[a.name]}.svg` }));
+const content = (slug: string) => appContentFor(t.appContent, slug);
+const others = liveApps
+  .filter((a) => a.slug !== 'pdf-tools')
+  .map((a) => ({ ...a, ...content(a.slug) }));
 ---
 
 <Base
@@ -157,10 +154,10 @@ const others = t.ecosystem.apps
         {
           others.map((a) => (
             <a
-              href={a.slug}
+              href={appDetailHref(a.slug, lang)}
               class="group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-1 hover:border-[#4d90fe]/40 hover:shadow-lg dark:border-white/10 dark:bg-[#1e1e1e] dark:hover:border-[#4d90fe]/50"
             >
-              <img src={a.logo} alt={`${a.name} logo`} class="h-12 w-12" width="48" height="48" loading="lazy" />
+              <img src={appIcon(a.slug)} alt={`${a.name} logo`} class="h-12 w-12" width="48" height="48" loading="lazy" />
               <h3 class="font-display mt-4 text-xl font-bold text-slate-900 group-hover:text-[#4d90fe] dark:text-[#e8eaed]">
                 {a.name}
               </h3>
