@@ -22,15 +22,15 @@ export const en = {
     ctaApps: 'Explore the apps',
     ctaPrivacy: 'Our privacy promise',
     stats: [
-      { value: '4', label: 'apps live today' },
-      { value: '8', label: 'apps coming soon' },
+      { value: '4', label: 'apps' },
+      { value: '8', label: 'coming soon' },
       { value: '2', label: 'languages' },
       { value: '100%', label: 'free core' },
     ],
   },
   ecosystem: {
     title: 'The Dusrel ecosystem',
-    sub: 'Live today. More on the way.',
+    sub: 'Free apps, ready to use in your browser.',
     liveLabel: 'Live',
     soonLabel: 'Coming soon',
     visit: 'Open app',
@@ -122,8 +122,8 @@ export const en = {
   roadmap: {
     eyebrow: 'Roadmap',
     title: 'Where Dusrel is headed',
-    sub: 'Live now, next up, and on the horizon.',
-    live: 'Live now',
+    sub: 'What\u2019s ready, what\u2019s next, and what\u2019s further out.',
+    live: 'Live',
     next: 'Coming next',
     later: 'On the horizon',
   },
@@ -210,7 +210,7 @@ export const en = {
     price: 'Free',
     tagline: 'Every app. Every feature. No catch.',
     features: [
-      'All 4 live apps included',
+      'Every app included',
       'No account or signup needed',
       'No ads, no trackers',
       'Your data is never sold',
@@ -309,7 +309,7 @@ export const en = {
     storyTitle: 'Our story',
     storyBody: [
       'Dusrel started with a simple frustration: every useful app seemed to want your data in return. We believe software can be different — genuinely free, respectful of your privacy, and built to serve you instead of advertisers. So Dusrel became a one-developer mission to build the apps the internet deserves.',
-      'Today the Dusrel ecosystem has four live apps — Image Quill, Ricsline, ResumeForge and PDF Tools — running right in your browser with nothing to install and no account needed. Eight more are on the way: Drive, Chat, Docs, Sheets, Notes, Mail, Meet and Calendar. One company, one account, one promise: your data stays yours — we never sell it.',
+      'The Dusrel ecosystem — Image Quill, Ricsline, ResumeForge and PDF Tools — running right in your browser with nothing to install and no account needed. Eight more are on the way: Drive, Chat, Docs, Sheets, Notes, Mail, Meet and Calendar. One company, one account, one promise: your data stays yours — we never sell it.',
     ],
     valuesTitle: 'What we believe',
     values: [
@@ -331,7 +331,7 @@ export const en = {
       },
     ],
     ctaTitle: 'Explore the ecosystem',
-    ctaSub: 'Four apps live today, eight more on the way — all free, all privacy-first.',
+    ctaSub: 'Free apps that respect your privacy — and more are on the way.',
     ctaButton: 'Explore the apps',
   },
   termsPage: {
@@ -381,7 +381,7 @@ export const en = {
     eyebrow: 'Platforms',
     title: 'One ecosystem, every device',
     sub: 'Start in your browser today. Native apps are on the way.',
-    liveLabel: 'Live now',
+    liveLabel: 'Available now',
     soonLabel: 'On the roadmap',
     items: [
       {
@@ -492,7 +492,7 @@ export const en = {
     title: 'Changelog',
     sub: 'Every launch and milestone, newest first.',
     nextTitle: "What's next",
-    nextBody: 'The roadmap is where Dusrel is headed — see what\u2019s live now, what\u2019s coming next, and what\u2019s on the horizon.',
+    nextBody: 'The roadmap is where Dusrel is headed — see what\u2019s available, what\u2019s coming next, and what\u2019s on the horizon.',
     nextButton: 'View the roadmap',
     entries: [
       {
@@ -705,8 +705,8 @@ export const en = {
     eyebrow: 'APPS',
     title: 'Every app, one promise',
     sub: 'Free apps that respect you. Your data stays yours — we never sell it.',
-    liveTitle: 'Live now',
-    liveSub: 'Four apps, ready to use in your browser — no installs, no accounts.',
+    liveTitle: 'Available now',
+    liveSub: 'Ready to use in your browser — no installs, no accounts.',
     openApp: 'Open app',
     soonTitle: 'Coming soon',
     soonSub: 'Eight more on the way. Pick one and we’ll email you at launch.',
