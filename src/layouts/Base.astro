@@ -31,7 +31,11 @@ const altHref =
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4d90fe" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" data-theme-color />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" data-theme-color />
     <script is:inline>
