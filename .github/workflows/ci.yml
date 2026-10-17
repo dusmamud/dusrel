@@ -1,12 +1,13 @@
-# Continuous integration: typecheck + production build.
+# Continuous integration: lint + typecheck + tests + production build.
 #
 # Runs on every pull request and every push to main (code/config changes only).
 # Catches broken builds — like the out-of-sync package-lock.json that failed
 # the first deploy — before they reach the deploy workflow.
 #
-# NOTE: this repo has no ESLint config and no unit tests, so CI intentionally
-# covers only what exists: npm ci, tsc --noEmit, and the production build.
-# Add lint/test steps here when those tools are set up.
+# Linting note: plain ESLint is unusable here because typescript-eslint
+# hard-rejects TypeScript 7 (verified: parser throws on load, and
+# eslint-plugin-astro depends on it). Biome covers the TypeScript sources
+# instead; .astro templates are covered by `astro build` + `tsc --noEmit`.
 
 name: CI
 
@@ -57,6 +58,12 @@ jobs:
 
       - name: TypeScript check
         run: npx tsc --noEmit -p tsconfig.json
+
+      - name: Lint (Biome)
+        run: npm run lint
+
+      - name: Unit tests (Vitest)
+        run: npm test
 
       - name: Production build
         run: npm run build

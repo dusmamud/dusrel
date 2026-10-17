@@ -50,7 +50,7 @@ export const en = {
         'No watermarks, no limits, no signup',
       ],
     },
-    'ricsline': {
+    ricsline: {
       name: 'Ricsline',
       desc: 'Make LRC lyrics files with tap-to-sync precision and a built-in library.',
       tagline: 'Make perfect LRC lyric files, synced to the beat.',
@@ -60,7 +60,7 @@ export const en = {
         'Export clean .lrc files in one click',
       ],
     },
-    'resumeforge': {
+    resumeforge: {
       name: 'ResumeForge',
       desc: 'Build a beautiful resume and download a print-ready PDF — free.',
       tagline: 'A beautiful resume in minutes, ready to print.',
@@ -80,14 +80,14 @@ export const en = {
         'Works offline once loaded',
       ],
     },
-    'drive': { name: 'Dusrel Drive' },
-    'chat': { name: 'Dusrel Chat' },
-    'docs': { name: 'Dusrel Docs' },
-    'sheets': { name: 'Dusrel Sheets' },
-    'notes': { name: 'Dusrel Notes' },
-    'mail': { name: 'Dusrel Mail' },
-    'meet': { name: 'Dusrel Meet' },
-    'calendar': { name: 'Dusrel Calendar' },
+    drive: { name: 'Dusrel Drive' },
+    chat: { name: 'Dusrel Chat' },
+    docs: { name: 'Dusrel Docs' },
+    sheets: { name: 'Dusrel Sheets' },
+    notes: { name: 'Dusrel Notes' },
+    mail: { name: 'Dusrel Mail' },
+    meet: { name: 'Dusrel Meet' },
+    calendar: { name: 'Dusrel Calendar' },
   },
   why: {
     title: 'Why Dusrel?',
@@ -115,7 +115,8 @@ export const en = {
     title: 'Our privacy promise',
     quote: 'Your data stays yours — we never sell it.',
     body: 'Dusrel exists because your privacy matters. Our apps are built to work without harvesting your life: no data brokers, no creepy profiles, nothing sold that was never ours to sell.',
-    imgAlt: 'Shield illustration representing Dusrel’s privacy promise — your data stays yours',
+    imgAlt:
+      'Shield illustration representing Dusrel’s privacy promise — your data stays yours',
   },
   footer: {
     tagline: 'Free, privacy-first apps for everyone.',
@@ -255,7 +256,8 @@ export const en = {
       { label: 'App idea', subject: 'App idea for Dusrel' },
     ],
     noteTitle: 'A small note',
-    noteBody: "We're a tiny independent team — replies can take a few days, but every message is read.",
+    noteBody:
+      "We're a tiny independent team — replies can take a few days, but every message is read.",
   },
   brandPage: {
     eyebrow: 'Brand',
@@ -273,7 +275,8 @@ export const en = {
       { name: 'Text', hex: '#e8eaed' },
     ],
     typeTitle: 'Typography',
-    typeBody: 'Sora is our voice for headings and the wordmark — confident and modern. Inter carries the body text — clear and highly readable at any size.',
+    typeBody:
+      'Sora is our voice for headings and the wordmark — confident and modern. Inter carries the body text — clear and highly readable at any size.',
     taglineTitle: 'Tagline',
     doTitle: 'Do',
     dos: [
@@ -472,7 +475,8 @@ export const en = {
       },
     ],
     ctaTitle: 'Like what you see? Give it a star.',
-    ctaSub: 'A star on GitHub is the simplest way to support open work at Dusrel.',
+    ctaSub:
+      'A star on GitHub is the simplest way to support open work at Dusrel.',
     ctaButton: 'Star dusmamud/dusrel',
   },
   changelog: {
@@ -480,7 +484,8 @@ export const en = {
     title: 'Changelog',
     sub: 'Every launch and milestone, newest first.',
     nextTitle: "What's next",
-    nextBody: 'The roadmap is where Dusrel is headed — see what\u2019s available, what\u2019s coming next, and what\u2019s on the horizon.',
+    nextBody:
+      'The roadmap is where Dusrel is headed — see what\u2019s available, what\u2019s coming next, and what\u2019s on the horizon.',
     nextButton: 'View the roadmap',
     entries: [
       {
@@ -525,7 +530,8 @@ export const en = {
     'image-quill': {
       name: 'Image Quill',
       metaTitle: 'Image Quill — Free online image tools | Dusrel',
-      metaDesc: 'Image Quill by Dusrel — free online image tools: compress, resize, crop, convert (incl. HEIC), rotate, watermark, meme generator and photo editor. 100% client-side — your photos never leave your device.',
+      metaDesc:
+        'Image Quill by Dusrel — free online image tools: compress, resize, crop, convert (incl. HEIC), rotate, watermark, meme generator and photo editor. 100% client-side — your photos never leave your device.',
       tagline: 'A full image studio in your browser',
       heroSub:
         'Free online image tools — compress, convert, resize and edit images right in your browser.',
@@ -567,15 +573,18 @@ export const en = {
         'Image Quill processes everything on your device. Nothing is uploaded to a server, no data brokers, no creepy profiles — your photos are never ours to sell.',
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Start editing in seconds',
-      ctaSub: 'Free image tools that respect your privacy — right in your browser.',
+      ctaSub:
+        'Free image tools that respect your privacy — right in your browser.',
       ctaButton: 'Open Image Quill',
     },
     ricsline: {
       name: 'Ricsline',
       metaTitle: 'Ricsline — Make LRC lyrics files | Dusrel',
-      metaDesc: 'Ricsline by Dusrel — a free LRC lyrics maker that runs in your browser. Sync lines to the music, manage your lyrics library, and export clean .lrc files — no installs, no sign-ups.',
+      metaDesc:
+        'Ricsline by Dusrel — a free LRC lyrics maker that runs in your browser. Sync lines to the music, manage your lyrics library, and export clean .lrc files — no installs, no sign-ups.',
       tagline: 'Make perfect LRC lyrics, synced to the beat.',
-      heroSub: 'A free LRC lyrics maker that runs right in your browser. Sync lines to the music, manage your lyrics library, and export clean .lrc files — no installs, no sign-ups.',
+      heroSub:
+        'A free LRC lyrics maker that runs right in your browser. Sync lines to the music, manage your lyrics library, and export clean .lrc files — no installs, no sign-ups.',
       openApp: 'Open app',
       bullets: [
         'Tap-to-sync timing with millisecond precision',
@@ -584,15 +593,34 @@ export const en = {
       ],
       featuresTitle: 'Everything you need to sync lyrics',
       features: [
-        { title: 'Tap-to-sync timing', desc: 'Press spacebar (or tap) in time with the music to lock every lyric line to the beat.' },
-        { title: 'Lyrics library', desc: 'Save, browse and manage all your synced lyrics in a built-in library — always at hand.' },
-        { title: 'One-click .lrc export', desc: 'Copy or download clean, standards-compliant .lrc files ready for any player.' },
-        { title: '20 languages', desc: 'The full interface speaks your language — switch between 20 locales in one click.' },
-        { title: 'Fast & lightweight', desc: 'Opens instantly, works offline once loaded, and respects your device’s battery.' },
-        { title: 'Free forever', desc: 'Every feature is free, with no account needed and no paywalls for the basics.' },
+        {
+          title: 'Tap-to-sync timing',
+          desc: 'Press spacebar (or tap) in time with the music to lock every lyric line to the beat.',
+        },
+        {
+          title: 'Lyrics library',
+          desc: 'Save, browse and manage all your synced lyrics in a built-in library — always at hand.',
+        },
+        {
+          title: 'One-click .lrc export',
+          desc: 'Copy or download clean, standards-compliant .lrc files ready for any player.',
+        },
+        {
+          title: '20 languages',
+          desc: 'The full interface speaks your language — switch between 20 locales in one click.',
+        },
+        {
+          title: 'Fast & lightweight',
+          desc: 'Opens instantly, works offline once loaded, and respects your device’s battery.',
+        },
+        {
+          title: 'Free forever',
+          desc: 'Every feature is free, with no account needed and no paywalls for the basics.',
+        },
       ],
       privacyTitle: 'Your lyrics stay on your device',
-      privacyBody: 'Ricsline works entirely in your browser. Your songs and lyrics are never uploaded to a server, never profiled, and never sold — your music is your business.',
+      privacyBody:
+        'Ricsline works entirely in your browser. Your songs and lyrics are never uploaded to a server, never profiled, and never sold — your music is your business.',
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Start syncing your lyrics today',
       ctaSub: 'Free, private, and ready in your browser right now.',
@@ -601,7 +629,8 @@ export const en = {
     resumeforge: {
       name: 'ResumeForge',
       metaTitle: 'ResumeForge — Free resume builder | Dusrel',
-      metaDesc: 'ResumeForge is a free resume builder that runs entirely in your browser. Pick a template, fill in your details, and download a print-ready PDF — no account, no watermark.',
+      metaDesc:
+        'ResumeForge is a free resume builder that runs entirely in your browser. Pick a template, fill in your details, and download a print-ready PDF — no account, no watermark.',
       tagline: 'A beautiful resume in minutes, ready to print.',
       heroSub:
         'ResumeForge is a free resume builder that runs entirely in your browser. Pick a template, fill in your details, and download a print-ready PDF — no account, no watermark.',
@@ -643,13 +672,15 @@ export const en = {
         'ResumeForge works entirely on your device. Your personal details are never uploaded to a server, never tracked, and never sold — because we never sell your data.',
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Build your resume in minutes.',
-      ctaSub: 'Free, private, and ready when you are. Your data stays yours — always.',
+      ctaSub:
+        'Free, private, and ready when you are. Your data stays yours — always.',
       ctaButton: 'Open ResumeForge',
     },
     'pdf-tools': {
       name: 'PDF Tools',
       metaTitle: 'PDF Tools — Free online PDF tools | Dusrel',
-      metaDesc: 'PDF Tools by Dusrel — merge, split, compress and edit PDFs right in your browser. 100% free, fully client-side — your files never touch a server.',
+      metaDesc:
+        'PDF Tools by Dusrel — merge, split, compress and edit PDFs right in your browser. 100% free, fully client-side — your files never touch a server.',
       tagline: 'Everyday PDF tasks, done privately',
       heroSub:
         'Merge, split, compress and edit PDFs right in your browser — 100% free, fully client-side.',
@@ -691,11 +722,11 @@ export const en = {
         'PDF Tools processes everything on your device. Nothing is uploaded to a server, no data brokers, no creepy profiles — your files are never ours to sell.',
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Handle PDFs in seconds',
-      ctaSub: 'Free PDF tools that respect your privacy — right in your browser.',
+      ctaSub:
+        'Free PDF tools that respect your privacy — right in your browser.',
       ctaButton: 'Open PDF Tools',
-    }
+    },
   },
-
 
   appsPage: {
     eyebrow: 'APPS',
@@ -738,10 +769,10 @@ export const en = {
       },
     ],
     reportTitle: 'Found a security issue?',
-    reportBody: 'Email us at hello@dusrel.com with the details. We read every message and take reports seriously.',
+    reportBody:
+      'Email us at hello@dusrel.com with the details. We read every message and take reports seriously.',
     reportButton: 'Report an issue',
   },
-
 };
 
 export type Dict = typeof en;
