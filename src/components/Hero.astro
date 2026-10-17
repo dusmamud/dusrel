@@ -235,6 +235,8 @@ const soonItems = [...soonNames, ...soonNames];
         if (iconClose) iconClose.classList.toggle('hidden', !open);
         btn.setAttribute('aria-expanded', String(open));
         btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        // Lock background scroll while the menu is open (UX).
+        document.body.style.overflow = open ? 'hidden' : '';
       }
       btn.addEventListener('click', function () {
         setOpen(menu.classList.contains('hidden'));

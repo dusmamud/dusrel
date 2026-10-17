@@ -14,9 +14,10 @@
   --color-brand-deep: #3b78e7;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* NOTE: no global `scroll-behavior: smooth` here on purpose.
+   It makes wheel/keyboard/long-jump scrolling feel floaty and delayed.
+   In-page anchor links get scoped smooth scrolling via the script in
+   Base.astro; everything else stays native 1:1. */
 
 section[id] {
   scroll-margin-top: 6rem;

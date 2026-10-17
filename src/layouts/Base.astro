@@ -81,5 +81,38 @@ const altHref =
   </head>
   <body class="bg-white text-slate-900 dark:bg-[#121212] dark:text-[#e8eaed]">
     <slot />
+    <script is:inline>
+      // Scoped smooth scrolling for in-page anchor links only.
+      // Wheel, trackpad and keyboard scrolling stay native 1:1 (instant);
+      // only anchor jumps animate — and instantly when the user prefers
+      // reduced motion.
+      (function () {
+        var reduceMotion =
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.addEventListener('click', function (e) {
+          var el = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+          if (!el) return;
+          var hash = el.hash;
+          if (!hash || hash.length < 2) return;
+          var url;
+          try {
+            url = new URL(el.href, window.location.href);
+          } catch (err) {
+            return;
+          }
+          if (url.pathname !== window.location.pathname) return;
+          var target = document.getElementById(hash.slice(1));
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'start',
+          });
+          try {
+            history.replaceState(null, '', hash);
+          } catch (err) {}
+        });
+      })();
+    </script>
   </body>
 </html>
