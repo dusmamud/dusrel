@@ -1,0 +1,68 @@
+# Deploy dusrel.com to Cloudflare Pages on every push to main.
+#
+# How it works:
+#   git push origin main  →  GitHub Actions builds (npm ci + npm run build)
+#                        →  Wrangler uploads dist/ to Cloudflare Pages (Direct Upload)
+#
+# Quotas:
+#   - Public repo → GitHub-hosted runners are free & unlimited (no minute cap).
+#   - Wrangler Direct Upload does NOT consume Cloudflare's 500 builds/month
+#     quota (Cloudflare only receives prebuilt files, it doesn't build).
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN   – token with "Account → Cloudflare Pages → Edit"
+#   CLOUDFLARE_ACCOUNT_ID  – from the Cloudflare dashboard
+#
+# NOTE: until both secrets exist, this workflow will fail at the deploy step.
+# That's expected and harmless — add the secrets when ready to go live.
+
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'astro.config.*'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+# If a new push lands while a deploy is running, cancel the old one —
+# only the latest commit gets deployed.
+concurrency:
+  group: cloudflare-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=dusrel
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
