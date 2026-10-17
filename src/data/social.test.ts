@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { socials, socialSvg } from './social.js';
+import { socialSvg, socials } from './social.js';
 
 describe('footer socials', () => {
   it('every entry has a label, https url and an svg glyph', () => {

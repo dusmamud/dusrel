@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
+import { dict } from '../i18n/index.js';
 import {
   appContentFor,
   appDetailHref,
@@ -11,7 +12,6 @@ import {
   liveApps,
   soonApps,
 } from './apps.js';
-import { dict } from '../i18n/index.js';
 import { featureIcons } from './feature-icons.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -36,7 +36,9 @@ describe('app registry', () => {
 
   it('derives asset paths from the slug by convention', () => {
     expect(appIcon('image-quill')).toBe('/icons/image-quill.svg');
-    expect(appShowcaseImage('pdf-tools')).toBe('/images/showcase-pdf-tools.jpg');
+    expect(appShowcaseImage('pdf-tools')).toBe(
+      '/images/showcase-pdf-tools.jpg',
+    );
   });
 
   it('builds locale-aware detail hrefs', () => {
@@ -46,16 +48,21 @@ describe('app registry', () => {
 
   it('ships icon + showcase assets for every live app', () => {
     for (const a of liveApps) {
-      expect(existsSync(publicFile(appIcon(a.slug))), `${a.slug} icon`).toBe(true);
-      expect(existsSync(publicFile(appShowcaseImage(a.slug))), `${a.slug} showcase`).toBe(true);
+      expect(existsSync(publicFile(appIcon(a.slug))), `${a.slug} icon`).toBe(
+        true,
+      );
+      expect(
+        existsSync(publicFile(appShowcaseImage(a.slug))),
+        `${a.slug} showcase`,
+      ).toBe(true);
     }
   });
 
   it('has feature icons for every live app', () => {
     for (const a of liveApps) {
-      const icons = featureIcons[a.slug];
-      expect(Array.isArray(icons) && icons.length > 0, `${a.slug} icons`).toBe(true);
-      for (const icon of icons!) expect(icon).toContain('<svg');
+      const icons = featureIcons[a.slug] ?? [];
+      expect(icons.length, `${a.slug} icons`).toBeGreaterThan(0);
+      for (const icon of icons) expect(icon).toContain('<svg');
     }
   });
 });
@@ -71,7 +78,10 @@ describe('localized app content', () => {
     });
 
     it(`[${lang}] every live app has a complete appPages entry`, () => {
-      const pages = dict[lang].appPages as Record<string, Record<string, unknown>>;
+      const pages = dict[lang].appPages as Record<
+        string,
+        Record<string, unknown>
+      >;
       for (const a of liveApps) {
         const p = pages[a.slug];
         expect(p, `${a.slug} appPages`).toBeDefined();
@@ -94,8 +104,14 @@ describe('localized app content', () => {
         ]) {
           expect(p[field], `${a.slug}.${field}`).toBeDefined();
         }
-        expect((p['features'] as unknown[]).length, `${a.slug} features`).toBeGreaterThan(0);
-        expect((p['bullets'] as unknown[]).length, `${a.slug} bullets`).toBeGreaterThan(0);
+        expect(
+          (p.features as unknown[]).length,
+          `${a.slug} features`,
+        ).toBeGreaterThan(0);
+        expect(
+          (p.bullets as unknown[]).length,
+          `${a.slug} bullets`,
+        ).toBeGreaterThan(0);
       }
     });
   }
