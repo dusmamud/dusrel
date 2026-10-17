@@ -1,0 +1,69 @@
+# Continuous integration: lint + typecheck + tests + production build.
+#
+# Runs on every pull request and every push to main (code/config changes only).
+# Catches broken builds — like the out-of-sync package-lock.json that failed
+# the first deploy — before they reach the deploy workflow.
+#
+# Linting note: plain ESLint is unusable here because typescript-eslint
+# hard-rejects TypeScript 7 (verified: parser throws on load, and
+# eslint-plugin-astro depends on it). Biome covers the TypeScript sources
+# instead; .astro templates are covered by `astro build` + `tsc --noEmit`.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'astro.config.*'
+      - 'tsconfig.json'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'astro.config.*'
+      - 'tsconfig.json'
+      - '.github/workflows/ci.yml'
+
+# Cancel outdated runs when a new push/PR update lands — only the latest matters.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: Lint (Biome)
+        run: npm run lint
+
+      - name: Unit tests (Vitest)
+        run: npm test
+
+      - name: Production build
+        run: npm run build

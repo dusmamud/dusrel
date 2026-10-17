@@ -35,9 +35,21 @@ export interface AppEntry {
 export const apps: AppEntry[] = [
   // --- Live ---
   { slug: 'image-quill', url: 'https://imagequill.dusrel.com', status: 'live' },
-  { slug: 'ricsline', url: 'https://dusmamud.github.io/ricsline/', status: 'live' },
-  { slug: 'resumeforge', url: 'https://dusmamud.github.io/resumeforge/', status: 'live' },
-  { slug: 'pdf-tools', url: 'https://dusmamud.github.io/pdf-tools/', status: 'live' },
+  {
+    slug: 'ricsline',
+    url: 'https://dusmamud.github.io/ricsline/',
+    status: 'live',
+  },
+  {
+    slug: 'resumeforge',
+    url: 'https://dusmamud.github.io/resumeforge/',
+    status: 'live',
+  },
+  {
+    slug: 'pdf-tools',
+    url: 'https://dusmamud.github.io/pdf-tools/',
+    status: 'live',
+  },
   // --- Coming soon (order matters: first 4 -> "Coming next", rest -> "On the horizon") ---
   { slug: 'drive', url: '', status: 'soon' },
   { slug: 'chat', url: '', status: 'soon' },
@@ -56,7 +68,8 @@ export const soonApps: AppEntry[] = apps.filter((a) => a.status === 'soon');
 export const appIcon = (slug: string): string => `/icons/${slug}.svg`;
 
 /** /images/showcase-<slug>.jpg — drop the file in public/images/, no code change needed. */
-export const appShowcaseImage = (slug: string): string => `/images/showcase-${slug}.jpg`;
+export const appShowcaseImage = (slug: string): string =>
+  `/images/showcase-${slug}.jpg`;
 
 /** Locale-aware link to the app's detail page: /apps/<slug> or /hi/apps/<slug>. */
 export const appDetailHref = (slug: string, lang: Lang): string =>
@@ -81,7 +94,7 @@ export interface AppContent {
  */
 export function appContentFor(
   all: Record<string, AppContent>,
-  slug: string
+  slug: string,
 ): AppContent {
   return all[slug] ?? { name: slug };
 }
