@@ -1,0 +1,62 @@
+# Continuous integration: typecheck + production build.
+#
+# Runs on every pull request and every push to main (code/config changes only).
+# Catches broken builds — like the out-of-sync package-lock.json that failed
+# the first deploy — before they reach the deploy workflow.
+#
+# NOTE: this repo has no ESLint config and no unit tests, so CI intentionally
+# covers only what exists: npm ci, tsc --noEmit, and the production build.
+# Add lint/test steps here when those tools are set up.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'astro.config.*'
+      - 'tsconfig.json'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'astro.config.*'
+      - 'tsconfig.json'
+      - '.github/workflows/ci.yml'
+
+# Cancel outdated runs when a new push/PR update lands — only the latest matters.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: Production build
+        run: npm run build
