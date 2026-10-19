@@ -35,7 +35,7 @@ describe('app registry', () => {
   });
 
   it('derives asset paths from the slug by convention', () => {
-    expect(appIcon('image-quill')).toBe('/icons/image-quill.svg');
+    expect(appIcon('shrinkit')).toBe('/icons/shrinkit.svg');
     expect(appShowcaseImage('pdf-tools')).toBe(
       '/images/showcase-pdf-tools.jpg',
     );

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="ShrinkIt logo">
+  <defs>
+    <linearGradient id="dusrel-shrinkit-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4AA8FF"/>
+      <stop offset="0.45" stop-color="#1E8AFF"/>
+      <stop offset="1" stop-color="#0B5FFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="13" fill="url(#dusrel-shrinkit-g)"/>
+  <g transform="translate(2.65,2.67) scale(0.0417)" fill="#fff">
+    <path d="M 210 152 L 814 152 Q 862 152 862 200 C 862 300 780 400 732 512 C 780 624 862 724 862 824 Q 862 872 814 872 L 210 872 Q 162 872 162 824 C 162 724 244 624 292 512 C 244 400 162 300 162 200 Q 162 152 210 152 Z"/>
+  </g>
+</svg>

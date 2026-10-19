@@ -40,14 +40,14 @@ export const en = {
   // `name` is required for every app; desc/tagline/features power
   // the ecosystem grid + showcase (live apps). New app = one new entry here.
   appContent: {
-    'image-quill': {
-      name: 'Image Quill',
-      desc: 'Free online image tools — compress, convert, resize and edit images right in your browser.',
-      tagline: 'A full image studio that runs entirely in your browser.',
+    shrinkit: {
+      name: 'ShrinkIt',
+      desc: 'Free online image resizer — shrink, compress and convert images right in your browser.',
+      tagline: 'Resize images in seconds, privately.',
       features: [
-        'Compress, resize, crop, convert and more — 8 tools in one',
+        'Resize by percent, pixels or exact file size',
         'Your photos never leave your device',
-        'No watermarks, no limits, no signup',
+        'Batch resize up to 50 images at once',
       ],
     },
     ricsline: {
@@ -527,55 +527,55 @@ export const en = {
     contactButton: 'Contact us',
   },
   appPages: {
-    'image-quill': {
-      name: 'Image Quill',
-      metaTitle: 'Image Quill — Free online image tools | Dusrel',
+    shrinkit: {
+      name: 'ShrinkIt',
+      metaTitle: 'ShrinkIt — Free online image resizer | Dusrel',
       metaDesc:
-        'Image Quill by Dusrel — free online image tools: compress, resize, crop, convert (incl. HEIC), rotate, watermark, meme generator and photo editor. 100% client-side — your photos never leave your device.',
-      tagline: 'A full image studio in your browser',
+        'ShrinkIt by Dusrel — free online image resizer: shrink, compress and convert JPG, PNG, WebP, GIF and AVIF images right in your browser. 100% private, no signup.',
+      tagline: 'Resize images in seconds, privately',
       heroSub:
-        'Free online image tools — compress, convert, resize and edit images right in your browser.',
+        'Free online image resizer — shrink, compress and convert images right in your browser. No signup, no uploads, no watermarks.',
       openApp: 'Open app',
       bullets: [
         '100% client-side — photos never leave your device',
-        'No signup, no watermarks',
-        'Works in 20 languages',
+        'Resize by percent, pixels, or target file size',
+        'Batch processing up to 50 images',
       ],
-      featuresTitle: 'Everything you need, nothing you don’t',
+      featuresTitle: 'Everything you need to shrink images',
       features: [
         {
-          title: '8 tools in one',
-          desc: 'Compress, resize, crop, convert (including HEIC), rotate/flip, watermark, meme generator and a photo editor — all in one place.',
+          title: 'Smart resizing',
+          desc: 'Resize by percentage, exact pixels, or target a precise file size like 20KB or 50KB.',
+        },
+        {
+          title: 'Batch processing',
+          desc: 'Drop up to 50 images at once and resize them all together.',
+        },
+        {
+          title: 'Format conversion',
+          desc: 'Convert between JPG, PNG, WebP, GIF, AVIF and more while you resize.',
         },
         {
           title: 'Private by design',
-          desc: 'Every operation runs locally on your device. Your photos are never uploaded, tracked or sold.',
+          desc: 'Everything runs in your browser with Web Workers. Your photos are never uploaded.',
         },
         {
-          title: 'No signup needed',
-          desc: 'Open the app and start working instantly — no accounts, no logins, no friction.',
+          title: 'Zero metadata',
+          desc: 'Strips EXIF and metadata from outputs for extra privacy.',
         },
         {
           title: 'Free forever',
-          desc: 'Every tool is free with no watermarks, no limits on the basics and no trials.',
-        },
-        {
-          title: '20 languages',
-          desc: 'A fully localized interface — Image Quill speaks your language.',
-        },
-        {
-          title: 'Works offline once loaded',
-          desc: 'Load the app once and keep editing even without an internet connection.',
+          desc: 'Every feature is free with no watermarks, no accounts and no limits on the basics.',
         },
       ],
       privacyTitle: 'Your photos stay yours',
       privacyBody:
-        'Image Quill processes everything on your device. Nothing is uploaded to a server, no data brokers, no creepy profiles — your photos are never ours to sell.',
+        'ShrinkIt processes everything on your device. Nothing is uploaded to a server — your photos are never ours to see or sell.',
       moreTitle: 'More from Dusrel',
-      ctaTitle: 'Start editing in seconds',
+      ctaTitle: 'Shrink your first image',
       ctaSub:
-        'Free image tools that respect your privacy — right in your browser.',
-      ctaButton: 'Open Image Quill',
+        'Free image resizing that respects your privacy — right in your browser.',
+      ctaButton: 'Open ShrinkIt',
     },
     ricsline: {
       name: 'Ricsline',

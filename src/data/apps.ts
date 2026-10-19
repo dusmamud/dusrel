@@ -34,7 +34,7 @@ export interface AppEntry {
 
 export const apps: AppEntry[] = [
   // --- Live ---
-  { slug: 'image-quill', url: 'https://imagequill.dusrel.com', status: 'live' },
+  { slug: 'shrinkit', url: 'https://shrinkit.dusrel.com', status: 'live' },
   {
     slug: 'ricsline',
     url: 'https://dusmamud.github.io/ricsline/',

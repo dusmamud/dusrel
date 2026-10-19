@@ -16,9 +16,7 @@ const links = [
 
 const orbitApps = liveApps.map((app) => {
   const content = appContentFor(t.appContent, app.slug);
-  // quill mark has generous transparent padding — render slightly larger to match tile logos
-  const imgClass = app.slug === 'image-quill' ? 'h-12 w-12' : 'h-10 w-10';
-  return { ...app, name: content.name, logo: appIcon(app.slug), imgClass };
+  return { ...app, name: content.name, logo: appIcon(app.slug), imgClass: 'h-10 w-10' };
 });
 const delays = ['0s', '1.4s', '2.8s', '4.2s'];
 
