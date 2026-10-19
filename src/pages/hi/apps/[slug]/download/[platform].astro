@@ -1,0 +1,20 @@
+---
+/**
+ * /hi/apps/<slug>/download/<platform> — Hindi variant.
+ * See src/pages/apps/[slug]/download/[platform].astro.
+ */
+import DownloadPlatform from '../../../../../components/download/DownloadPlatform.astro';
+import { downloads } from '../../../../../data/downloads';
+
+export async function getStaticPaths() {
+  return downloads.flatMap((d) =>
+    d.platforms.map((p) => ({
+      params: { slug: d.slug, platform: p.platform },
+    })),
+  );
+}
+
+const { slug, platform } = Astro.params as { slug: string; platform: string };
+---
+
+<DownloadPlatform lang="hi" slug={slug} platform={platform} />

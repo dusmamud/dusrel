@@ -1,0 +1,15 @@
+---
+/**
+ * /hi/apps/<slug>/download — Hindi variant. See src/pages/apps/[slug]/download.astro.
+ */
+import DownloadIndex from '../../../../components/download/DownloadIndex.astro';
+import { downloads } from '../../../../data/downloads';
+
+export async function getStaticPaths() {
+  return downloads.map((d) => ({ params: { slug: d.slug } }));
+}
+
+const { slug } = Astro.params as { slug: string };
+---
+
+<DownloadIndex lang="hi" slug={slug} />

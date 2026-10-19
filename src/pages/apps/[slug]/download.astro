@@ -1,0 +1,16 @@
+---
+/**
+ * /apps/<slug>/download — generated from src/data/downloads.ts.
+ * Add an entry there; no .astro file needed per app.
+ */
+import DownloadIndex from '../../../components/download/DownloadIndex.astro';
+import { downloads } from '../../../data/downloads';
+
+export async function getStaticPaths() {
+  return downloads.map((d) => ({ params: { slug: d.slug } }));
+}
+
+const { slug } = Astro.params as { slug: string };
+---
+
+<DownloadIndex lang="en" slug={slug} />

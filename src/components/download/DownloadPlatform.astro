@@ -1,0 +1,149 @@
+---
+/**
+ * Shared template for /apps/<slug>/download/<platform>
+ * (and /hi/apps/<slug>/download/<platform>).
+ * Pages are generated from src/data/downloads.ts via getStaticPaths —
+ * append a platform object there, no .astro file needed.
+ */
+import Base from '../../layouts/Base.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import Footer from '../../components/Footer.astro';
+import {
+  downloadsFor,
+  platformDownloadFor,
+  platformMeta,
+  pick,
+  type Lang,
+} from '../../data/downloads';
+import { liveApps, appIcon, appContentFor } from '../../data/apps';
+import { dict } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+  platform: string;
+}
+
+const { lang, slug, platform } = Astro.props;
+const dl = downloadsFor(slug);
+const p = platformDownloadFor(slug, platform);
+if (!dl || !p) return Astro.redirect('/404');
+const app = liveApps.find((a) => a.slug === slug);
+const t = dict[lang];
+const appName = app ? appContentFor(t.appContent, slug).name : slug;
+const meta = platformMeta[p.platform];
+const platLabel = pick(meta.label, lang);
+const lp = (path: string) => `${lang === 'hi' ? '/hi' : ''}${path}`;
+
+const title =
+  lang === 'hi'
+    ? `${appName} ${platLabel} के लिए डाउनलोड करें (v${p.version}) | Dusrel`
+    : `Download ${appName} for ${platLabel} (v${p.version}) | Dusrel`;
+const description =
+  lang === 'hi'
+    ? `${appName} ${platLabel} के लिए मुफ्त डाउनलोड करें — v${p.version}, ${p.fileSize}। ${pick(p.os, lang)}। इंस्टॉल गाइड और सिस्टम आवश्यकताएं।`
+    : `Free download of ${appName} for ${platLabel} — v${p.version}, ${p.fileSize}. ${pick(p.os, lang)}. Install guide and system requirements.`;
+const canonical = `https://dusrel.com${lp(`/apps/${slug}/download/${p.platform}`)}`;
+
+const others = dl.platforms.filter((o) => o.platform !== p.platform);
+---
+
+<Base lang={lang} title={title} description={description} canonical={canonical}>
+  <SiteNav lang={lang} />
+  <main class="mx-auto max-w-3xl px-4 pb-20 pt-10">
+    <nav class="text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+      <a href={lp('/apps')} class="hover:text-[#4d90fe]">{lang === 'hi' ? 'ऐप्स' : 'Apps'}</a>
+      <span class="mx-2">/</span>
+      <a href={lp(`/apps/${slug}`)} class="hover:text-[#4d90fe]">{appName}</a>
+      <span class="mx-2">/</span>
+      <a href={lp(`/apps/${slug}/download`)} class="hover:text-[#4d90fe]">{lang === 'hi' ? 'डाउनलोड' : 'Download'}</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-900 dark:text-white">{platLabel}</span>
+    </nav>
+
+    <div class="mt-8 text-center">
+      {app && (
+        <img src={appIcon(slug)} alt={`${appName} logo`} class="mx-auto h-20 w-20" />
+      )}
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl">
+        {lang === 'hi' ? `${appName} — ${platLabel}` : `${appName} for ${platLabel}`}
+      </h1>
+      <p class="mt-3 text-slate-600 dark:text-slate-400">{pick(p.os, lang)}</p>
+
+      <a
+        href={p.downloadUrl}
+        download={p.fileName}
+        class="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#4d90fe] px-10 py-4 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-[#3b7de0]"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+        {lang === 'hi' ? 'डाउनलोड करें' : 'Download now'}
+      </a>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">
+        {lang === 'hi' ? 'वर्शन' : 'Version'} {p.version} · {p.fileSize} · {p.fileName}
+      </p>
+    </div>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+        {lang === 'hi' ? 'सिस्टम आवश्यकताएं' : 'System requirements'}
+      </h2>
+      <ul class="mt-4 space-y-2.5">
+        {p.requirements.map((r) => (
+          <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+            <span class="mt-0.5 text-[#4d90fe]" aria-hidden="true">✓</span>
+            <span>{pick(r, lang)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mt-12">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+        {lang === 'hi' ? 'इंस्टॉल कैसे करें' : 'How to install'}
+      </h2>
+      <ol class="mt-6 space-y-6">
+        {p.steps.map((s, i) => (
+          <li class="flex gap-4">
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#4d90fe]/10 text-base font-bold text-[#4d90fe]">
+              {i + 1}
+            </span>
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-white">{pick(s.title, lang)}</p>
+              <p class="mt-1 leading-relaxed text-slate-600 dark:text-slate-400">{pick(s.body, lang)}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {p.notes.length > 0 && (
+      <section class="mt-12 space-y-3">
+        {p.notes.map((n) => (
+          <div class="rounded-2xl border border-[#4d90fe]/25 bg-[#4d90fe]/5 px-5 py-4 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            {pick(n, lang)}
+          </div>
+        ))}
+      </section>
+    )}
+
+    {others.length > 0 && (
+      <section class="mt-14">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">
+          {appName} {lang === 'hi' ? 'अन्य प्लेटफॉर्म के लिए' : 'for other platforms'}
+        </h2>
+        <div class="mt-4 flex flex-wrap gap-3">
+          {others.map((o) => (
+            <a
+              href={lp(`/apps/${slug}/download/${o.platform}`)}
+              class="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-300"
+            >
+              <span class="inline-flex text-[#4d90fe] [&>svg]:h-5 [&>svg]:w-5" set:html={platformMeta[o.platform].glyph} />
+              {pick(platformMeta[o.platform].label, lang)}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+  <Footer lang={lang} />
+</Base>

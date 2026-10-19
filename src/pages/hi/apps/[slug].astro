@@ -21,6 +21,7 @@ import Footer from '../../../components/Footer.astro';
 import { dict, type Lang } from '../../../i18n';
 import { liveApps, appIcon, appShowcaseImage, appDetailHref, appContentFor } from '../../../data/apps';
 import { featureIcons } from '../../../data/feature-icons';
+import { downloadsFor } from '../../../data/downloads';
 
 export async function getStaticPaths() {
   return liveApps.map((app) => ({ params: { slug: app.slug } }));
@@ -30,6 +31,7 @@ const lang: Lang = 'hi';
 const app = liveApps.find((a) => a.slug === Astro.params.slug);
 if (!app) return Astro.redirect('/404');
 const slug = app.slug;
+const hasDownloads = !!downloadsFor(slug);
 
 const t = dict[lang];
 const d = t.appPages[slug as keyof typeof t.appPages];
@@ -96,6 +98,14 @@ const appJsonLd = {
           >
             {d.openApp} &nearr;
           </a>
+          {hasDownloads && (
+            <a
+              href={`/hi/apps/${slug}/download`}
+              class="w-full rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:text-[#e8eaed]"
+            >
+              डाउनलोड
+            </a>
+          )}
           <a
             href="#more"
             class="w-full rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:text-[#e8eaed]"

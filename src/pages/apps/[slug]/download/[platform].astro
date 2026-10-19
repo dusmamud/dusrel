@@ -1,0 +1,20 @@
+---
+/**
+ * /apps/<slug>/download/<platform> — generated from src/data/downloads.ts.
+ * Append a platform object there; no .astro file needed per platform.
+ */
+import DownloadPlatform from '../../../../components/download/DownloadPlatform.astro';
+import { downloads } from '../../../../data/downloads';
+
+export async function getStaticPaths() {
+  return downloads.flatMap((d) =>
+    d.platforms.map((p) => ({
+      params: { slug: d.slug, platform: p.platform },
+    })),
+  );
+}
+
+const { slug, platform } = Astro.params as { slug: string; platform: string };
+---
+
+<DownloadPlatform lang="en" slug={slug} platform={platform} />
