@@ -1,0 +1,215 @@
+---
+/**
+ * Username Generator tool island — 100% client-side.
+ * Themed word-pair combinations with separator / number / case options.
+ * 12 suggestions per click, click any suggestion to copy it.
+ * Used on /pass and /pass/username-generator (EN + HI via the `lang` prop).
+ */
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const L = {
+  en: {
+    theme: 'Style',
+    cool: 'Cool',
+    nature: 'Nature',
+    tech: 'Tech',
+    separator: 'Separator',
+    sepNone: 'None',
+    caseLabel: 'Case',
+    lower: 'lowercase',
+    capitalized: 'Capitalized',
+    numbers: 'Add numbers',
+    generate: 'Generate usernames',
+    clickHint: 'Click any username to copy it.',
+    copied: 'Copied!',
+    note: 'Ideas are generated locally in your browser. Availability is not checked — confirm on the platform where you want to use the name.',
+  },
+  hi: {
+    theme: 'स्टाइल',
+    cool: 'कूल',
+    nature: 'नेचर',
+    tech: 'टेक',
+    separator: 'सेपरेटर',
+    sepNone: 'कोई नहीं',
+    caseLabel: 'केस',
+    lower: 'lowercase',
+    capitalized: 'Capitalized',
+    numbers: 'नंबर जोड़ें',
+    generate: 'यूज़रनेम बनाएं',
+    clickHint: 'कॉपी करने के लिए किसी भी यूज़रनेम पर क्लिक करें।',
+    copied: 'कॉपी हो गया!',
+    note: 'आइडिया आपके ब्राउज़र में ही बनते हैं। उपलब्धता जांची नहीं जाती — जिस प्लेटफ़ॉर्म पर नाम इस्तेमाल करना है, वहाँ confirm कर लें।',
+  },
+} as const;
+const t = L[lang];
+
+const pill =
+  'rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-200';
+---
+
+<div
+  data-ungen
+  data-copied={t.copied}
+  class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
+>
+  <div class="grid gap-6 sm:grid-cols-2">
+    <div>
+      <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.theme}</p>
+      <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={t.theme}>
+        <button type="button" data-un-theme="cool" class={pill}>{t.cool}</button>
+        <button type="button" data-un-theme="nature" class={pill}>{t.nature}</button>
+        <button type="button" data-un-theme="tech" class={pill}>{t.tech}</button>
+      </div>
+    </div>
+    <div>
+      <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.caseLabel}</p>
+      <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={t.caseLabel}>
+        <button type="button" data-un-case="lower" class={pill}>{t.lower}</button>
+        <button type="button" data-un-case="capitalized" class={pill}>{t.capitalized}</button>
+      </div>
+    </div>
+    <div>
+      <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="un-sep">{t.separator}</label>
+      <select
+        id="un-sep"
+        data-un-sep
+        class="mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
+      >
+        <option value="">{t.sepNone} (swiftwolf)</option>
+        <option value="_">_ (swift_wolf)</option>
+        <option value=".">. (swift.wolf)</option>
+        <option value="-">- (swift-wolf)</option>
+      </select>
+    </div>
+    <label class="flex cursor-pointer items-end gap-3 pb-1 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <input type="checkbox" data-un-numbers class="h-4 w-4 accent-[#4d90fe]" />
+      {t.numbers}
+    </label>
+  </div>
+
+  <button
+    type="button"
+    data-un-generate
+    class="mt-7 w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+  >
+    {t.generate}
+  </button>
+
+  <div data-un-results class="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3"></div>
+  <p class="mt-4 text-center text-xs text-slate-500 dark:text-slate-400">{t.clickHint}</p>
+  <p class="mt-1.5 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
+</div>
+
+<script>
+  const WORDS: Record<string, { adj: string[]; noun: string[] }> = {
+    cool: {
+      adj: ['Swift', 'Silent', 'Rapid', 'Bold', 'Prime', 'Epic', 'Neon', 'Lunar', 'Solar', 'Cosmic', 'Velvet', 'Iron', 'Golden', 'Shadow', 'Crystal', 'Turbo', 'Hyper', 'Ultra', 'Nova', 'Apex', 'Zen', 'Wild', 'Brave', 'Frost', 'Blaze', 'Storm', 'Royal', 'Vivid', 'Lucid', 'Onyx'],
+      noun: ['Tiger', 'Falcon', 'Wolf', 'Phoenix', 'Dragon', 'Panther', 'Cobra', 'Shark', 'Eagle', 'Lion', 'Bear', 'Fox', 'Hawk', 'Viper', 'Raven', 'Lynx', 'Jaguar', 'Rhino', 'Orca', 'Mustang', 'Comet', 'Ember', 'Knight', 'Rider', 'Voyager'],
+    },
+    nature: {
+      adj: ['Misty', 'Sunny', 'Rainy', 'Forest', 'Ocean', 'River', 'Mountain', 'Autumn', 'Spring', 'Winter', 'Summer', 'Breezy', 'Gentle', 'Emerald', 'Amber', 'Coral', 'Willow', 'Maple', 'Cedar', 'Golden', 'Silent', 'Wild', 'Calm', 'Bright', 'Rustic', 'Verdant', 'Alpine', 'Coastal', 'Meadow', 'Twilight'],
+      noun: ['Leaf', 'Wave', 'Stone', 'Cloud', 'Rain', 'Snow', 'Bloom', 'Grove', 'Peak', 'Lake', 'Fern', 'Pine', 'Rose', 'Sky', 'Star', 'Moon', 'Brook', 'Cliff', 'Dune', 'Reef', 'Birch', 'Flora', 'Harbor', 'Meadow', 'Summit'],
+    },
+    tech: {
+      adj: ['Cyber', 'Digital', 'Quantum', 'Pixel', 'Nano', 'Binary', 'Crypto', 'Sonic', 'Vector', 'Logic', 'Astro', 'Electro', 'Neon', 'Hyper', 'Meta', 'Data', 'Cloud', 'Circuit', 'Laser', 'Robo', 'Synth', 'Volt', 'Hex', 'Grid', 'Flux', 'Orbit', 'Pulse', 'Echo', 'Nova', 'Turbo'],
+      noun: ['Byte', 'Bot', 'Chip', 'Code', 'Node', 'Pixel', 'Circuit', 'Drone', 'Rocket', 'Server', 'Widget', 'Gadget', 'Matrix', 'Portal', 'Radar', 'Spark', 'Volt', 'Wave', 'Zone', 'Core', 'Link', 'Modem', 'Proxy', 'Stack', 'Terminal'],
+    },
+  };
+
+  function secureInt(max: number): number {
+    const limit = Math.floor(0x100000000 / max) * max;
+    const buf = new Uint32Array(1);
+    let x = 0;
+    do {
+      crypto.getRandomValues(buf);
+      x = buf[0];
+    } while (x >= limit);
+    return x % max;
+  }
+  const pickWord = (arr: string[]) => arr[secureInt(arr.length)];
+
+  document.querySelectorAll<HTMLElement>('[data-ungen]').forEach((root) => {
+    const copiedText = root.dataset.copied || 'Copied!';
+    const results = root.querySelector<HTMLElement>('[data-un-results]')!;
+    const sepSelect = root.querySelector<HTMLSelectElement>('[data-un-sep]')!;
+    const numbersInput = root.querySelector<HTMLInputElement>('[data-un-numbers]')!;
+    let theme = 'cool';
+    let caseMode = 'lower';
+
+    const ACTIVE = ['!border-[#4d90fe]', '!bg-[#4d90fe]/10', '!text-[#4d90fe]'];
+    const markActive = (selector: string, attr: string, value: string) => {
+      root.querySelectorAll<HTMLElement>(selector).forEach((b) => {
+        const on = b.dataset[attr] === value;
+        ACTIVE.forEach((c) => b.classList.toggle(c, on));
+      });
+    };
+
+    const makeName = (): string => {
+      const w = WORDS[theme];
+      const a = pickWord(w.adj);
+      const n = pickWord(w.noun);
+      const sep = sepSelect.value;
+      let name =
+        caseMode === 'capitalized'
+          ? a + sep + n
+          : (a + sep + n).toLowerCase();
+      if (numbersInput.checked) {
+        const num = secureInt(2) === 0 ? 10 + secureInt(90) : 100 + secureInt(900);
+        name += sep + num;
+      }
+      return name;
+    };
+
+    const generate = () => {
+      markActive('[data-un-theme]', 'unTheme', theme);
+      markActive('[data-un-case]', 'unCase', caseMode);
+      const seen = new Set<string>();
+      results.innerHTML = '';
+      let guard = 0;
+      while (seen.size < 12 && guard++ < 200) {
+        const name = makeName();
+        if (seen.has(name)) continue;
+        seen.add(name);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className =
+          'rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-800 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/10 dark:bg-white/5 dark:text-slate-100';
+        btn.textContent = name;
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(name);
+          } catch {
+            /* clipboard unavailable — selection fallback not needed for a label */
+          }
+          const original = btn.textContent;
+          btn.textContent = copiedText;
+          setTimeout(() => (btn.textContent = original), 1200);
+        });
+        results.appendChild(btn);
+      }
+    };
+
+    root.querySelectorAll<HTMLElement>('[data-un-theme]').forEach((b) =>
+      b.addEventListener('click', () => {
+        theme = b.dataset.unTheme!;
+        generate();
+      }),
+    );
+    root.querySelectorAll<HTMLElement>('[data-un-case]').forEach((b) =>
+      b.addEventListener('click', () => {
+        caseMode = b.dataset.unCase!;
+        generate();
+      }),
+    );
+    sepSelect.addEventListener('change', generate);
+    numbersInput.addEventListener('change', generate);
+    root.querySelector('[data-un-generate]')!.addEventListener('click', generate);
+
+    generate();
+  });
+</script>

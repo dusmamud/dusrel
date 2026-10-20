@@ -15,6 +15,12 @@
 - [Download ShrinkIt](https://dusrel.com/apps/shrinkit/download/): All ShrinkIt download options (free, no signup).
 - [ShrinkIt for Chrome](https://dusrel.com/apps/shrinkit/download/chrome/): Chrome extension (also Edge/Brave), version 1.0.0, manual ZIP install with step-by-step guide and FAQ. A Chrome Web Store release is coming soon.
 
+## Tools
+
+- [Free Online Tools](https://dusrel.com/pass/): All Dusrel tools in one place — everything runs locally in the browser.
+- [Password Generator](https://dusrel.com/pass/password-generator/): Strong, random passwords generated locally with the Web Crypto API. Adjustable length (8–64), character types, exclude look-alikes, live entropy/strength meter. Nothing is sent to a server.
+- [Username Generator](https://dusrel.com/pass/username-generator/): Catchy username ideas for social media and gaming. Themed word pairs (Cool, Nature, Tech), separators, number suffixes, click to copy. Availability is not checked.
+
 ## Company
 
 - [About Dusrel](https://dusrel.com/about/): What Dusrel is and why it exists.

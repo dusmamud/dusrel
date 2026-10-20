@@ -1,7 +1,7 @@
 ---
 import { dict, type Lang } from '../i18n';
 import { liveApps, appDetailHref, appContentFor } from '../data/apps';
-import { downloads, platformMeta, pick } from '../data/downloads';
+import { tools, toolHref, toolsHubHref } from '../data/tools';
 import { socials, socialSvg } from '../data/social';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
@@ -29,21 +29,12 @@ const appLinks = liveApps.map((app) => ({
   href: appDetailHref(app.slug, lang),
 }));
 
-// Downloads column — derived from src/data/downloads.ts, so a new download
-// page appears in the footer automatically.
-const downloadLinks = downloads.flatMap((d) => {
-  const name = appContentFor(t.appContent, d.slug).name;
-  return [
-    {
-      label: lang === 'hi' ? `${name} डाउनलोड करें` : `Download ${name}`,
-      href: `${root}/apps/${d.slug}/download/`,
-    },
-    ...d.platforms.map((p) => ({
-      label: `${name} — ${pick(platformMeta[p.platform].label, lang)}`,
-      href: `${root}/apps/${d.slug}/download/${p.platform}/`,
-    })),
-  ];
-});
+// Tools column — derived from src/data/tools.ts, so a new tool appears in
+// the footer automatically.
+const toolLinks = tools.map((tool) => ({
+  label: tool.name[lang],
+  href: toolHref(tool.slug, lang),
+}));
 
 const anchorLinks = [
   { label: t.nav.apps, href: anchor('#apps') },
@@ -145,12 +136,14 @@ const linkCls = 'hover:text-slate-900 dark:hover:text-white';
         </ul>
       </nav>
 
-      {downloadLinks.length > 0 && (
-        <nav aria-label={t.footNav.downloads}>
-          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.footNav.downloads}</h3>
+      {toolLinks.length > 0 && (
+        <nav aria-label={t.footNav.tools}>
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">
+            <a href={toolsHubHref(lang)} class={linkCls}>{t.footNav.tools}</a>
+          </h3>
           <ul class="mt-4 space-y-2.5 text-sm">
             {
-              downloadLinks.map((l) => (
+              toolLinks.map((l) => (
                 <li>
                   <a href={l.href} class={linkCls}>
                     {l.label}

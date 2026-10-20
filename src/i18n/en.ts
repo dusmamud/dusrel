@@ -237,6 +237,7 @@ export const en = {
     legal: 'Legal',
     apps: 'Apps',
     downloads: 'Downloads',
+    tools: 'Tools',
     changelog: 'Changelog',
     brand: 'Brand',
     privacyPolicy: 'Privacy policy',
@@ -798,6 +799,135 @@ export const en = {
       ctaSub:
         'Free PDF tools that respect your privacy — right in your browser.',
       ctaButton: 'Open PDF Tools',
+    },
+  },
+
+  tools: {
+    hub: {
+      metaTitle: 'Free Online Tools — Password & Username Generators | Dusrel',
+      metaDesc:
+        "Free, private online tools by Dusrel: a strong password generator and a username generator. Everything runs locally in your browser — no sign-up, no tracking.",
+      eyebrow: 'TOOLS',
+      title: 'Free tools, zero fuss',
+      sub: 'Handy little tools that run entirely in your browser. No accounts, no uploads, no tracking — just open and use.',
+      intro: [
+        'Every Dusrel tool works the same way our apps do: the work happens on your device, not on our servers. The password generator creates passwords with cryptographic randomness that never leaves your browser, and the username generator builds its ideas locally too.',
+        'More tools will land here over time. For now, start with the two essentials below.',
+      ],
+      openTool: 'Open tool',
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'Are these tools really free?',
+          a: 'Yes — completely free, with no accounts, no ads and no premium tier. Use them as often as you like.',
+        },
+        {
+          q: 'Do the tools send my data to a server?',
+          a: 'No. Both tools run 100% locally in your browser. Passwords you generate are never transmitted, stored or seen by Dusrel.',
+        },
+        {
+          q: 'Will more tools be added?',
+          a: 'Yes — this page is the home for all future Dusrel tools. New tools will appear here and in the footer automatically.',
+        },
+      ],
+    },
+    password: {
+      metaTitle: 'Password Generator — Strong, Random & Free | Dusrel',
+      metaDesc:
+        "Create strong, random passwords instantly with Dusrel's free password generator. Cryptographically secure and 100% in your browser — nothing is sent to a server.",
+      h1: 'Password Generator',
+      tagline: 'Strong, random passwords — created on your device, never on a server.',
+      intro: [
+        'A strong password is your first line of defence online. This generator creates truly random passwords using the Web Crypto API — the same cryptographic randomness your browser uses for secure connections — so every password is unpredictable and unique.',
+        'Aim for at least 16 characters with a mix of uppercase, lowercase, numbers and symbols: that combination carries over 100 bits of entropy, which would take an enormous amount of computing power to crack by brute force. Use a different password for every account, and store them in a password manager.',
+      ],
+      howTitle: 'How to create a strong password',
+      steps: [
+        {
+          title: 'Set the length',
+          body: '16 characters is a strong default. Longer is always better — use 20 or more for important accounts like email and banking.',
+        },
+        {
+          title: 'Pick the character types',
+          body: 'Keep all four types on for maximum strength. If a website rejects symbols, turn symbols off instead of shortening the password.',
+        },
+        {
+          title: 'Exclude look-alikes if you type by hand',
+          body: 'The "exclude look-alikes" option removes 0, O, 1, l and I — handy when a password must be read aloud or typed manually.',
+        },
+        {
+          title: 'Copy it into your password manager',
+          body: 'Generated passwords are not saved anywhere. Copy the one you like and store it in your password manager right away.',
+        },
+      ],
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'Is this password generator safe to use?',
+          a: 'Yes. Passwords are generated locally in your browser with crypto.getRandomValues, a cryptographically secure random source. Nothing is sent to or stored on any server.',
+        },
+        {
+          q: 'What makes a password strong?',
+          a: 'Length and randomness. A random 16-character password using all character types has over 100 bits of entropy — far stronger than a short "complex" password or anything a human invents, which attackers can often guess from patterns.',
+        },
+        {
+          q: 'Can I reuse one strong password everywhere?',
+          a: 'No. If one website leaks it, attackers replay it on other sites ("credential stuffing"). Use a unique generated password for every account.',
+        },
+        {
+          q: 'Does Dusrel store the passwords I generate?',
+          a: 'Never. Generation happens entirely on your device; when you refresh or close the page, the password is gone. That is why copying it into a password manager matters.',
+        },
+      ],
+    },
+    username: {
+      metaTitle: 'Username Generator — Catchy Name Ideas, Free | Dusrel',
+      metaDesc:
+        "Get catchy username ideas for Instagram, TikTok, gaming and more with Dusrel's free username generator. Pick a style, tweak the options, click to copy — all in your browser.",
+      h1: 'Username Generator',
+      tagline: 'Catchy username ideas in one click — for social media, gaming and everything else.',
+      intro: [
+        'A good username is short, memorable and easy to type — and finding one that is still available can take forever. This generator combines themed word pairs (Cool, Nature, Tech) with optional separators and numbers to produce dozens of fresh ideas instantly.',
+        'Pick a style, tweak the options, and click any idea to copy it. Then check availability on the platform you care about — Instagram, TikTok, YouTube, Twitch, Discord or your favourite game.',
+      ],
+      howTitle: 'How to pick a great username',
+      steps: [
+        {
+          title: 'Choose a style',
+          body: 'Cool for gaming and social handles, Nature for calm personal brands, Tech for developer and creator accounts.',
+        },
+        {
+          title: 'Set separator and case',
+          body: 'Underscores and dots are widely accepted on social platforms. Capitalized word pairs read well as display names.',
+        },
+        {
+          title: 'Add numbers if your favourite is taken',
+          body: 'A short number suffix keeps the name you love while making it unique.',
+        },
+        {
+          title: 'Copy it and claim it fast',
+          body: 'Good names go quickly. Once you find one you like, register it on your platform right away.',
+        },
+      ],
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'Does the generator check if a username is available?',
+          a: 'No — it creates ideas locally and does not query any platform. Availability changes constantly, so check on the platform itself before you commit.',
+        },
+        {
+          q: 'Can I use these usernames anywhere?',
+          a: "Yes, as ideas for social media, gaming, forums and more. Just respect each platform's rules (length, allowed characters) and never impersonate other people or brands.",
+        },
+        {
+          q: 'How are the usernames created?',
+          a: 'By combining curated adjective and noun word lists for each style, with your chosen separator, case and optional number suffix — randomly, and entirely in your browser.',
+        },
+        {
+          q: 'Is the username generator free?',
+          a: 'Completely. Generate as many ideas as you want, with no sign-up and no limits.',
+        },
+      ],
     },
   },
 

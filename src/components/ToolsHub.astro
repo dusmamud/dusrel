@@ -1,0 +1,106 @@
+---
+/**
+ * The /pass tools hub (EN + HI). Both tools are fully usable right here;
+ * each also has its own dedicated page. Content: dict `tools.hub`;
+ * the tool list comes from src/data/tools.ts.
+ */
+import Base from '../layouts/Base.astro';
+import SiteNav from './SiteNav.astro';
+import Footer from './Footer.astro';
+import PasswordGenerator from './tools/PasswordGenerator.astro';
+import UsernameGenerator from './tools/UsernameGenerator.astro';
+import { tools, toolHref } from '../data/tools';
+import { dict, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = dict[lang];
+const d = t.tools.hub;
+const canonical = `https://dusrel.com${lang === 'hi' ? '/hi' : ''}/pass/`;
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: d.title,
+  itemListElement: tools.map((tool, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: tool.name[lang],
+    url: `https://dusrel.com${toolHref(tool.slug, lang)}`,
+  })),
+};
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: d.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base lang={lang} title={d.metaTitle} description={d.metaDesc} canonical={canonical} image="/og-pass.png">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+  <SiteNav lang={lang} />
+  <main class="mx-auto max-w-3xl px-4 pb-20 pt-10">
+    <div class="text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-[#4d90fe]">{d.eyebrow}</p>
+      <h1 class="mt-3 text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl">{d.title}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">{d.sub}</p>
+    </div>
+
+    <div class="mx-auto mt-10 max-w-2xl space-y-4 leading-relaxed text-slate-600 dark:text-slate-300">
+      {d.intro.map((para) => <p>{para}</p>)}
+    </div>
+
+    <section class="mt-14">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{tools[0].name[lang]}</h2>
+        <a href={toolHref(tools[0].slug, lang)} class="shrink-0 text-sm font-semibold text-[#4d90fe] hover:underline">
+          {d.openTool} →
+        </a>
+      </div>
+      <p class="mt-2 text-slate-600 dark:text-slate-400">{tools[0].blurb[lang]}</p>
+      <div class="mt-5">
+        <PasswordGenerator lang={lang} />
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{tools[1].name[lang]}</h2>
+        <a href={toolHref(tools[1].slug, lang)} class="shrink-0 text-sm font-semibold text-[#4d90fe] hover:underline">
+          {d.openTool} →
+        </a>
+      </div>
+      <p class="mt-2 text-slate-600 dark:text-slate-400">{tools[1].blurb[lang]}</p>
+      <div class="mt-5">
+        <UsernameGenerator lang={lang} />
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{d.faqTitle}</h2>
+      <div class="mt-5 space-y-3">
+        {d.faqs.map((f) => (
+          <details class="group rounded-2xl border border-slate-200 bg-white px-5 py-4 dark:border-white/10 dark:bg-white/5">
+            <summary class="cursor-pointer list-none font-semibold text-slate-900 marker:hidden dark:text-white [&::-webkit-details-marker]:hidden">
+              <span class="flex items-center justify-between gap-4">
+                {f.q}
+                <span aria-hidden="true" class="text-[#4d90fe] transition-transform group-open:rotate-45">+</span>
+              </span>
+            </summary>
+            <p class="mt-3 leading-relaxed text-slate-600 dark:text-slate-300">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Base>
