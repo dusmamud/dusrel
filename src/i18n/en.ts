@@ -929,6 +929,202 @@ export const en = {
         },
       ],
     },
+    wordCounter: {
+      metaTitle: 'Word Counter — Words, Characters & Reading Time | Dusrel',
+      metaDesc:
+        "Count words, characters, sentences, paragraphs and reading time instantly with Dusrel's free word counter. Live results as you type — your text never leaves your browser.",
+      h1: 'Word Counter',
+      tagline: 'Words, characters and reading time — counted live, right in your browser.',
+      intro: [
+        'Word counts matter more than we admit: essay limits, article lengths, speech timings, report briefs, even the 280 characters of a post. This counter updates as you type or paste, showing words, characters with and without spaces, sentences, paragraphs and estimated reading time.',
+        'Like every Dusrel tool, the counting happens entirely on your device. Your drafts — assignments, applications, unpublished articles — are never uploaded anywhere.',
+      ],
+      howTitle: 'How to use the word counter',
+      steps: [
+        {
+          title: 'Paste or type your text',
+          body: 'Drop in a whole essay or write directly in the box — the counts update on every keystroke.',
+        },
+        {
+          title: 'Read the numbers you need',
+          body: 'Words for length limits, characters for posts and meta descriptions, sentences and paragraphs for structure.',
+        },
+        {
+          title: 'Check the reading time',
+          body: 'Reading time assumes about 200 words per minute — handy for speeches, videos and blog posts.',
+        },
+        {
+          title: 'Trim or expand to fit',
+          body: 'Edit in place and watch the counts move until your text fits its target.',
+        },
+      ],
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'How are words counted?',
+          a: 'Any run of characters separated by spaces, tabs or new lines counts as one word — the same method used by most editors and submission portals.',
+        },
+        {
+          q: 'Is my text uploaded or saved?',
+          a: 'No. Counting runs locally in your browser; your text is never sent to a server or stored by Dusrel.',
+        },
+        {
+          q: 'How is reading time calculated?',
+          a: 'At an average adult reading speed of about 200 words per minute. A 1,000-word article therefore shows roughly 5 minutes of reading time.',
+        },
+        {
+          q: 'Does it count characters without spaces?',
+          a: 'Yes — both counts are shown, because some limits (like application forms) count spaces and others do not.',
+        },
+      ],
+    },
+    qrCode: {
+      metaTitle: 'QR Code Generator — Free, No Watermark | Dusrel',
+      metaDesc:
+        "Create a QR code for any link or text and download it as a PNG — free, no watermark, no sign-up, no expiry. Generated locally in your browser.",
+      h1: 'QR Code Generator',
+      tagline: 'Turn any link or text into a QR code — download it as a crisp PNG.',
+      intro: [
+        'QR codes connect paper to the web: menus, posters, product packaging, event banners, business cards. Paste a link or text, and this tool builds a standard QR code you can download as a PNG in up to 1024×1024 — sharp enough for print.',
+        'Your QR code is a static code that points straight at what you entered — no redirect links, no tracking, no expiry date, and no watermark. It is generated locally in your browser.',
+      ],
+      howTitle: 'How to make a QR code',
+      steps: [
+        {
+          title: 'Enter your link or text',
+          body: 'A website URL works best. Double-check spelling — the QR code will encode exactly what you type.',
+        },
+        {
+          title: 'Watch it update live',
+          body: 'The preview rebuilds as you type, so what you see is exactly what will scan.',
+        },
+        {
+          title: 'Pick a size',
+          body: '512px is plenty for screens and small prints. Choose 1024px for posters and banners.',
+        },
+        {
+          title: 'Download and test',
+          body: 'Download the PNG, then scan it once with your own phone before printing or sharing it widely.',
+        },
+      ],
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'Do these QR codes expire?',
+          a: 'No. This is a static QR code — the information is encoded in the pattern itself, so it works forever, with no account or subscription behind it.',
+        },
+        {
+          q: 'Can I use the QR code commercially?',
+          a: 'Yes — on menus, packaging, posters, cards, anywhere. The generated codes are free to use for personal and commercial purposes.',
+        },
+        {
+          q: 'Is my link tracked?',
+          a: 'No. The code points directly at your URL — there is no Dusrel redirect in between, and generation happens locally, so we never see your link.',
+        },
+        {
+          q: 'Which size should I download for printing?',
+          a: '1024px for anything printed larger than a business card. Keep the printed code at least about 2×2 cm so phone cameras can focus on it.',
+        },
+      ],
+    },
+    ageCalculator: {
+      metaTitle: 'Age Calculator — Exact Age in Years, Months, Days | Dusrel',
+      metaDesc:
+        "Calculate your exact age in years, months and days from your date of birth — plus total days lived and your next birthday. Free, accurate and private.",
+      h1: 'Age Calculator',
+      tagline: 'Your exact age — years, months and days — plus a few fun totals.',
+      intro: [
+        'Exact age matters on government forms, exam applications, school admissions and insurance paperwork — and "about 20" is not good enough there. This calculator does proper calendar math, leap years included, from your date of birth to any date you choose.',
+        'Along with your exact age you get your total days and weeks lived, and a countdown to your next birthday. Your birth date never leaves your device.',
+      ],
+      howTitle: 'How to calculate your age',
+      steps: [
+        {
+          title: 'Enter your date of birth',
+          body: 'Use the date picker and select the day, month and year you were born.',
+        },
+        {
+          title: 'Optionally change the "as of" date',
+          body: 'It defaults to today. Set any other date to find your age on that day — past or future.',
+        },
+        {
+          title: 'Read your exact age',
+          body: 'Years, months and days — the same format official forms ask for.',
+        },
+        {
+          title: 'Check your next birthday',
+          body: 'See the date and how many days are left until you turn a year older.',
+        },
+      ],
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'How is my exact age calculated?',
+          a: 'By calendar math: full years first, then full months, then remaining days — correctly borrowing days across months of different lengths and accounting for leap years.',
+        },
+        {
+          q: 'Can I calculate age on a specific past or future date?',
+          a: 'Yes. Change the "as of" date to any day — for example the date of an exam or a form deadline — and the age is computed as of that date.',
+        },
+        {
+          q: 'Is my date of birth stored or sent anywhere?',
+          a: 'No. The calculation runs entirely in your browser; Dusrel never sees or stores your birth date.',
+        },
+        {
+          q: 'Why do forms ask for age in years, months and days?',
+          a: 'Because eligibility cut-offs (school admission, exams, jobs, pensions) are usually defined to the exact day. This format removes all ambiguity.',
+        },
+      ],
+    },
+    passwordStrength: {
+      metaTitle: 'Password Strength Checker — Entropy & Crack Time | Dusrel',
+      metaDesc:
+        "Check how strong your password really is: an entropy score, estimated crack time and honest, specific feedback. 100% local in your browser — nothing is sent anywhere.",
+      h1: 'Password Strength Checker',
+      tagline: 'How strong is your password, really? Find out — locally and honestly.',
+      intro: [
+        'Many passwords that look complex are surprisingly weak: short length, predictable patterns and reused words undo them. This checker estimates your password\'s entropy — its true unpredictability — from its length and character variety, and shows how long a fast offline attack would take to crack it.',
+        'It also flags the patterns attackers try first: sequences like 1234 and qwerty, repeated characters, common words and years. Everything runs locally in your browser; your password is never transmitted or stored.',
+      ],
+      howTitle: 'How to check a password',
+      steps: [
+        {
+          title: 'Type or paste a password',
+          body: 'For safety, test a password similar to yours rather than one you currently use — the score will be representative.',
+        },
+        {
+          title: 'Read the entropy and crack time',
+          body: 'Entropy above 60 bits is strong; above 80 is excellent. Crack time assumes 10 billion guesses per second.',
+        },
+        {
+          title: 'Fix what the checklist flags',
+          body: 'Length first — every extra character multiplies the work an attacker must do. Then add variety and remove patterns.',
+        },
+        {
+          title: 'Better: generate a random one',
+          body: 'Humans are pattern machines. Use the Dusrel Password Generator for passwords that are random by construction.',
+        },
+      ],
+      faqTitle: 'Frequently asked questions',
+      faqs: [
+        {
+          q: 'Is it safe to type my password into a checker?',
+          a: 'This one runs 100% locally — the password never leaves your device, and nothing is logged. Still, as a habit, test a similar throwaway password rather than a live one, on any website including ours.',
+        },
+        {
+          q: 'How is the crack time calculated?',
+          a: 'From entropy: a password with N bits of entropy needs on average 2^(N−1) guesses. We divide by 10 billion guesses per second — a fast offline attack on a leaked hash. Real-world times vary with the hash algorithm.',
+        },
+        {
+          q: 'What entropy score should I aim for?',
+          a: 'At least 60 bits for everyday accounts and 80+ bits for email, banking and other important accounts. A random 16-character password clears 100 bits.',
+        },
+        {
+          q: 'Does a strong score guarantee my account is safe?',
+          a: 'No. Strength only covers guessing. Reusing the same strong password across sites, or falling for phishing, defeats it — use unique passwords and a password manager.',
+        },
+      ],
+    },
   },
 
   appsPage: {

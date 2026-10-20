@@ -20,6 +20,10 @@
 - [Free Online Tools](https://dusrel.com/pass/): All Dusrel tools in one place — everything runs locally in the browser.
 - [Password Generator](https://dusrel.com/pass/password-generator/): Strong, random passwords generated locally with the Web Crypto API. Adjustable length (8–64), character types, exclude look-alikes, live entropy/strength meter. Nothing is sent to a server.
 - [Username Generator](https://dusrel.com/pass/username-generator/): Catchy username ideas for social media and gaming. Themed word pairs (Cool, Nature, Tech), separators, number suffixes, click to copy. Availability is not checked.
+- [Word Counter](https://dusrel.com/pass/word-counter/): Live word, character (with/without spaces), sentence and paragraph counts plus reading time at 200 wpm. Text never leaves the browser.
+- [QR Code Generator](https://dusrel.com/pass/qr-code-generator/): Free static QR codes for any link or text, downloadable as PNG up to 1024px. No watermark, no expiry, no tracking redirect.
+- [Age Calculator](https://dusrel.com/pass/age-calculator/): Exact age in years, months and days from a date of birth, as of any date — plus total days/weeks lived and next-birthday countdown.
+- [Password Strength Checker](https://dusrel.com/pass/password-strength-checker/): Entropy score, estimated crack time at 10 billion guesses/sec and pattern feedback for any password — checked 100% locally.
 
 ## Company
 

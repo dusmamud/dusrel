@@ -34,6 +34,38 @@ export const tools: ToolEntry[] = [
       hi: 'सोशल मीडिया, गेमिंग और भी बहुत कुछ के लिए आकर्षक यूज़रनेम आइडिया — स्टाइल चुनें और क्लिक करके कॉपी करें।',
     },
   },
+  {
+    slug: 'word-counter',
+    name: { en: 'Word Counter', hi: 'वर्ड काउंटर' },
+    blurb: {
+      en: 'Count words, characters, sentences and reading time — live, as you type or paste.',
+      hi: 'शब्द, अक्षर, वाक्य और पढ़ने का समय गिनें — लिखते या पेस्ट करते ही लाइव।',
+    },
+  },
+  {
+    slug: 'qr-code-generator',
+    name: { en: 'QR Code Generator', hi: 'QR कोड जेनरेटर' },
+    blurb: {
+      en: 'Turn any link or text into a QR code and download it as a PNG — free, no watermark.',
+      hi: 'किसी भी लिंक या टेक्स्ट को QR कोड में बदलें और PNG डाउनलोड करें — मुफ्त, बिना वॉटरमार्क।',
+    },
+  },
+  {
+    slug: 'age-calculator',
+    name: { en: 'Age Calculator', hi: 'आयु कैलकुलेटर' },
+    blurb: {
+      en: 'Your exact age in years, months and days — plus total days and your next birthday.',
+      hi: 'आपकी exact उम्र साल, महीने और दिनों में — साथ में कुल दिन और अगला जन्मदिन।',
+    },
+  },
+  {
+    slug: 'password-strength-checker',
+    name: { en: 'Password Strength Checker', hi: 'पासवर्ड स्ट्रेंथ चेकर' },
+    blurb: {
+      en: 'See how strong your password really is — entropy, crack time and honest feedback, all local.',
+      hi: 'देखें आपका पासवर्ड असल में कितना मज़बूत है — एंट्रॉपी, क्रैक टाइम और ईमानदार फीडबैक, सब लोकल।',
+    },
+  },
 ];
 
 export const toolHref = (slug: string, lang: 'en' | 'hi'): string =>
