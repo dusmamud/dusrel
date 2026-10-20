@@ -330,41 +330,65 @@ export const en = {
   termsPage: {
     eyebrow: 'LEGAL',
     title: 'Terms of Service',
-    updated: 'Last updated: October 2026',
+    updated: 'Last updated: 20 October 2026',
     intro:
-      'These terms cover your use of Dusrel\u2019s free web apps. They are written in plain language on purpose \u2014 no legal maze. By using any Dusrel app, you agree to them.',
+      'These terms cover your use of the Dusrel website, our free web apps and online tools, our browser extensions and mobile apps, and any files we make available for download (together, the “Services”). They are written in plain language on purpose — no legal maze. By using any of the Services, you agree to these terms. If you do not agree, please do not use the Services.',
     sections: [
       {
-        title: 'Using our apps',
-        body: 'Every Dusrel app is free to use for personal and commercial work. You don\u2019t need an account to use the basics, and your files are processed on your own device wherever technically possible.\n\nOur privacy promise is part of these terms: your data stays yours \u2014 we never sell it. Read our privacy policy for the full details.',
+        title: 'Who we are',
+        body: 'Dusrel is an independent developer based in India, building free, privacy-first software. In these terms, “Dusrel”, “we”, “us” and “our” refer to Dusrel; “you” refers to the person using the Services.',
+      },
+      {
+        title: 'The Services',
+        body: 'Our apps and tools are free to use for personal and commercial work, and most of them run entirely in your browser or on your device — your files and text are processed locally and are not uploaded to us. You don’t need an account to use the Services today. If account-based features are ever introduced, additional terms may apply and we will say so clearly.\n\nWe work hard to keep the Services reliable and available, but we cannot guarantee uninterrupted or error-free operation, and features may change as the products evolve.',
+      },
+      {
+        title: 'Eligibility',
+        body: 'You may use the Services only if you can form a binding contract under the laws that apply to you. If you are below the age of majority where you live (in India, under 18), you may use the Services only with the involvement and consent of a parent or legal guardian.',
       },
       {
         title: 'Fair use',
-        body: 'Please don\u2019t misuse the apps: no scraping or hammering our services, no uploading content you don\u2019t have the right to use, and no using the apps for anything illegal. If an app includes shared features in the future, don\u2019t use them to harass or harm others.',
+        body: 'Please use the Services fairly and lawfully. In particular, do not:\n\n• use the Services for anything illegal, or to process, create or distribute content you do not have the right to use;\n• scrape, crawl or hammer the Services in a way that burdens our infrastructure, or try to bypass security or access controls;\n• probe, scan or test the Services for vulnerabilities except through our responsible-disclosure process (see our Security page);\n• impersonate Dusrel or anyone else, or misrepresent your affiliation with us;\n• use the Services to harass, harm or defraud others, or to distribute malware or harmful code.\n\nYou are responsible for the content you create or process with the Services — your files, images, documents, QR codes, usernames and passwords — and for keeping your own backups. Because processing happens on your device, we cannot recover files or data for you.',
+      },
+      {
+        title: 'Downloads, extensions and apps',
+        body: 'Software we offer for download (such as browser-extension packages) and our apps on official stores are provided free of charge under these terms. Please install Dusrel software only from this website or from official stores (the Chrome Web Store and Google Play) — copies from elsewhere are not authorised and may be unsafe. Updates may need to be installed manually for software distributed outside the stores.',
       },
       {
         title: 'Intellectual property',
-        body: 'Dusrel, the Dusrel logo, and the design of our apps belong to us. You\u2019re welcome to link to our apps and mention them, but don\u2019t copy them wholesale or present someone else\u2019s work as yours.\n\nContent you create with our apps \u2014 your images, lyrics, resumes, PDFs \u2014 belongs to you, always.',
+        body: 'Dusrel, the Dusrel name and logo, our app names and logos, and the design and content of the Services belong to us or our licensors. You’re welcome to link to our apps and mention them, but don’t copy them wholesale, remove our notices, or present our work as yours.\n\nContent you create with our apps — your images, lyrics, resumes, PDFs and everything else — belongs to you, always. Because your content is processed on your device, we never receive it and claim no rights over it.\n\nSome components of the Services are open source and are provided under their own licences; see our Open Source page for details. Those licence terms apply to those components.',
+      },
+      {
+        title: 'Privacy',
+        body: 'Our privacy promise is part of these terms: your data stays yours — we never sell it. Our Privacy Policy explains in detail what little information is involved when you use the Services, and your rights over it.',
+      },
+      {
+        title: 'Third-party links and services',
+        body: 'The Services may link to third-party websites and services (for example GitHub, app stores and social networks). Those are run by their own owners under their own terms and privacy policies; we are not responsible for them.',
       },
       {
         title: 'No warranties',
-        body: 'Our apps are provided \u201cas is\u201d, without warranties of any kind. We work hard to keep them reliable, but we can\u2019t guarantee they\u2019ll be error-free or available at every moment.',
-      },
-      {
-        title: 'Changes to apps',
-        body: 'Dusrel is built by an independent developer, and apps evolve: we may add, change, or discontinue features or entire apps at any time. We\u2019ll always try to give reasonable notice before removing something you rely on, but we can\u2019t promise it.',
+        body: 'The Services are provided “as is” and “as available”, without warranties of any kind, express or implied — including fitness for a particular purpose and non-infringement — to the maximum extent permitted by law. Nothing in these terms excludes or limits any warranty or right that cannot lawfully be excluded under your local consumer law.',
       },
       {
         title: 'Liability',
-        body: 'In plain language: to the maximum extent the law allows, Dusrel isn\u2019t liable for any indirect or incidental damages from using our apps. If something goes wrong, our total liability is limited to the amount you paid us \u2014 which, since our apps are free, is zero.',
+        body: 'In plain language: to the maximum extent the law allows, Dusrel isn’t liable for any indirect, incidental or consequential damages arising from your use of the Services, and our total liability is limited to the amount you paid us — which, since the Services are free, is zero.\n\nNothing in these terms limits liability that cannot lawfully be limited — for example, liability for fraud, or for death or personal injury caused by negligence — and nothing affects your statutory consumer rights.',
+      },
+      {
+        title: 'Changes to the Services',
+        body: 'Dusrel is built by an independent developer, and the Services evolve: we may add, change, suspend or discontinue features or entire apps at any time. We’ll always try to give reasonable notice before removing something you rely on, but we can’t promise it. We may also suspend access for anyone who misuses the Services or breaks these terms.',
+      },
+      {
+        title: 'Governing law',
+        body: 'These terms are governed by the laws of India. Any dispute arising out of or relating to these terms or the Services will be subject to the jurisdiction of the competent courts in India, unless your local consumer law gives you the right to bring proceedings where you live.',
       },
       {
         title: 'Changes to these terms',
-        body: 'We may update these terms from time to time. When we do, we\u2019ll update the \u201cLast updated\u201d date above. Continued use of the apps after a change means you accept the new terms.',
+        body: 'We may update these terms from time to time. When we do, we’ll update the “Last updated” date above. Continued use of the Services after a change means you accept the new terms.',
       },
       {
         title: 'Contact',
-        body: 'Questions about these terms? Write to us at hello@dusrel.com \u2014 a real person reads every message.',
+        body: 'Questions about these terms? Write to us at hello@dusrel.com — a real person reads every message.',
       },
     ],
     contactCta: 'Questions about these terms? Write to us at',
@@ -398,38 +422,70 @@ export const en = {
   privacyPolicy: {
     eyebrow: 'Legal',
     title: 'Privacy Policy',
-    updated: 'Last updated: October 2026',
+    updated: 'Last updated: 20 October 2026',
     shortTitle: 'The short version',
     shortBody:
-      'Our apps run in your browser, so your files never leave your device. We collect almost nothing, we never sell your data, and we use no ad trackers. Read on for the full details in plain language.',
+      'Our apps and tools run on your device, so your files and text never reach us. We collect almost nothing, we never sell your data, and we use no ad trackers. This website uses Cloudflare Web Analytics — a cookie-less tool that shows us only anonymous, aggregate statistics. Read on for the full details in plain language.',
     sections: [
       {
-        title: 'Data we collect',
-        body: 'Almost nothing. Our apps — Image Quill, Ricsline, ResumeForge and PDF Tools — work without accounts, so there is no profile, no login history and no usage record tied to you. Files you open in our apps are processed locally on your device; we never see, upload or store them.\n\nIf you email us at hello@dusrel.com, we receive your email address and message so we can reply. That is the only personal data we knowingly hold.',
+        title: 'Who we are and what this policy covers',
+        body: 'Dusrel is an independent developer based in India. In this policy, “Dusrel”, “we”, “us” and “our” refer to Dusrel — the data controller (called a “Data Fiduciary” under India’s DPDP Act) for the little personal data described here.\n\nThis policy covers the Dusrel website (dusrel.com), our web apps (such as ShrinkIt, Image Quill, Ricsline, ResumeForge and PDF Tools), our free online tools, our browser extensions and our mobile apps — together, the “Services”. It explains what information is involved when you use them, why, and the rights you have — in India and worldwide.',
+      },
+      {
+        title: 'Our local-first promise',
+        body: 'Almost everything our apps and tools do happens locally, on your own device. Files you open, images you edit, text you count, QR codes you generate and passwords you create or check are processed in your browser or app — they are never uploaded to us, never seen by us and never stored by us.\n\nThere are no user accounts on our website and tools today, so there is no profile, no password database and no usage history tied to your identity.',
+      },
+      {
+        title: 'Information we collect',
+        body: 'Only the minimum that a website cannot avoid, in three narrow cases:\n\n• Website analytics. This website uses Cloudflare Web Analytics to count visits and measure performance. It gives us aggregate statistics only — see “Cookies & analytics” below for exactly how it works.\n\n• Hosting and security logs. Our host, Cloudflare, automatically processes standard technical information when you visit — such as your IP address, browser type and the pages requested — to deliver the site, keep it fast and protect it from attacks. This is the normal operation of the web; we do not use these logs to build profiles or identify visitors.\n\n• Email you send us. If you write to hello@dusrel.com, we receive your email address and the contents of your message, so we can read and reply to it. That is the only personal data we knowingly hold about anyone.',
       },
       {
         title: 'What we never do',
-        body: 'We never sell your personal data — to anyone, for any reason. We do not share data with data brokers, advertisers or analytics companies. Our apps contain no advertising trackers, no third-party cookies and no fingerprinting scripts.',
+        body: 'We never sell or rent your personal data — to anyone, for any reason. We never share it with data brokers or advertisers. Our Services contain no advertising trackers, no third-party tracking cookies, no fingerprinting scripts and no social-media pixels. We do not build profiles of our users, and we do not track you across other websites.',
       },
       {
         title: 'Cookies & analytics',
-        body: 'Dusrel apps and this website do not use tracking cookies. To understand which pages are visited, this site uses Cloudflare Web Analytics — a privacy-friendly, cookie-less analytics tool. It measures aggregate page views, referrers, device and browser types, and page load performance. It does not identify you, does not store cookies or use browser storage, does not fingerprint your device, and does not track you across websites. Cloudflare processes this analytics data under its own privacy policy (cloudflare.com/privacypolicy).',
+        body: 'We do not set any cookies of our own, and Cloudflare Web Analytics — which is active on this website — does not use cookies, local storage or any other client-side state to measure your visit. It does not fingerprint your device, and it does not track you across websites. What it measures is anonymous and aggregate: page views and visits, referrer pages, countries, device and browser types, and page-load performance timings. We see statistics, never individual visitors, and Cloudflare processes this data under its own privacy policy (cloudflare.com/privacypolicy).\n\nOne narrow exception: like most sites protected by Cloudflare, a strictly-necessary security cookie may be set in some situations to tell humans apart from bots and to stop abuse. Such cookies exist only for security — never for advertising or tracking — and they are exempt from consent requirements in most jurisdictions for that reason.',
+      },
+      {
+        title: 'How we use information, and our legal bases',
+        body: 'We use the information described above only to: operate, secure and improve the Services; understand aggregate usage so we know which pages and tools are useful; and read and reply to emails you send us.\n\nWhere the GDPR or UK GDPR applies, our legal bases are our legitimate interests in running a secure, working website and understanding its aggregate use, and compliance with legal obligations where they arise. Where India’s DPDP Act applies, we process personal data for the purposes stated in this policy and for legitimate uses recognised by that Act. We do not use personal data for automated decision-making or profiling.',
+      },
+      {
+        title: 'Sharing and processors',
+        body: 'We do not sell or share your personal information — including in the senses of “sell” and “share” under California law. The only company that processes data in order to run the Services is Cloudflare, Inc., which provides our hosting, content delivery, security and analytics, acting as our processor (service provider) under its own terms and privacy policy.\n\nIf you follow links from our Services to third-party sites (such as GitHub or app stores), those sites have their own privacy policies and we are not responsible for them. We would disclose information only if required by a valid legal obligation, and then only what the law requires.',
+      },
+      {
+        title: 'Data retention',
+        body: 'Because your files and text never reach us, there is nothing of yours for us to retain. Analytics data is retained by Cloudflare in line with its own practices and is visible to us only as aggregate statistics. Emails you send us are kept only as long as needed to deal with your message and any related obligations, and are then deleted. Hosting and security logs are retained by Cloudflare for the limited periods described in its privacy policy.',
       },
       {
         title: 'Data security',
-        body: 'Because our apps process your files on your own device, there is no server full of your documents to leak or breach. The little data we do hold (such as emails you send us) is handled with standard security practices and accessed only to respond to you.',
+        body: 'The strongest protection is architectural: your documents live on your device, so there is no server full of them to leak or breach. The Services are served over HTTPS, and the little data we do hold (such as your emails) is handled with standard security practices and accessed only to respond to you. No method of transmission or storage is completely secure, but keeping data off our servers removes most of the risk by design. See our Security page for more.',
       },
       {
-        title: 'Your rights',
-        body: 'Since we collect almost nothing, there is very little to ask about — but your rights still apply. You can ask us what data we hold about you, ask us to correct it, or ask us to delete it. Email hello@dusrel.com and we will respond.',
+        title: 'Your rights — India and worldwide',
+        body: 'Your rights depend on where you live, and we honour them wherever you are:\n\n• In India (DPDP Act, 2023): you have the right to access a summary of your personal data and how it is processed, to ask for correction or erasure, to withdraw consent where processing is based on consent, to nominate someone to act for you, and to grievance redressal — first from us, and if unresolved, from the Data Protection Board of India.\n\n• In the EU/EEA and UK (GDPR / UK GDPR): you have the rights of access, rectification, erasure, restriction of processing, data portability, and objection, the right to withdraw consent at any time where consent is the basis, and the right to complain to your local supervisory authority.\n\n• In California (CCPA/CPRA): you have the right to know what personal information is collected, to request deletion and correction, to opt out of sale or sharing — we never sell or share, so there is nothing to opt out of — and to not be discriminated against for exercising your rights.\n\nBecause we hold almost nothing, most requests are simple. To exercise any right, email hello@dusrel.com. We will verify your request proportionately and respond within the time required by the law that applies to you (and in any case aim to reply within 30 days).',
+      },
+      {
+        title: 'Children’s privacy',
+        body: 'The Services are built for a general audience and are not directed at children. We do not knowingly collect personal data from children. Under India’s DPDP Act, the personal data of anyone under 18 may be processed only with verifiable consent of a parent or lawful guardian, and we do not carry out tracking, behavioural monitoring or targeted advertising directed at children — we do none of those things for anyone. In the EU, similar protections apply to children under 16 (or lower, as set by local law), and in the US to children under 13. If you believe a child has sent us personal data (for example, by email), contact us and we will delete it.',
+      },
+      {
+        title: 'International transfers',
+        body: 'Dusrel operates from India. Our processor, Cloudflare, runs a global network, so the technical data described above may be processed in countries other than yours. Cloudflare protects such transfers with the safeguards described in its privacy policy and data-processing terms, including standard contractual clauses where required.',
+      },
+      {
+        title: 'Do Not Track and privacy signals',
+        body: 'We do not track you, so browser “Do Not Track” settings and Global Privacy Control signals have nothing to switch off here — our behaviour is the same either way: no tracking, no sale, no sharing.',
       },
       {
         title: 'Changes to this policy',
-        body: 'If our practices change, we will update this page and revise the "Last updated" date at the top. We will never quietly weaken the promises made here.',
+        body: 'If our practices change, we will update this page and revise the “Last updated” date at the top. If a change is significant, we will draw attention to it on this page. We will never quietly weaken the core promises made here — local-first processing and never selling your data are permanent.',
       },
       {
-        title: 'Contact',
-        body: 'Questions about this policy or about your privacy? We read every message.',
+        title: 'Contact & grievances',
+        body: 'For any question about this policy, to exercise your rights, or to raise a grievance, contact us at hello@dusrel.com. For users in India, this is also the contact for grievances under the DPDP Act and the IT Act — we will acknowledge your grievance and work to resolve it within the timelines those laws require. We read every message.',
       },
     ],
     contactCta: {
