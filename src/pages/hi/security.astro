@@ -32,7 +32,9 @@ const s = t.securityPage;
           {s.sections.map((sec, i) => (
             <div class={i === 0 ? "rounded-2xl border border-slate-200 bg-white p-6 md:col-span-2 dark:border-white/10 dark:bg-[#1e1e1e]" : "rounded-2xl border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-[#1e1e1e]"}>
               <h2 class="font-display text-xl font-bold text-slate-900 dark:text-[#e8eaed]">{sec.title}</h2>
-              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{sec.body}</p>
+              <div class="mt-2 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                {sec.body.split('\n\n').map((para) => <p>{para}</p>)}
+              </div>
             </div>
           ))}
         </div>

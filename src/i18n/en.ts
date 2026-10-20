@@ -1200,7 +1200,7 @@ export const en = {
   securityPage: {
     eyebrow: 'SECURITY',
     title: 'Security you don’t have to think about',
-    sub: 'The safest data is data we never hold. Here’s how Dusrel keeps you secure.',
+    sub: 'The safest data is data we never hold. Here’s how Dusrel keeps you secure — and how to report it when something looks wrong.',
     sections: [
       {
         title: 'Client-side by design',
@@ -1211,23 +1211,44 @@ export const en = {
         body: 'No passwords, no login databases, no password-reset emails to phish. With no accounts to hack, there’s simply less that can go wrong.',
       },
       {
-        title: 'Encrypted in transit',
-        body: 'Everything is served over HTTPS. Between your browser and our pages, your connection is encrypted.',
+        title: 'Encrypted and hardened delivery',
+        body: 'Everything is served over HTTPS with HSTS, so your browser always connects securely. Protective response headers — content-type sniffing protection, a strict referrer policy, frame protection and a restrictive permissions policy — are set on our pages, and the site is delivered through Cloudflare’s global network, which filters attacks before they reach us.',
       },
       {
         title: 'Minimal data, minimal risk',
         body: 'We collect almost nothing — and you can’t lose what you don’t have. Read the privacy policy for the full picture.',
       },
       {
+        title: 'Careful apps and extensions',
+        body: 'Our apps and browser extensions ask only for the minimum permissions they need to work. For example, the ShrinkIt extension touches only the image you right-click — nothing else in your browser. Install Dusrel software only from this website or the official stores, so you know it’s genuine and up to date.',
+      },
+      {
+        title: 'Kept up to date',
+        body: 'We keep our dependencies under review and apply security fixes as they become available, prioritising anything that could affect visitors. The website is rebuilt from its public source code, so what runs is exactly what anyone can inspect.',
+      },
+      {
         title: 'Open and auditable',
         body: 'The source of this website is public on GitHub. Open code keeps our security claims honest — anyone can check.',
+      },
+      {
+        title: 'Reporting a vulnerability',
+        body: 'Found something? Email hello@dusrel.com with “Security report” in the subject. To help us verify and fix it quickly, please include:\n\n• where the issue is — the page, app or extension, with the URL if there is one;\n• how to reproduce it — step-by-step instructions or a proof of concept;\n• what an attacker could do with it, in your assessment.\n\nOur machine-readable security contact is published in line with RFC 9116 at dusrel.com/.well-known/security.txt.',
+      },
+      {
+        title: 'What to expect from us',
+        body: 'We aim to acknowledge every genuine report within 3 business days, keep you informed while we investigate, and tell you when the issue is fixed. Fixes are prioritised by severity — critical issues first. In return, we ask for coordinated disclosure: please give us a reasonable window to fix the issue — normally up to 90 days — before publishing details, and we will agree the timing with you if more is needed.\n\nWe do not run a paid bug-bounty programme today; if that changes, this page will say so. With your permission, we are happy to credit researchers who report valid issues.',
+      },
+      {
+        title: 'Safe harbor and research rules',
+        body: 'Good-faith security research that follows this policy is authorised by us, and we will not pursue legal action over it. In scope: dusrel.com, its subdomains, and Dusrel’s own apps and extensions. Out of scope: services run by others (such as Cloudflare, GitHub and the app stores) — please report those to their owners.\n\nWhile researching, please: don’t degrade the Services (no denial-of-service or volumetric testing); don’t use social engineering or physical attacks; don’t access, modify or delete anyone else’s data — we hold almost none, but if you do encounter any, stop and tell us at once; and don’t harm our users or their devices. If you’re unsure whether a test is in scope, ask us first.',
       },
     ],
     reportTitle: 'Found a security issue?',
     reportBody:
-      'Email us at hello@dusrel.com with the details. We read every message and take reports seriously.',
+      'Email us at hello@dusrel.com with the details — where the issue is, how to reproduce it, and what it could allow. We aim to acknowledge genuine reports within 3 business days and take every report seriously.',
     reportButton: 'Report an issue',
   },
+
 };
 
 export type Dict = typeof en;
