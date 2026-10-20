@@ -28,6 +28,28 @@ describe('download registry', () => {
     }
   });
 
+  it('every app carries rich-SEO fields (intro + category)', () => {
+    for (const d of downloads) {
+      expect(d.category, `${d.slug} category`).toBeTruthy();
+      expect(d.intro.length, `${d.slug} intro`).toBeGreaterThan(0);
+      for (const p of d.intro)
+        expect(p.en && p.hi, `${d.slug} intro text`).toBeTruthy();
+    }
+  });
+
+  it('every platform carries FAQs with both locales', () => {
+    for (const d of downloads) {
+      for (const p of d.platforms) {
+        expect(p.faqs.length, `${d.slug}/${p.platform} faqs`).toBeGreaterThan(0);
+        for (const f of p.faqs)
+          expect(
+            f.q.en && f.q.hi && f.a.en && f.a.hi,
+            `${d.slug}/${p.platform} faq`,
+          ).toBeTruthy();
+      }
+    }
+  });
+
   it('every platform has complete metadata', () => {
     for (const d of downloads) {
       for (const p of d.platforms) {

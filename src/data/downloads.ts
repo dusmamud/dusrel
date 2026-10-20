@@ -10,6 +10,13 @@
  *                                                   requirements, SEO meta)
  *     ...plus the /hi/ variants. All are in the sitemap, all are indexed.
  *
+ * Rich-SEO contract — every entry MUST carry:
+ *  - `intro` paragraphs: body copy on the /download index page
+ *  - `category`: schema.org applicationCategory for the platform pages
+ *  - per-platform `faqs`: rendered as a FAQ accordion AND FAQPage JSON-LD
+ * Platform pages also emit SoftwareApplication + BreadcrumbList JSON-LD,
+ * built automatically from the fields below. Never fake ratings/reviews.
+ *
  * To add a new platform to an existing app: append one object to its
  * `platforms` array. To add a brand-new platform type (e.g. 'harmonyos'):
  * extend `PlatformSlug` + `platformMeta` below.
@@ -39,6 +46,11 @@ export interface InstallStep {
   body: LText;
 }
 
+export interface FaqItem {
+  q: LText;
+  a: LText;
+}
+
 export interface PlatformDownload {
   platform: PlatformSlug;
   /** e.g. '1.0.0' */
@@ -59,12 +71,18 @@ export interface PlatformDownload {
   steps: InstallStep[];
   /** Extra callouts (store links, beta notes, …) */
   notes: LText[];
+  /** FAQ pairs — rendered as an accordion AND as FAQPage JSON-LD */
+  faqs: FaqItem[];
 }
 
 export interface AppDownloadPage {
   /** Must match a slug in src/data/apps.ts */
   slug: string;
   tagline: LText;
+  /** Rich intro paragraphs for the /download index page (SEO body copy) */
+  intro: LText[];
+  /** schema.org applicationCategory, e.g. 'UtilitiesApplication' */
+  category: string;
   platforms: PlatformDownload[];
 }
 
@@ -73,10 +91,21 @@ const t = (en: string, hi: string): LText => ({ en, hi });
 export const downloads: AppDownloadPage[] = [
   {
     slug: 'shrinkit',
+    category: 'MultimediaApplication',
     tagline: t(
       'Get ShrinkIt on your device — free, private, no signup.',
       'ShrinkIt अपने डिवाइस पर पाएं — मुफ्त, प्राइवेट, कोई साइनअप नहीं।',
     ),
+    intro: [
+      t(
+        'ShrinkIt resizes and compresses images right inside your browser. Nothing is uploaded to a server — your photos never leave your device, which makes ShrinkIt one of the most private image tools you can use.',
+        'ShrinkIt आपके ब्राउज़र के अंदर ही इमेज का साइज़ बदलता और कंप्रेस करता है। कुछ भी किसी सर्वर पर अपलोड नहीं होता — आपकी तस्वीरें आपके डिवाइस से बाहर कभी नहीं जातीं, इसलिए यह सबसे प्राइवेट इमेज टूल्स में से एक है।',
+      ),
+      t(
+        'The Chrome extension puts ShrinkIt one right-click away: find any image on the web, right-click it, and resize or compress it instantly — no new tab, no upload, no account.',
+        'Chrome एक्सटेंशन ShrinkIt को सिर्फ़ एक राइट-क्लिक दूर कर देता है: वेब पर कोई भी इमेज देखें, राइट-क्लिक करें, और तुरंत उसका साइज़ बदलें या कंप्रेस करें — कोई नया टैब नहीं, कोई अपलोड नहीं, कोई अकाउंट नहीं।',
+      ),
+    ],
     platforms: [
       {
         platform: 'chrome',
@@ -138,6 +167,36 @@ export const downloads: AppDownloadPage[] = [
             'Prefer automatic updates? ShrinkIt is coming to the Chrome Web Store soon — the store version will update itself.',
             'ऑटोमैटिक अपडेट चाहिए? ShrinkIt जल्द ही Chrome Web Store पर आ रहा है — स्टोर वर्शन खुद अपडेट होगा।',
           ),
+        ],
+        faqs: [
+          {
+            q: t('Is the ShrinkIt Chrome extension free?', 'क्या ShrinkIt Chrome एक्सटेंशन मुफ्त है?'),
+            a: t(
+              'Yes — ShrinkIt is completely free, with no accounts, no ads and no premium tier. Every feature is available to everyone.',
+              'हाँ — ShrinkIt पूरी तरह मुफ्त है, कोई अकाउंट, कोई विज्ञापन और कोई प्रीमियम टियर नहीं। हर फ़ीचर सबके लिए उपलब्ध है।',
+            ),
+          },
+          {
+            q: t('Does ShrinkIt upload my images to a server?', 'क्या ShrinkIt मेरी इमेज किसी सर्वर पर अपलोड करता है?'),
+            a: t(
+              'No. All resizing and compression happens locally in your browser. Your images never leave your device, and ShrinkIt collects no data about you or your photos.',
+              'नहीं। सारा रिसाइज़ और कंप्रेशन आपके ब्राउज़र में लोकली होता है। आपकी इमेज आपके डिवाइस से बाहर कभी नहीं जातीं, और ShrinkIt आपके या आपकी तस्वीरों के बारे में कोई डेटा इकट्ठा नहीं करता।',
+            ),
+          },
+          {
+            q: t('Why does the extension ask for permission to access all sites?', 'एक्सटेंशन सभी साइट्स की अनुमति क्यों मांगता है?'),
+            a: t(
+              'ShrinkIt needs that permission for one reason only: to fetch the image you right-click on, so it can resize it. It never reads page content, never tracks your browsing, and only touches the exact image you choose.',
+              'ShrinkIt को यह अनुमति सिर्फ़ एक वजह से चाहिए: जिस इमेज पर आप राइट-क्लिक करते हैं उसे लाने के लिए, ताकि उसका साइज़ बदला जा सके। यह कभी पेज का कंटेंट नहीं पढ़ता, आपकी ब्राउज़िंग ट्रैक नहीं करता, और सिर्फ़ उसी इमेज को छूता है जिसे आप चुनते हैं।',
+            ),
+          },
+          {
+            q: t('How do I update or uninstall the extension?', 'एक्सटेंशन को अपडेट या अनइंस्टॉल कैसे करूँ?'),
+            a: t(
+              'For this manual (ZIP) install, download the new version from this page and repeat the Load unpacked steps — your settings carry over. To uninstall, open chrome://extensions and click Remove on the ShrinkIt card. Once ShrinkIt is on the Chrome Web Store, updates become automatic.',
+              'इस मैन्युअल (ZIP) इंस्टॉल के लिए, इस पेज से नया वर्शन डाउनलोड करें और Load unpacked वाले steps दोहराएं — आपकी सेटिंग्स बनी रहेंगी। अनइंस्टॉल करने के लिए chrome://extensions खोलें और ShrinkIt कार्ड पर Remove क्लिक करें। जब ShrinkIt Chrome Web Store पर आ जाएगा, अपडेट ऑटोमैटिक हो जाएंगे।',
+            ),
+          },
         ],
       },
     ],

@@ -8,6 +8,7 @@ import Base from '../../layouts/Base.astro';
 import SiteNav from '../../components/SiteNav.astro';
 import Footer from '../../components/Footer.astro';
 import {
+  downloads,
   downloadsFor,
   platformMeta,
   pick,
@@ -35,9 +36,35 @@ const title =
     : `Download ${appName} | Dusrel`;
 const description = pick(dl.tagline, lang);
 const canonical = `https://dusrel.com${lp(`/apps/${slug}/download`)}`;
+const abs = (p: string) => `https://dusrel.com${lp(p)}`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: lang === 'hi' ? 'ऐप्स' : 'Apps', item: abs('/apps') },
+    { '@type': 'ListItem', position: 2, name: appName, item: abs(`/apps/${slug}`) },
+    { '@type': 'ListItem', position: 3, name: lang === 'hi' ? 'डाउनलोड' : 'Download', item: canonical },
+  ],
+};
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: title,
+  itemListElement: dl.platforms.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `${appName} for ${pick(platformMeta[p.platform].label, 'en')}`,
+    url: abs(`/apps/${slug}/download/${p.platform}`),
+  })),
+};
+const otherApps = downloads.filter((d) => d.slug !== slug);
 ---
 
 <Base lang={lang} title={title} description={description} canonical={canonical} image={`/og-${slug}.png`}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
+  </Fragment>
   <SiteNav lang={lang} />
   <main class="mx-auto max-w-4xl px-4 pb-20 pt-10">
     <nav class="text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
@@ -60,6 +87,10 @@ const canonical = `https://dusrel.com${lp(`/apps/${slug}/download`)}`;
       </p>
     </div>
 
+    <div class="mx-auto mt-10 max-w-2xl space-y-4 text-left leading-relaxed text-slate-600 dark:text-slate-300">
+      {dl.intro.map((para) => <p>{pick(para, lang)}</p>)}
+    </div>
+
     <div class="mt-12 grid gap-5 sm:grid-cols-2">
       {dl.platforms.map((p) => {
         const meta = platformMeta[p.platform];
@@ -75,10 +106,11 @@ const canonical = `https://dusrel.com${lp(`/apps/${slug}/download`)}`;
                   {pick(meta.label, lang)}
                 </p>
                 <p class="text-sm text-slate-500 dark:text-slate-400">
-                  v{p.version} · {p.fileSize}
+                  v{p.version} · {p.fileSize} · {p.updated}
                 </p>
               </div>
             </div>
+            <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">{pick(p.os, lang)}</p>
             <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#4d90fe]">
               {lang === 'hi' ? 'डाउनलोड पेज खोलें' : 'Open download page'}
               <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
@@ -93,6 +125,34 @@ const canonical = `https://dusrel.com${lp(`/apps/${slug}/download`)}`;
         ? 'सभी डाउनलोड मुफ्त हैं। कोई अकाउंट नहीं, कोई ट्रैकिंग नहीं।'
         : 'All downloads are free. No accounts, no tracking.'}
     </p>
+
+    {otherApps.length > 0 && (
+      <section class="mt-16">
+        <h2 class="text-center text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          {lang === 'hi' ? 'Dusrel के और डाउनलोड' : 'More downloads from Dusrel'}
+        </h2>
+        <div class="mt-6 grid gap-5 sm:grid-cols-2">
+          {otherApps.map((o) => {
+            const oName = appContentFor(t.appContent, o.slug).name;
+            return (
+              <a
+                href={lp(`/apps/${o.slug}/download`)}
+                class="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#4d90fe] hover:shadow-md dark:border-white/10 dark:bg-white/5"
+              >
+                <img src={appIcon(o.slug)} alt={`${oName} logo`} class="h-12 w-12" />
+                <div>
+                  <p class="font-semibold text-slate-900 dark:text-white">
+                    {lang === 'hi' ? `${oName} डाउनलोड करें` : `Download ${oName}`}
+                  </p>
+                  <p class="text-sm text-slate-500 dark:text-slate-400">{pick(o.tagline, lang)}</p>
+                </div>
+                <span aria-hidden="true" class="ml-auto text-[#4d90fe] transition-transform group-hover:translate-x-0.5">→</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
   </main>
   <Footer lang={lang} />
 </Base>
