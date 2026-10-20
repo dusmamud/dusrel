@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import { dict, type Lang } from '../i18n';
+import { socials } from '../data/social';
+import { liveApps, appContentFor } from '../data/apps';
+import { platformMeta } from '../data/downloads';
 
 interface Props {
   lang: Lang;
@@ -32,6 +35,76 @@ const altHref =
     : canonical.replace('https://dusrel.com/hi/', 'https://dusrel.com/');
 // x-default always points at the English version of THIS page.
 const xDefault = lang === 'en' ? canonical : altHref;
+
+// ---- Structured data, generated centrally so EVERY page carries it ----
+// Organization (with sameAs from src/data/social.ts), WebSite on the
+// homepage, and a BreadcrumbList derived from the canonical path —
+// no per-page wiring needed anywhere.
+const homeUrl = lang === 'en' ? 'https://dusrel.com/' : 'https://dusrel.com/hi/';
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Dusrel',
+  url: 'https://dusrel.com/',
+  logo: 'https://dusrel.com/logo.png',
+  slogan: 'YOUR PRIVACY MATTERS',
+  description: 'Dusrel crafts free apps that truly respect your privacy.',
+  sameAs: socials.map((s) => s.url),
+};
+const pathSegments = canonical
+  .replace('https://dusrel.com/', '')
+  .replace(/\/$/, '')
+  .split('/')
+  .filter(Boolean)
+  .filter((seg, i) => !(i === 0 && seg === 'hi'));
+const staticLabels: Record<string, { en: string; hi: string }> = {
+  apps: { en: 'Apps', hi: 'ऐप्स' },
+  about: { en: 'About', hi: 'हमारे बारे में' },
+  brand: { en: 'Brand', hi: 'ब्रांड' },
+  changelog: { en: 'Changelog', hi: 'बदलाव' },
+  contact: { en: 'Contact', hi: 'संपर्क करें' },
+  'open-source': { en: 'Open Source', hi: 'ओपन सोर्स' },
+  'privacy-policy': { en: 'Privacy Policy', hi: 'गोपनीयता नीति' },
+  security: { en: 'Security', hi: 'सुरक्षा' },
+  terms: { en: 'Terms', hi: 'शर्तें' },
+  download: { en: 'Download', hi: 'डाउनलोड' },
+};
+const segName = (seg: string): string => {
+  if (liveApps.some((a) => a.slug === seg))
+    return appContentFor(t.appContent, seg).name;
+  const pm = (platformMeta as Record<string, { label: { en: string; hi: string } }>)[seg];
+  if (pm) return pm.label[lang];
+  const st = staticLabels[seg];
+  if (st) return st[lang];
+  return seg;
+};
+const breadcrumbLd =
+  !noindex && pathSegments.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: lang === 'hi' ? 'होम' : 'Home', item: homeUrl },
+          ...pathSegments.map((seg, i) => ({
+            '@type': 'ListItem',
+            position: i + 2,
+            name: segName(seg),
+            item: `${homeUrl}${pathSegments.slice(0, i + 1).join('/')}/`,
+          })),
+        ],
+      }
+    : null;
+const websiteLd =
+  !noindex && pathSegments.length === 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Dusrel',
+        url: homeUrl,
+        inLanguage: lang === 'hi' ? 'hi-IN' : 'en-US',
+        publisher: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
+      }
+    : null;
 ---
 
 <!doctype html>
@@ -86,17 +159,9 @@ const xDefault = lang === 'en' ? canonical : altHref;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Dusrel",
-        "url": "https://dusrel.com/",
-        "logo": "https://dusrel.com/logo.png",
-        "slogan": "YOUR PRIVACY MATTERS",
-        "description": "Dusrel crafts free apps that truly respect your privacy."
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    {websiteLd && <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />}
+    {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
     <slot name="head" />
   </head>
   <body class="bg-white text-slate-900 dark:bg-[#121212] dark:text-[#e8eaed]">

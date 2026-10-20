@@ -9,7 +9,7 @@
  *  1. Add the app to `apps` in src/data/apps.ts (status: 'live')
  *  2. Add `appPages['<slug>']` content to src/i18n/en.ts + hi.ts
  *     (metaTitle, metaDesc, name, tagline, heroSub, openApp, bullets,
- *      featuresTitle, features[], privacyTitle, privacyBody,
+ *      featuresTitle, features[], privacyTitle, privacyBody, faqs[],
  *      moreTitle, ctaTitle, ctaSub, ctaButton)
  *  3. Add 6 feature icons to src/data/feature-icons.ts under '<slug>'
  *  4. Drop public/icons/<slug>.svg + public/images/showcase-<slug>.jpg
@@ -19,7 +19,7 @@ import Base from '../../layouts/Base.astro';
 import SiteNav from '../../components/SiteNav.astro';
 import Footer from '../../components/Footer.astro';
 import { dict, type Lang } from '../../i18n';
-import { liveApps, appIcon, appShowcaseImage, appDetailHref, appContentFor } from '../../data/apps';
+import { liveApps, appIcon, appShowcaseImage, appDetailHref, appContentFor, appCategory } from '../../data/apps';
 import { featureIcons } from '../../data/feature-icons';
 import { downloadsFor } from '../../data/downloads';
 
@@ -50,10 +50,26 @@ const appJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: d.name,
-  applicationCategory: 'UtilitiesApplication',
+  description: d.metaDesc,
+  url: `https://dusrel.com/apps/${slug}/`,
+  image: `https://dusrel.com/og-${slug}.png`,
+  applicationCategory: appCategory[slug] ?? 'UtilitiesApplication',
   operatingSystem: 'Web',
+  inLanguage: 'en-US',
+  featureList: d.features.map((f) => f.title).join(', '),
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  url: app.url,
+  author: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
+  publisher: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: d.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
 };
 ---
 
@@ -66,6 +82,7 @@ const appJsonLd = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
   </Fragment>
 
   <SiteNav lang="en" altHref={`/hi/apps/${slug}`} />
@@ -166,6 +183,28 @@ const appJsonLd = {
           {d.privacyTitle}
         </h2>
         <p class="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{d.privacyBody}</p>
+      </div>
+    </section>
+
+    {/* FAQ */}
+    <section class="pb-16 md:pb-24">
+      <div class="max-w-3xl mx-auto px-6">
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-[#e8eaed]">
+          Frequently asked questions
+        </h2>
+        <div class="mt-8 space-y-3">
+          {d.faqs.map((f) => (
+            <details class="group rounded-2xl border border-slate-200 bg-white px-5 py-4 dark:border-white/10 dark:bg-white/5">
+              <summary class="cursor-pointer list-none font-semibold text-slate-900 marker:hidden dark:text-white [&::-webkit-details-marker]:hidden">
+                <span class="flex items-center justify-between gap-4">
+                  {f.q}
+                  <span aria-hidden="true" class="text-[#4d90fe] transition-transform group-open:rotate-45">+</span>
+                </span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-slate-600 dark:text-slate-300">{f.a}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
 

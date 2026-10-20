@@ -46,17 +46,7 @@ const description =
 const canonical = `https://dusrel.com${lp(`/apps/${slug}/download/${p.platform}`)}`;
 const abs = (path: string) => `https://dusrel.com${lp(path)}`;
 const absFile = (u: string) => (u.startsWith('http') ? u : `https://dusrel.com${u}`);
-
-const breadcrumbLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: lang === 'hi' ? 'ऐप्स' : 'Apps', item: abs('/apps') },
-    { '@type': 'ListItem', position: 2, name: appName, item: abs(`/apps/${slug}`) },
-    { '@type': 'ListItem', position: 3, name: lang === 'hi' ? 'डाउनलोड' : 'Download', item: abs(`/apps/${slug}/download`) },
-    { '@type': 'ListItem', position: 4, name: platLabel, item: canonical },
-  ],
-};
+// BreadcrumbList comes from Base.astro (derived from the canonical path).
 
 const softwareLd = {
   '@context': 'https://schema.org',
@@ -92,7 +82,6 @@ const others = dl.platforms.filter((o) => o.platform !== p.platform);
 
 <Base lang={lang} title={title} description={description} canonical={canonical} image={`/og-${slug}.png`}>
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
   </Fragment>

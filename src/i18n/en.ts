@@ -571,6 +571,24 @@ export const en = {
       privacyTitle: 'Your photos stay yours',
       privacyBody:
         'ShrinkIt processes everything on your device. Nothing is uploaded to a server — your photos are never ours to see or sell.',
+      faqs: [
+        {
+          q: 'Is ShrinkIt free?',
+          a: 'Yes — every feature is free. No accounts, no ads, no watermarks and no premium tier.',
+        },
+        {
+          q: 'Are my images uploaded to a server?',
+          a: 'No. ShrinkIt runs 100% in your browser, so your photos never leave your device.',
+        },
+        {
+          q: 'Which image formats can I shrink?',
+          a: 'JPG, PNG, WebP, GIF, AVIF and more. Resize by percentage, exact pixels, or a target file size like 20KB or 50KB — up to 50 images at once.',
+        },
+        {
+          q: 'Does ShrinkIt remove EXIF metadata?',
+          a: 'Yes. Output files are stripped of EXIF and metadata, so location and camera details never travel with your photos.',
+        },
+      ],
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Shrink your first image',
       ctaSub:
@@ -621,6 +639,24 @@ export const en = {
       privacyTitle: 'Your lyrics stay on your device',
       privacyBody:
         'Ricsline works entirely in your browser. Your songs and lyrics are never uploaded to a server, never profiled, and never sold — your music is your business.',
+      faqs: [
+        {
+          q: 'What is an LRC file?',
+          a: 'LRC is a lyrics format that stores every line with a timestamp, so music players can show and highlight each line in sync with the song.',
+        },
+        {
+          q: 'How does tap-to-sync work?',
+          a: 'Play the song in the maker and tap (or press the spacebar) as each line is sung — Ricsline stamps every line with millisecond precision. Fine-tune afterwards with a global offset and inline editing.',
+        },
+        {
+          q: 'Do I need an account to use Ricsline?',
+          a: 'No. Ricsline runs in your browser with no sign-up, and your synced songs are saved in a library on your own device.',
+        },
+        {
+          q: 'How do I export my lyrics?',
+          a: 'Download a clean .lrc file in one click, copy the synced lyrics to your clipboard, or export them as JSON.',
+        },
+      ],
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Start syncing your lyrics today',
       ctaSub: 'Free, private, and ready in your browser right now.',
@@ -670,6 +706,24 @@ export const en = {
       privacyTitle: 'Your resume stays yours',
       privacyBody:
         'ResumeForge works entirely on your device. Your personal details are never uploaded to a server, never tracked, and never sold — because we never sell your data.',
+      faqs: [
+        {
+          q: 'Is ResumeForge free?',
+          a: 'Yes — all 20 templates and PDF downloads are free, with no sign-up and no watermarks.',
+        },
+        {
+          q: 'Where is my resume data stored?',
+          a: 'Only in your browser, on your device. Nothing is uploaded to a server, and autosave keeps your latest draft ready when you come back.',
+        },
+        {
+          q: 'How many resume templates are there?',
+          a: '20 designs, from Traditional to modern layouts. You can switch templates at any time without losing your content.',
+        },
+        {
+          q: 'Can I download a print-ready PDF?',
+          a: 'Yes. The live A4 preview shows page breaks before you download, so the PDF you get prints exactly the way it looks on screen.',
+        },
+      ],
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Build your resume in minutes.',
       ctaSub:
@@ -720,6 +774,24 @@ export const en = {
       privacyTitle: 'Your documents stay yours',
       privacyBody:
         'PDF Tools processes everything on your device. Nothing is uploaded to a server, no data brokers, no creepy profiles — your files are never ours to sell.',
+      faqs: [
+        {
+          q: 'Are my PDF files uploaded to a server?',
+          a: 'No. The tools run locally in your browser, so your files never leave your device.',
+        },
+        {
+          q: 'Which PDF tools are included?',
+          a: 'Merge, organize, rotate, JPG to PDF, page numbers, watermark and more — 11 tools in total.',
+        },
+        {
+          q: 'Is PDF Tools free?',
+          a: 'Yes, completely free — no account needed and no forced watermarks added to your files.',
+        },
+        {
+          q: 'Is there a file size limit?',
+          a: 'Because files are processed on your device, practical limits depend on your device memory. Very large files work best in a desktop browser.',
+        },
+      ],
       moreTitle: 'More from Dusrel',
       ctaTitle: 'Handle PDFs in seconds',
       ctaSub:

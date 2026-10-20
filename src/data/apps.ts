@@ -62,6 +62,15 @@ export const apps: AppEntry[] = [
 ];
 
 export const liveApps: AppEntry[] = apps.filter((a) => a.status === 'live');
+
+/** schema.org applicationCategory per app — used by the app detail pages'
+ *  SoftwareApplication JSON-LD. */
+export const appCategory: Record<string, string> = {
+  shrinkit: 'MultimediaApplication',
+  ricsline: 'MultimediaApplication',
+  resumeforge: 'BusinessApplication',
+  'pdf-tools': 'UtilitiesApplication',
+};
 export const soonApps: AppEntry[] = apps.filter((a) => a.status === 'soon');
 
 /** /icons/<slug>.svg — drop the file in public/icons/, no code change needed. */

@@ -1,0 +1,32 @@
+# Dusrel
+
+> Dusrel builds free, privacy-first apps: an image compressor/resizer, an LRC lyrics maker, a resume builder, and PDF tools. Apps run locally in the browser wherever possible — no accounts, no tracking, no data selling. Motto: "YOUR PRIVACY MATTERS". The site is available in English and Hindi (Hindi pages live under /hi/).
+
+## Apps
+
+- [ShrinkIt](https://dusrel.com/apps/shrinkit/): Free image compressor and resizer that runs 100% in the browser. Compress JPG, PNG, WebP, GIF and AVIF, resize by percent, pixels or target file size, batch up to 50 images, EXIF metadata stripped automatically.
+- [Ricsline](https://dusrel.com/apps/ricsline/): Free LRC lyrics maker in the browser. Tap-to-sync timing with millisecond precision, built-in lyrics library, offset and inline editing, export .lrc, clipboard or JSON.
+- [ResumeForge](https://dusrel.com/apps/resumeforge/): Free resume builder with 20 templates, live A4 preview with page-break markers, print-ready PDF download, autosave in the browser. Data never leaves the device.
+- [PDF Tools](https://dusrel.com/apps/pdf-tools/): Free in-browser PDF tools — merge, organize, rotate, JPG to PDF, page numbers, watermark and more (11 tools). Files are processed locally and never uploaded.
+- [All Dusrel apps](https://dusrel.com/apps/): The full app index, including upcoming apps.
+
+## Downloads
+
+- [Download ShrinkIt](https://dusrel.com/apps/shrinkit/download/): All ShrinkIt download options (free, no signup).
+- [ShrinkIt for Chrome](https://dusrel.com/apps/shrinkit/download/chrome/): Chrome extension (also Edge/Brave), version 1.0.0, manual ZIP install with step-by-step guide and FAQ. A Chrome Web Store release is coming soon.
+
+## Company
+
+- [About Dusrel](https://dusrel.com/about/): What Dusrel is and why it exists.
+- [Security](https://dusrel.com/security/): How Dusrel protects user data.
+- [Privacy Policy](https://dusrel.com/privacy-policy/): The full privacy policy — no data collection, no trackers, no selling data.
+- [Terms](https://dusrel.com/terms/): Terms of use.
+- [Open Source](https://dusrel.com/open-source/): Open-source credits and components.
+- [Brand](https://dusrel.com/brand/): Dusrel logo and brand assets.
+- [Changelog](https://dusrel.com/changelog/): What changed on dusrel.com and in the apps.
+- [Contact](https://dusrel.com/contact/): How to reach Dusrel.
+
+## Optional
+
+- [Dusrel in Hindi](https://dusrel.com/hi/): The Hindi version of the homepage; every page on the site has a Hindi version under /hi/.
+- [Sitemap](https://dusrel.com/sitemap-index.xml): Full machine-readable list of all pages.
