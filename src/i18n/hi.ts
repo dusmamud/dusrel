@@ -14,6 +14,7 @@ export const hi: Dict = {
     contact: 'संपर्क',
     about: 'हमारे बारे में',
     openSource: 'ओपन सोर्स',
+    search: 'खोज',
     cta: 'ऐप्स देखें',
   },
   hero: {

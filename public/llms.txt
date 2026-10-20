@@ -38,5 +38,6 @@
 
 ## Optional
 
+- [Full content (llms-full.txt)](https://dusrel.com/llms-full.txt): The complete text of every key page on dusrel.com in one Markdown file — read this instead of crawling page by page.
 - [Dusrel in Hindi](https://dusrel.com/hi/): The Hindi version of the homepage; every page on the site has a Hindi version under /hi/.
 - [Sitemap](https://dusrel.com/sitemap-index.xml): Full machine-readable list of all pages.

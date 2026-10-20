@@ -1,0 +1,252 @@
+---
+/**
+ * /search (EN + HI) — a small client-side search over everything on
+ * dusrel.com: apps, downloads, tools and the main pages. The index is
+ * built at build time from the same registries that power the site
+ * (src/data/apps.ts, src/data/downloads.ts, src/data/tools.ts), so it
+ * can never drift out of sync. Supports ?q= so browsers' OpenSearch
+ * (public/opensearch.xml) and the WebSite SearchAction schema work.
+ * The page itself is noindex — it is a utility for visitors, not a
+ * landing page — and it is excluded from the sitemap in astro.config.
+ */
+import Base from '../layouts/Base.astro';
+import SiteNav from './SiteNav.astro';
+import Footer from './Footer.astro';
+import { liveApps } from '../data/apps';
+import { downloadsFor } from '../data/downloads';
+import { tools, toolHref } from '../data/tools';
+import { dict, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = dict[lang];
+
+const L = {
+  en: {
+    metaTitle: 'Search — Dusrel',
+    metaDesc:
+      'Search Dusrel: free privacy-first apps, online tools and pages — the image resizer, LRC maker, resume builder, PDF tools, password generator and more.',
+    h1: 'Search Dusrel',
+    sub: 'Apps, tools and pages — everything on the site, one box.',
+    placeholder: 'Search apps, tools and pages…',
+    browse: 'Everything on Dusrel',
+    results: 'results for',
+    resultOne: 'result for',
+    none: 'Nothing matched',
+    noneHint: 'Try a shorter or different word — for example “image”, “pdf” or “password”.',
+    downloadSuffix: 'Download',
+    pageEntries: [
+      { title: 'Home', desc: 'Free, privacy-first apps by Dusrel — your data stays yours.', path: '/', keys: 'home dusrel start' },
+      { title: 'Apps', desc: 'Every Dusrel app in one place — available now and coming soon.', path: '/apps', keys: 'apps all applications' },
+      { title: 'About', desc: 'What Dusrel is, why it exists, and how it is built.', path: '/about', keys: 'about company story developer' },
+      { title: 'Contact', desc: 'How to reach Dusrel — email and social profiles.', path: '/contact', keys: 'contact email reach support help' },
+      { title: 'Security', desc: 'How Dusrel keeps you secure, and how to report a vulnerability.', path: '/security', keys: 'security vulnerability report disclosure safe harbor' },
+      { title: 'Privacy Policy', desc: 'What we collect (almost nothing), what we never do, and your rights.', path: '/privacy-policy', keys: 'privacy policy data rights gdpr dpdp ccpa' },
+      { title: 'Terms of Service', desc: 'The terms for using Dusrel’s website, apps and tools.', path: '/terms', keys: 'terms service legal conditions' },
+      { title: 'Open Source', desc: 'What Dusrel builds in the open, and how to contribute.', path: '/open-source', keys: 'open source github code contribute license' },
+      { title: 'Brand', desc: 'The Dusrel logo and brand assets.', path: '/brand', keys: 'brand logo assets identity' },
+      { title: 'Changelog', desc: 'Every launch and milestone on dusrel.com, newest first.', path: '/changelog', keys: 'changelog updates news releases history' },
+    ],
+  },
+  hi: {
+    metaTitle: 'खोज — Dusrel',
+    metaDesc:
+      'Dusrel पर खोजें: मुफ्त प्राइवेसी-प्रथम ऐप्स, ऑनलाइन टूल्स और पेज — इमेज रिसाइज़र, LRC मेकर, रिज़्यूमे बिल्डर, PDF टूल्स, पासवर्ड जेनरेटर और भी बहुत कुछ।',
+    h1: 'Dusrel में खोजें',
+    sub: 'ऐप्स, टूल्स और पेज — साइट का सब कुछ, एक ही बॉक्स में।',
+    placeholder: 'ऐप्स, टूल्स और पेज खोजें…',
+    browse: 'Dusrel पर सब कुछ',
+    results: 'के लिए नतीजे',
+    resultOne: 'के लिए नतीजा',
+    none: 'कुछ नहीं मिला',
+    noneHint: 'छोटा या अलग शब्द आज़माएँ — जैसे “image”, “pdf” या “password”।',
+    downloadSuffix: 'डाउनलोड',
+    pageEntries: [
+      { title: 'होम', desc: 'Dusrel के मुफ्त, प्राइवेसी-प्रथम ऐप्स — आपका डेटा हमेशा आपका रहता है।', path: '/', keys: 'home dusrel start होम' },
+      { title: 'ऐप्स', desc: 'सभी Dusrel ऐप्स एक ही जगह — अभी उपलब्ध और जल्द आने वाले।', path: '/apps', keys: 'apps all applications ऐप्स' },
+      { title: 'हमारे बारे में', desc: 'Dusrel क्या है, क्यों बना है, और कैसे बनाया जाता है।', path: '/about', keys: 'about company story developer बारे' },
+      { title: 'संपर्क', desc: 'Dusrel तक कैसे पहुँचें — ईमेल और सोशल प्रोफ़ाइल।', path: '/contact', keys: 'contact email reach support help संपर्क' },
+      { title: 'सुरक्षा', desc: 'Dusrel आपको कैसे सुरक्षित रखता है, और कमज़ोरी कैसे रिपोर्ट करें।', path: '/security', keys: 'security vulnerability report disclosure safe harbor सुरक्षा' },
+      { title: 'प्राइवेसी पॉलिसी', desc: 'हम क्या एकत्र करते हैं (लगभग कुछ नहीं), क्या कभी नहीं करते, और आपके अधिकार।', path: '/privacy-policy', keys: 'privacy policy data rights gdpr dpdp ccpa प्राइवेसी' },
+      { title: 'सेवा की शर्तें', desc: 'Dusrel की वेबसाइट, ऐप्स और टूल्स के उपयोग की शर्तें।', path: '/terms', keys: 'terms service legal conditions शर्तें' },
+      { title: 'ओपन सोर्स', desc: 'Dusrel क्या खुलकर बनाता है, और योगदान कैसे करें।', path: '/open-source', keys: 'open source github code contribute license' },
+      { title: 'ब्रांड', desc: 'Dusrel लोगो और ब्रांड एसेट्स।', path: '/brand', keys: 'brand logo assets identity ब्रांड' },
+      { title: 'चेंजलॉग', desc: 'dusrel.com पर हर लॉन्च और मील का पत्थर, सबसे नया पहले।', path: '/changelog', keys: 'changelog updates news releases history' },
+    ],
+  },
+} as const;
+const s = L[lang];
+
+const lp = (p: string) => `${lang === 'hi' ? '/hi' : ''}${p}/`.replace('//', '/');
+const homePath = lang === 'hi' ? '/hi/' : '/';
+
+interface Entry {
+  title: string;
+  desc: string;
+  href: string;
+  kind: 'app' | 'tool' | 'page';
+  keys: string;
+}
+const entries: Entry[] = [];
+
+for (const a of liveApps) {
+  const c = t.appPages[a.slug as keyof typeof t.appPages];
+  if (!c) continue;
+  entries.push({
+    title: c.name,
+    desc: c.tagline,
+    href: lp(`/apps/${a.slug}`),
+    kind: 'app',
+    keys: `${a.slug} app ${c.name}`,
+  });
+  const dl = downloadsFor(a.slug);
+  if (dl) {
+    entries.push({
+      title: `${c.name} — ${s.downloadSuffix}`,
+      desc: dl.tagline[lang],
+      href: lp(`/apps/${a.slug}/download`),
+      kind: 'app',
+      keys: `${a.slug} download install extension chrome`,
+    });
+  }
+}
+
+entries.push({
+  title: t.tools.hub.title,
+  desc: t.tools.hub.sub,
+  href: lp('/pass'),
+  kind: 'page',
+  keys: 'tools free online tools hub',
+});
+for (const tool of tools) {
+  entries.push({
+    title: tool.name[lang],
+    desc: tool.blurb[lang],
+    href: toolHref(tool.slug, lang),
+    kind: 'tool',
+    keys: tool.slug.replaceAll('-', ' '),
+  });
+}
+
+for (const p of s.pageEntries) {
+  entries.push({
+    title: p.title,
+    desc: p.desc,
+    href: p.path === '/' ? homePath : lp(p.path),
+    kind: 'page',
+    keys: p.keys,
+  });
+}
+
+const kindLabels = {
+  en: { app: 'App', tool: 'Tool', page: 'Page' },
+  hi: { app: 'ऐप', tool: 'टूल', page: 'पेज' },
+} as const;
+
+const canonical = `https://dusrel.com${lp('/search')}`;
+---
+
+<Base lang={lang} title={s.metaTitle} description={s.metaDesc} canonical={canonical} image="/og-default.png" noindex>
+  <SiteNav lang={lang} />
+  <main class="mx-auto max-w-3xl px-4 pb-20 pt-10">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl">{s.h1}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">{s.sub}</p>
+    </div>
+
+    <div class="mt-10" data-search>
+      <label class="sr-only" for="dusrel-search-input">{s.h1}</label>
+      <input
+        id="dusrel-search-input"
+        data-search-input
+        type="search"
+        autocomplete="off"
+        placeholder={s.placeholder}
+        class="w-full rounded-2xl border border-slate-300 bg-white px-5 py-4 text-lg text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#4d90fe] focus:ring-4 focus:ring-[#4d90fe]/15 dark:border-white/15 dark:bg-white/5 dark:text-white"
+      />
+      <p class="mt-6 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-search-status>
+        {s.browse} · {entries.length}
+      </p>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2" data-search-results></div>
+      <div class="mt-4 hidden rounded-2xl border border-dashed border-slate-300 p-6 text-center dark:border-white/15" data-search-none>
+        <p class="font-semibold text-slate-900 dark:text-white">{s.none} — <span data-search-none-q></span></p>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{s.noneHint}</p>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+
+  <script type="application/json" data-search-index set:html={JSON.stringify(entries)} />
+  <script type="application/json" data-search-strings set:html={JSON.stringify({ browse: s.browse, results: s.results, resultOne: s.resultOne, kinds: kindLabels[lang] })} />
+  <script>
+    document.querySelectorAll('[data-search]').forEach((root) => {
+      const input = root.querySelector('[data-search-input]') as HTMLInputElement | null;
+      const results = root.querySelector('[data-search-results]') as HTMLElement | null;
+      const status = root.querySelector('[data-search-status]') as HTMLElement | null;
+      const noneBox = root.querySelector('[data-search-none]') as HTMLElement | null;
+      const noneQ = root.querySelector('[data-search-none-q]') as HTMLElement | null;
+      const indexEl = document.querySelector('[data-search-index]');
+      const stringsEl = document.querySelector('[data-search-strings]');
+      if (!input || !results || !status || !indexEl || !stringsEl) return;
+      const entries = JSON.parse(indexEl.textContent || '[]') as Array<{
+        title: string; desc: string; href: string; kind: string; keys: string;
+      }>;
+      const strings = JSON.parse(stringsEl.textContent || '{}') as {
+        browse: string; results: string; resultOne: string; kinds: Record<string, string>;
+      };
+
+      const card = (e: (typeof entries)[number]) => {
+        const a = document.createElement('a');
+        a.href = e.href;
+        a.className =
+          'group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#4d90fe] hover:shadow-md dark:border-white/10 dark:bg-white/5';
+        const head = document.createElement('p');
+        head.className = 'flex items-center justify-between gap-3 font-semibold text-slate-900 dark:text-white';
+        head.textContent = e.title;
+        const badge = document.createElement('span');
+        badge.className =
+          'shrink-0 rounded-full bg-[#4d90fe]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4d90fe]';
+        badge.textContent = strings.kinds[e.kind] || e.kind;
+        head.appendChild(badge);
+        const desc = document.createElement('p');
+        desc.className = 'mt-1 text-sm text-slate-500 dark:text-slate-400';
+        desc.textContent = e.desc;
+        a.append(head, desc);
+        return a;
+      };
+
+      const render = (q: string) => {
+        const needle = q.trim().toLowerCase();
+        const hits = needle
+          ? entries.filter((e) =>
+              `${e.title} ${e.desc} ${e.keys}`.toLowerCase().includes(needle),
+            )
+          : entries;
+        results.replaceChildren(...hits.map(card));
+        if (!needle) {
+          status.textContent = `${strings.browse} · ${entries.length}`;
+        } else {
+          status.textContent = `${hits.length} ${hits.length === 1 ? strings.resultOne : strings.results} “${q.trim()}”`;
+        }
+        if (noneBox) noneBox.classList.toggle('hidden', hits.length > 0);
+        if (noneQ) noneQ.textContent = `“${q.trim()}”`;
+      };
+
+      const url = new URL(window.location.href);
+      const initial = url.searchParams.get('q') || '';
+      input.value = initial;
+      render(initial);
+      input.focus();
+
+      input.addEventListener('input', () => {
+        render(input.value);
+        const next = new URL(window.location.href);
+        if (input.value.trim()) next.searchParams.set('q', input.value.trim());
+        else next.searchParams.delete('q');
+        window.history.replaceState(null, '', next);
+      });
+    });
+  </script>
+</Base>

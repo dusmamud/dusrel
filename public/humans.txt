@@ -1,0 +1,12 @@
+/* TEAM */
+Dusrel — free, privacy-first apps and tools.
+Built by an independent developer in India.
+Contact: hello@dusrel.com
+Site: https://dusrel.com
+GitHub: https://github.com/dusmamud
+
+/* SITE */
+Standards: HTML5, Astro, Tailwind CSS
+Hosting: Cloudflare Pages
+Languages: English, Hindi
+Tagline: YOUR PRIVACY MATTERS

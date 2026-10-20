@@ -12,6 +12,7 @@ export const en = {
     contact: 'Contact',
     about: 'About',
     openSource: 'Open source',
+    search: 'Search',
     cta: 'Explore apps',
   },
   hero: {

@@ -1,4 +1,33 @@
+# Dusrel — robots.txt
+# Dusrel is built in the open: every crawler is welcome, including AI
+# search and answer engines. Our content may be indexed, quoted in AI
+# answers (ai-input) and used for training (ai-train).
+
 User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Allow: /
+
+# AI crawlers — explicitly welcome (search, answers and training)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+User-agent: YouBot
+User-agent: cohere-ai
+User-agent: Amazonbot
 Allow: /
 
 Sitemap: https://dusrel.com/sitemap-index.xml
