@@ -1,0 +1,221 @@
+---
+/**
+ * Age Calculator tool island — 100% client-side.
+ * Exact age in years/months/days (with proper month/day borrowing), total
+ * days and weeks lived, and the next birthday countdown. Dates never
+ * leave the device. Used on /pass and /pass/age-calculator (EN + HI).
+ */
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const L = {
+  en: {
+    dateOfBirth: 'Date of birth',
+    asOf: 'As of date',
+    calculate: 'Calculate age',
+    years: 'Years',
+    months: 'Months',
+    days: 'Days',
+    totalDays: 'Total days lived',
+    totalWeeks: 'Total weeks lived',
+    nextBirthday: 'Next birthday',
+    inDays: 'in {n} days',
+    today: "It's today! 🎂",
+    errorFuture: 'Date of birth cannot be after the "as of" date.',
+    errorEmpty: 'Please choose your date of birth.',
+    note: 'Your dates never leave your device — the calculation happens entirely in your browser.',
+  },
+  hi: {
+    dateOfBirth: 'जन्म तिथि',
+    asOf: 'गणना की तिथि',
+    calculate: 'उम्र निकालें',
+    years: 'वर्ष',
+    months: 'महीने',
+    days: 'दिन',
+    totalDays: 'कुल जीए गए दिन',
+    totalWeeks: 'कुल सप्ताह',
+    nextBirthday: 'अगला जन्मदिन',
+    inDays: '{n} दिनों में',
+    today: 'आज ही है! 🎂',
+    errorFuture: 'जन्म तिथि गणना की तिथि से बाद की नहीं हो सकती।',
+    errorEmpty: 'कृपया अपनी जन्म तिथि चुनें।',
+    note: 'आपकी तारीखें आपके डिवाइस से बाहर कभी नहीं जातीं — सारी गणना पूरी तरह आपके ब्राउज़र में होती है।',
+  },
+} as const;
+const t = L[lang];
+
+const inputCls =
+  'mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-800 focus:border-[#4d90fe] focus:outline-none dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100 dark:[color-scheme:dark]';
+---
+
+<div
+  data-age
+  data-locale={lang === 'hi' ? 'hi-IN' : 'en-US'}
+  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty })}
+  class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
+>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="age-dob">{t.dateOfBirth}</label>
+      <input id="age-dob" data-age-dob type="date" class={inputCls} />
+    </div>
+    <div>
+      <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="age-asof">{t.asOf}</label>
+      <input id="age-asof" data-age-asof type="date" class={inputCls} />
+    </div>
+  </div>
+
+  <button
+    type="button"
+    data-age-calc
+    class="mt-6 w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+  >
+    {t.calculate}
+  </button>
+
+  <p data-age-error class="mt-4 hidden text-center text-sm font-medium text-red-500" role="alert"></p>
+
+  <div class="mt-7 grid grid-cols-3 gap-3">
+    <div class="rounded-2xl border border-slate-200 px-4 py-4 text-center dark:border-white/10">
+      <p data-age-years class="text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">0</p>
+      <p class="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{t.years}</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 px-4 py-4 text-center dark:border-white/10">
+      <p data-age-months class="text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">0</p>
+      <p class="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{t.months}</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 px-4 py-4 text-center dark:border-white/10">
+      <p data-age-days class="text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">0</p>
+      <p class="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{t.days}</p>
+    </div>
+  </div>
+
+  <dl class="mt-6 space-y-2.5 rounded-2xl bg-slate-50 px-5 py-4 text-sm dark:bg-black/30">
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-slate-500 dark:text-slate-400">{t.totalDays}</dt>
+      <dd data-age-totaldays class="font-semibold text-slate-900 dark:text-white">—</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-slate-500 dark:text-slate-400">{t.totalWeeks}</dt>
+      <dd data-age-totalweeks class="font-semibold text-slate-900 dark:text-white">—</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-slate-500 dark:text-slate-400">{t.nextBirthday}</dt>
+      <dd data-age-next class="text-right font-semibold text-slate-900 dark:text-white">—</dd>
+    </div>
+  </dl>
+
+  <p class="mt-4 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
+</div>
+
+<script>
+  const DAY_MS = 86400000;
+
+  // Parse a date-input value (YYYY-MM-DD) as a LOCAL date, so timezone
+  // offsets never shift the day.
+  function parseLocal(value: string): Date | null {
+    const parts = value.split('-').map(Number);
+    if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null;
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+
+  function isoLocal(d: Date): string {
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-age]').forEach((root) => {
+    const labels = JSON.parse(root.dataset.labels || '{}');
+    const locale = root.dataset.locale || 'en-US';
+    const dobInput = root.querySelector<HTMLInputElement>('[data-age-dob]')!;
+    const asOfInput = root.querySelector<HTMLInputElement>('[data-age-asof]')!;
+    const errorEl = root.querySelector<HTMLElement>('[data-age-error]')!;
+    const yearsEl = root.querySelector<HTMLElement>('[data-age-years]')!;
+    const monthsEl = root.querySelector<HTMLElement>('[data-age-months]')!;
+    const daysEl = root.querySelector<HTMLElement>('[data-age-days]')!;
+    const totalDaysEl = root.querySelector<HTMLElement>('[data-age-totaldays]')!;
+    const totalWeeksEl = root.querySelector<HTMLElement>('[data-age-totalweeks]')!;
+    const nextEl = root.querySelector<HTMLElement>('[data-age-next]')!;
+
+    // Default the "as of" date to today.
+    asOfInput.value = isoLocal(new Date());
+
+    const clearResults = () => {
+      yearsEl.textContent = '0';
+      monthsEl.textContent = '0';
+      daysEl.textContent = '0';
+      totalDaysEl.textContent = '—';
+      totalWeeksEl.textContent = '—';
+      nextEl.textContent = '—';
+    };
+
+    const showError = (msg: string) => {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+      clearResults();
+    };
+
+    const calculate = () => {
+      const dob = parseLocal(dobInput.value);
+      const asOf = parseLocal(asOfInput.value);
+      if (!dob || !asOf) {
+        showError(labels.errorEmpty);
+        return;
+      }
+      if (dob.getTime() > asOf.getTime()) {
+        showError(labels.errorFuture);
+        return;
+      }
+      errorEl.classList.add('hidden');
+
+      // Exact age with borrowing: days first (borrow the days-in-month of
+      // the month before the as-of month), then months, then years.
+      let years = asOf.getFullYear() - dob.getFullYear();
+      let months = asOf.getMonth() - dob.getMonth();
+      let days = asOf.getDate() - dob.getDate();
+      if (days < 0) {
+        months -= 1;
+        days += new Date(asOf.getFullYear(), asOf.getMonth(), 0).getDate();
+      }
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+      yearsEl.textContent = years.toLocaleString(locale);
+      monthsEl.textContent = months.toLocaleString(locale);
+      daysEl.textContent = days.toLocaleString(locale);
+
+      const totalDays = Math.round((asOf.getTime() - dob.getTime()) / DAY_MS);
+      totalDaysEl.textContent = totalDays.toLocaleString(locale);
+      totalWeeksEl.textContent = Math.floor(totalDays / 7).toLocaleString(locale);
+
+      // Next birthday: this year's occurrence of the birth month/day
+      // (a Feb 29 birthday rolls to Mar 1 in non-leap years), or next
+      // year's if it has already passed.
+      let next = new Date(asOf.getFullYear(), dob.getMonth(), dob.getDate());
+      if (next.getTime() < asOf.getTime()) {
+        next = new Date(asOf.getFullYear() + 1, dob.getMonth(), dob.getDate());
+      }
+      const until = Math.round((next.getTime() - asOf.getTime()) / DAY_MS);
+      const dateStr = next.toLocaleDateString(locale, {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      });
+      nextEl.textContent =
+        until === 0
+          ? `${dateStr} — ${labels.today}`
+          : `${dateStr} (${labels.inDays.replace('{n}', String(until))})`;
+    };
+
+    root.querySelector('[data-age-calc]')!.addEventListener('click', calculate);
+    dobInput.addEventListener('change', calculate);
+    dobInput.addEventListener('input', calculate);
+    asOfInput.addEventListener('change', calculate);
+    asOfInput.addEventListener('input', calculate);
+  });
+</script>

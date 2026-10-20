@@ -1,0 +1,140 @@
+---
+/**
+ * Word Counter tool island — 100% client-side.
+ * Live counts for words, characters, sentences, paragraphs and reading
+ * time, updated on every keystroke. Nothing is sent to a server.
+ * Used on /pass and /pass/word-counter (EN + HI via the `lang` prop).
+ */
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const L = {
+  en: {
+    words: 'Words',
+    characters: 'Characters',
+    noSpaces: 'Characters without spaces',
+    sentences: 'Sentences',
+    paragraphs: 'Paragraphs',
+    readingTime: 'Reading time',
+    clear: 'Clear text',
+    placeholder: 'Paste or type your text here…',
+    readingZero: '0 min',
+    readingLess: '< 1 min',
+    readingSuffix: 'min',
+    note: 'Your text is counted locally in your browser — nothing is uploaded, stored or seen by Dusrel.',
+  },
+  hi: {
+    words: 'शब्द',
+    characters: 'अक्षर',
+    noSpaces: 'बिना स्पेस के अक्षर',
+    sentences: 'वाक्य',
+    paragraphs: 'पैराग्राफ',
+    readingTime: 'पढ़ने का समय',
+    clear: 'टेक्स्ट साफ़ करें',
+    placeholder: 'अपना टेक्स्ट यहाँ पेस्ट करें या लिखें…',
+    readingZero: '0 मिनट',
+    readingLess: '< 1 मिनट',
+    readingSuffix: 'मिनट',
+    note: 'आपका टेक्स्ट आपके ब्राउज़र में ही गिना जाता है — कुछ भी अपलोड, स्टोर या Dusrel द्वारा देखा नहीं जाता।',
+  },
+} as const;
+const t = L[lang];
+
+const stats = [
+  { key: 'words', label: t.words },
+  { key: 'chars', label: t.characters },
+  { key: 'nospaces', label: t.noSpaces },
+  { key: 'sentences', label: t.sentences },
+  { key: 'paragraphs', label: t.paragraphs },
+  { key: 'reading', label: t.readingTime },
+];
+---
+
+<div
+  data-wc
+  data-labels={JSON.stringify({ readingZero: t.readingZero, readingLess: t.readingLess, readingSuffix: t.readingSuffix })}
+  class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
+>
+  <textarea
+    data-wc-text
+    rows="8"
+    placeholder={t.placeholder}
+    class="w-full resize-y rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-base leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[#4d90fe] focus:outline-none dark:border-white/10 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-500"
+  ></textarea>
+
+  <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+    {stats.map((s) => (
+      <div class="rounded-2xl border border-slate-200 px-4 py-4 text-center dark:border-white/10">
+        <p data-wc-stat={s.key} class="text-2xl font-bold text-slate-900 dark:text-white md:text-3xl">0</p>
+        <p class="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{s.label}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-6 flex justify-end">
+    <button
+      type="button"
+      data-wc-clear
+      class="rounded-xl border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-200"
+    >
+      {t.clear}
+    </button>
+  </div>
+
+  <p class="mt-4 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-wc]').forEach((root) => {
+    const labels = JSON.parse(root.dataset.labels || '{}');
+    const textarea = root.querySelector<HTMLTextAreaElement>('[data-wc-text]')!;
+    const statEls: Record<string, HTMLElement> = {};
+    root.querySelectorAll<HTMLElement>('[data-wc-stat]').forEach((el) => {
+      statEls[el.dataset.wcStat!] = el;
+    });
+    const clearBtn = root.querySelector<HTMLButtonElement>('[data-wc-clear]')!;
+
+    const count = () => {
+      const text = textarea.value;
+      const trimmed = text.trim();
+      const words = trimmed ? trimmed.split(/\s+/).length : 0;
+      const chars = text.length;
+      const noSpaces = text.replace(/\s/g, '').length;
+      // Sentences: segments between [.!?…] that contain a letter or digit.
+      const sentences = text
+        .split(/[.!?…]+/)
+        .filter((seg) => /[\p{L}\p{N}]/u.test(seg)).length;
+      // Paragraphs: blocks separated by blank lines.
+      const paragraphs = trimmed
+        ? text.split(/\n\s*\n/).filter((seg) => seg.trim().length > 0).length
+        : 0;
+      const minutes = words / 200;
+      const reading =
+        words === 0
+          ? labels.readingZero
+          : minutes < 1
+            ? labels.readingLess
+            : `${Math.round(minutes)} ${labels.readingSuffix}`;
+
+      statEls.words.textContent = words.toLocaleString();
+      statEls.chars.textContent = chars.toLocaleString();
+      statEls.nospaces.textContent = noSpaces.toLocaleString();
+      statEls.sentences.textContent = sentences.toLocaleString();
+      statEls.paragraphs.textContent = paragraphs.toLocaleString();
+      statEls.reading.textContent = reading;
+    };
+
+    textarea.addEventListener('input', count);
+    clearBtn.addEventListener('click', () => {
+      textarea.value = '';
+      count();
+      textarea.focus();
+    });
+
+    count();
+  });
+</script>
