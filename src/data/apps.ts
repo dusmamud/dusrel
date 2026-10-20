@@ -71,9 +71,10 @@ export const appIcon = (slug: string): string => `/icons/${slug}.svg`;
 export const appShowcaseImage = (slug: string): string =>
   `/images/showcase-${slug}.jpg`;
 
-/** Locale-aware link to the app's detail page: /apps/<slug> or /hi/apps/<slug>. */
+/** Locale-aware link to the app's detail page: /apps/<slug>/ or /hi/apps/<slug>/.
+ *  Trailing slash matches the canonical URL form (Cloudflare 308s no-slash). */
 export const appDetailHref = (slug: string, lang: Lang): string =>
-  `${lang === 'hi' ? '/hi' : ''}/apps/${slug}`;
+  `${lang === 'hi' ? '/hi' : ''}/apps/${slug}/`;
 
 /**
  * Localized per-app content lives in src/i18n/{locale}.ts under `appContent[slug]`.

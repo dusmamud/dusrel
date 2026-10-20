@@ -42,8 +42,9 @@ describe('app registry', () => {
   });
 
   it('builds locale-aware detail hrefs', () => {
-    expect(appDetailHref('ricsline', 'en')).toBe('/apps/ricsline');
-    expect(appDetailHref('ricsline', 'hi')).toBe('/hi/apps/ricsline');
+    // Trailing slash = canonical URL form (Cloudflare 308s no-slash URLs).
+    expect(appDetailHref('ricsline', 'en')).toBe('/apps/ricsline/');
+    expect(appDetailHref('ricsline', 'hi')).toBe('/hi/apps/ricsline/');
   });
 
   it('ships icon + showcase assets for every live app', () => {
@@ -63,6 +64,15 @@ describe('app registry', () => {
       const icons = featureIcons[a.slug] ?? [];
       expect(icons.length, `${a.slug} icons`).toBeGreaterThan(0);
       for (const icon of icons) expect(icon).toContain('<svg');
+    }
+  });
+
+  it('ships an OG share image for every live app + the site default', () => {
+    expect(existsSync(publicFile('/og-default.png')), 'og-default').toBe(true);
+    for (const a of liveApps) {
+      expect(existsSync(publicFile(`/og-${a.slug}.png`)), `${a.slug} og`).toBe(
+        true,
+      );
     }
   });
 });

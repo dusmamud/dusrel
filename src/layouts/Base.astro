@@ -7,20 +7,31 @@ interface Props {
   title?: string;
   description?: string;
   canonical?: string;
+  /** OG/Twitter share image path, e.g. '/og-shrinkit.png'. Defaults to the site card. */
+  image?: string;
   noindex?: boolean;
 }
 
-const { lang, title: titleOverride, description: descriptionOverride, canonical: canonicalOverride, noindex = false } = Astro.props;
+const { lang, title: titleOverride, description: descriptionOverride, canonical: canonicalOverride, image: imagePath, noindex = false } = Astro.props;
 const t = dict[lang];
 const title = titleOverride ?? t.meta.title;
 const description = descriptionOverride ?? t.meta.description;
-const canonical = canonicalOverride ?? (lang === 'en' ? 'https://dusrel.com/' : `https://dusrel.com/${lang}/`);
+const canonicalRaw = canonicalOverride ?? (lang === 'en' ? 'https://dusrel.com/' : `https://dusrel.com/${lang}/`);
+// Cloudflare Pages 308-redirects no-slash URLs to the trailing-slash form and
+// the sitemap lists trailing-slash URLs — so canonical/og/hreflang must ALL use
+// the trailing-slash form, otherwise Google sees a canonical loop and treats
+// pages as "alternate" instead of indexing them.
+const withSlash = (u: string) => (u.endsWith('/') ? u : `${u}/`);
+const canonical = withSlash(canonicalRaw);
+const ogImage = `https://dusrel.com${imagePath ?? '/og-default.png'}`;
 const altLang = lang === 'en' ? 'hi' : 'en';
 // Derive the alternate-locale URL from the canonical: insert or strip the /hi/ prefix.
 const altHref =
   lang === 'en'
     ? canonical.replace('https://dusrel.com/', 'https://dusrel.com/hi/')
     : canonical.replace('https://dusrel.com/hi/', 'https://dusrel.com/');
+// x-default always points at the English version of THIS page.
+const xDefault = lang === 'en' ? canonical : altHref;
 ---
 
 <!doctype html>
@@ -56,23 +67,32 @@ const altHref =
       })();
     </script>
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang} href={canonical} />
     <link rel="alternate" hreflang={altLang} href={altHref} />
-    <link rel="alternate" hreflang="x-default" href="https://dusrel.com/" />
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dusrel" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'hi_IN'} />
+    <meta property="og:locale:alternate" content={lang === 'en' ? 'hi_IN' : 'en_US'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={title} />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Dusrel",
         "url": "https://dusrel.com/",
-        "logo": "https://dusrel.com/favicon.svg",
+        "logo": "https://dusrel.com/logo.png",
         "slogan": "YOUR PRIVACY MATTERS",
         "description": "Dusrel crafts free apps that truly respect your privacy."
       }
