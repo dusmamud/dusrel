@@ -236,6 +236,7 @@ export const en = {
     company: 'Company',
     legal: 'Legal',
     apps: 'Apps',
+    downloads: 'Downloads',
     changelog: 'Changelog',
     brand: 'Brand',
     privacyPolicy: 'Privacy policy',

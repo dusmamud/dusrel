@@ -1,6 +1,7 @@
 ---
 import { dict, type Lang } from '../i18n';
 import { liveApps, appDetailHref, appContentFor } from '../data/apps';
+import { downloads, platformMeta, pick } from '../data/downloads';
 import { socials, socialSvg } from '../data/social';
 const { lang } = Astro.props as { lang: Lang };
 const t = dict[lang];
@@ -28,6 +29,22 @@ const appLinks = liveApps.map((app) => ({
   href: appDetailHref(app.slug, lang),
 }));
 
+// Downloads column — derived from src/data/downloads.ts, so a new download
+// page appears in the footer automatically.
+const downloadLinks = downloads.flatMap((d) => {
+  const name = appContentFor(t.appContent, d.slug).name;
+  return [
+    {
+      label: lang === 'hi' ? `${name} डाउनलोड करें` : `Download ${name}`,
+      href: `${root}/apps/${d.slug}/download/`,
+    },
+    ...d.platforms.map((p) => ({
+      label: `${name} — ${pick(platformMeta[p.platform].label, lang)}`,
+      href: `${root}/apps/${d.slug}/download/${p.platform}/`,
+    })),
+  ];
+});
+
 const anchorLinks = [
   { label: t.nav.apps, href: anchor('#apps') },
   { label: t.nav.why, href: anchor('#why') },
@@ -43,8 +60,8 @@ const linkCls = 'hover:text-slate-900 dark:hover:text-white';
   class="border-t border-slate-200 bg-slate-50 py-12 text-slate-600 dark:border-white/10 dark:bg-black/40 dark:text-slate-400"
 >
   <div class="mx-auto max-w-6xl px-6">
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-      <div>
+    <div class="grid grid-cols-2 gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
+      <div class="col-span-2 lg:col-span-1">
         <p class="flex items-center gap-2.5">
           <img src="/logo.svg" alt="Dusrel logo" class="h-7 w-7" width="28" height="28" />
           <span class="font-display text-2xl font-bold text-slate-900 dark:text-white">Dusrel</span>
@@ -127,6 +144,23 @@ const linkCls = 'hover:text-slate-900 dark:hover:text-white';
           }
         </ul>
       </nav>
+
+      {downloadLinks.length > 0 && (
+        <nav aria-label={t.footNav.downloads}>
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white">{t.footNav.downloads}</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            {
+              downloadLinks.map((l) => (
+                <li>
+                  <a href={l.href} class={linkCls}>
+                    {l.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      )}
     </div>
 
     <nav

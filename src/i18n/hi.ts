@@ -237,6 +237,7 @@ export const hi: Dict = {
     company: 'कंपनी',
     legal: 'कानूनी',
     apps: 'ऐप्स',
+    downloads: 'डाउनलोड',
     changelog: 'चेंजलॉग',
     brand: 'ब्रांड',
     privacyPolicy: 'प्राइवेसी पॉलिसी',
