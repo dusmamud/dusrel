@@ -18,8 +18,9 @@
  *   and screen-reader users (USWDS + ONS explicitly advise against it).
  * - The hint example uses a day >= 13 and a month <= 9 so the field
  *   order is unambiguous, and leading zeros are never required.
- * - The "as of" date keeps the native date input: it defaults to today
- *   and is a near date, which is exactly when a calendar is appropriate.
+ * - The "as of" date uses the same three-field pattern, pre-filled
+ *   with today's date by default (it can still be changed to any date,
+ *   e.g. to see your age on a past or future date).
  */
 import type { Lang } from '../../i18n';
 
@@ -36,6 +37,7 @@ const L = {
     month: 'Month',
     year: 'Year',
     asOf: 'As of date',
+    asOfHint: 'Defaults to today',
     calculate: 'Calculate age',
     years: 'Years',
     months: 'Months',
@@ -48,6 +50,7 @@ const L = {
     errorFuture: 'Date of birth cannot be after the "as of" date.',
     errorEmpty: 'Please enter your date of birth.',
     errorInvalid: 'Enter a real date of birth.',
+    errorAsOf: "Enter a real 'as of' date.",
     note: 'Your dates never leave your device — the calculation happens entirely in your browser.',
   },
   hi: {
@@ -57,6 +60,7 @@ const L = {
     month: 'महीना',
     year: 'वर्ष',
     asOf: 'गणना की तिथि',
+    asOfHint: 'डिफ़ॉल्ट रूप से आज की तिथि',
     calculate: 'उम्र निकालें',
     years: 'वर्ष',
     months: 'महीने',
@@ -69,6 +73,7 @@ const L = {
     errorFuture: 'जन्म तिथि गणना की तिथि से बाद की नहीं हो सकती।',
     errorEmpty: 'कृपया अपनी जन्म तिथि डालें।',
     errorInvalid: 'सही जन्म तिथि डालें।',
+    errorAsOf: 'सही गणना तिथि डालें।',
     note: 'आपकी तारीखें आपके डिवाइस से बाहर कभी नहीं जातीं — सारी गणना पूरी तरह आपके ब्राउज़र में होती है।',
   },
 } as const;
@@ -89,8 +94,20 @@ const dobFields =
         { key: 'year', label: t.year, auto: 'bday-year', width: 'w-28' },
       ] as const);
 
-const inputCls =
-  'mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-800 focus:border-[#4d90fe] focus:outline-none dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100 dark:[color-scheme:dark]';
+// Same locale field order as DOB, but no birthday autocomplete: this is
+// a reference date, not a date of birth.
+const asOfFields =
+  lang === 'hi'
+    ? ([
+        { key: 'day', label: t.day, width: 'w-20' },
+        { key: 'month', label: t.month, width: 'w-20' },
+        { key: 'year', label: t.year, width: 'w-28' },
+      ] as const)
+    : ([
+        { key: 'month', label: t.month, width: 'w-20' },
+        { key: 'day', label: t.day, width: 'w-20' },
+        { key: 'year', label: t.year, width: 'w-28' },
+      ] as const);
 
 const dobFieldCls =
   'mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-center text-base text-slate-800 focus:border-[#4d90fe] focus:outline-none dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
@@ -99,7 +116,7 @@ const dobFieldCls =
 <div
   data-age
   data-locale={lang === 'hi' ? 'hi-IN' : 'en-US'}
-  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid })}
+  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf })}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
   <div class="grid gap-5 sm:grid-cols-2">
@@ -130,10 +147,33 @@ const dobFieldCls =
       </div>
       <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">{t.dobHint}</p>
     </fieldset>
-    <div>
-      <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="age-asof">{t.asOf}</label>
-      <input id="age-asof" data-age-asof type="date" class={inputCls} />
-    </div>
+    <fieldset data-age-asof-group>
+      <legend class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.asOf}</legend>
+      <div class="flex items-start gap-2.5">
+        {
+          asOfFields.map((f) => (
+            <div class={f.width}>
+              <label class="mt-2 block text-xs font-medium text-slate-500 dark:text-slate-400" for={`age-asof-${f.key}`}>
+                {f.label}
+              </label>
+              <input
+                id={`age-asof-${f.key}`}
+                data-asof={f.key}
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength={f.key === 'year' ? 4 : 2}
+                autocomplete="off"
+                placeholder={f.key === 'year' ? 'YYYY' : f.key === 'day' ? 'DD' : 'MM'}
+                aria-label={f.label}
+                class={dobFieldCls}
+              />
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">{t.asOfHint}</p>
+    </fieldset>
   </div>
 
   <button
@@ -182,23 +222,10 @@ const dobFieldCls =
 <script>
   const DAY_MS = 86400000;
 
-  // Parse a date-input value (YYYY-MM-DD) as a LOCAL date, so timezone
-  // offsets never shift the day.
-  function parseLocal(value: string): Date | null {
-    const parts = value.split('-').map(Number);
-    if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null;
-    return new Date(parts[0], parts[1] - 1, parts[2]);
-  }
-
-  function isoLocal(d: Date): string {
-    const pad = (n: number) => String(n).padStart(2, '0');
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-  }
-
   // Build a real calendar date from day/month/year parts. Returns null
   // for anything that is not a real date (e.g. 31 Feb, month 13, year
   // with fewer than 4 digits) — never silently "correct" the input.
-  function parseDobParts(day: string, month: string, year: string): Date | null {
+  function parseDateParts(day: string, month: string, year: string): Date | null {
     if (!day || !month || !year) return null;
     const d = Number(day);
     const m = Number(month);
@@ -210,6 +237,14 @@ const dobFieldCls =
     return date;
   }
 
+  // Per-field range check used only to highlight the offending field.
+  function rangeBad(value: string, min: number, max: number, len?: number): boolean {
+    if (value === '') return false;
+    const n = Number(value);
+    if (len !== undefined && value.length !== len) return true;
+    return Number.isNaN(n) || n < min || n > max;
+  }
+
   document.querySelectorAll<HTMLElement>('[data-age]').forEach((root) => {
     const labels = JSON.parse(root.dataset.labels || '{}');
     const locale = root.dataset.locale || 'en-US';
@@ -217,7 +252,10 @@ const dobFieldCls =
     const dobMonth = root.querySelector<HTMLInputElement>('[data-dob="month"]')!;
     const dobYear = root.querySelector<HTMLInputElement>('[data-dob="year"]')!;
     const dobFields = [dobDay, dobMonth, dobYear];
-    const asOfInput = root.querySelector<HTMLInputElement>('[data-age-asof]')!;
+    const asOfDay = root.querySelector<HTMLInputElement>('[data-asof="day"]')!;
+    const asOfMonth = root.querySelector<HTMLInputElement>('[data-asof="month"]')!;
+    const asOfYear = root.querySelector<HTMLInputElement>('[data-asof="year"]')!;
+    const asOfFields = [asOfDay, asOfMonth, asOfYear];
     const errorEl = root.querySelector<HTMLElement>('[data-age-error]')!;
     const yearsEl = root.querySelector<HTMLElement>('[data-age-years]')!;
     const monthsEl = root.querySelector<HTMLElement>('[data-age-months]')!;
@@ -226,8 +264,11 @@ const dobFieldCls =
     const totalWeeksEl = root.querySelector<HTMLElement>('[data-age-totalweeks]')!;
     const nextEl = root.querySelector<HTMLElement>('[data-age-next]')!;
 
-    // Default the "as of" date to today.
-    asOfInput.value = isoLocal(new Date());
+    // Default the "as of" date to today, pre-filled in its fields.
+    const today = new Date();
+    asOfDay.value = String(today.getDate());
+    asOfMonth.value = String(today.getMonth() + 1);
+    asOfYear.value = String(today.getFullYear());
 
     const clearResults = () => {
       yearsEl.textContent = '0';
@@ -253,24 +294,37 @@ const dobFieldCls =
       const day = dobDay.value.trim();
       const month = dobMonth.value.trim();
       const year = dobYear.value.trim();
-      const asOf = parseLocal(asOfInput.value);
+      const aDay = asOfDay.value.trim();
+      const aMonth = asOfMonth.value.trim();
+      const aYear = asOfYear.value.trim();
 
       // Per-field validity: empty vs out-of-range vs impossible date.
-      const anyFilled = day !== '' || month !== '' || year !== '';
-      const allFilled = day !== '' && month !== '' && year !== '';
-      const dob = allFilled ? parseDobParts(day, month, year) : null;
+      const dobAny = day !== '' || month !== '' || year !== '';
+      const dobAll = day !== '' && month !== '' && year !== '';
+      const dob = dobAll ? parseDateParts(day, month, year) : null;
+      const asOfAll = aDay !== '' && aMonth !== '' && aYear !== '';
+      const asOf = asOfAll ? parseDateParts(aDay, aMonth, aYear) : null;
 
       dobFields.forEach((el) => markInvalid(el, false));
-      if (!anyFilled || !asOf) {
+      asOfFields.forEach((el) => markInvalid(el, false));
+      if (!dobAny) {
         showError(labels.errorEmpty);
         return;
       }
-      if (!allFilled || !dob) {
-        if (day !== '' && (Number(day) < 1 || Number(day) > 31)) markInvalid(dobDay, true);
-        if (month !== '' && (Number(month) < 1 || Number(month) > 12)) markInvalid(dobMonth, true);
-        if (year !== '' && year.length !== 4) markInvalid(dobYear, true);
-        if (allFilled && !dob) dobFields.forEach((el) => markInvalid(el, true));
-        showError(allFilled ? labels.errorInvalid : labels.errorEmpty);
+      if (!dobAll || !dob) {
+        if (rangeBad(day, 1, 31)) markInvalid(dobDay, true);
+        if (rangeBad(month, 1, 12)) markInvalid(dobMonth, true);
+        if (rangeBad(year, 0, 9999, 4)) markInvalid(dobYear, true);
+        if (dobAll && !dob) dobFields.forEach((el) => markInvalid(el, true));
+        showError(dobAll ? labels.errorInvalid : labels.errorEmpty);
+        return;
+      }
+      if (!asOfAll || !asOf) {
+        if (rangeBad(aDay, 1, 31)) markInvalid(asOfDay, true);
+        if (rangeBad(aMonth, 1, 12)) markInvalid(asOfMonth, true);
+        if (rangeBad(aYear, 0, 9999, 4)) markInvalid(asOfYear, true);
+        if (asOfAll && !asOf) asOfFields.forEach((el) => markInvalid(el, true));
+        showError(labels.errorAsOf);
         return;
       }
       if (dob.getTime() > asOf.getTime()) {
@@ -323,7 +377,7 @@ const dobFieldCls =
     // auto-formatted), and recalculate live. Focus is deliberately NOT
     // moved between fields: keyboard and screen-reader users must stay
     // in control (USWDS + ONS guidance).
-    dobFields.forEach((el) => {
+    [...dobFields, ...asOfFields].forEach((el) => {
       el.addEventListener('input', () => {
         el.value = el.value.replace(/[^0-9]/g, '');
         calculate();
@@ -331,7 +385,5 @@ const dobFieldCls =
       el.addEventListener('change', calculate);
     });
     root.querySelector('[data-age-calc]')!.addEventListener('click', calculate);
-    asOfInput.addEventListener('change', calculate);
-    asOfInput.addEventListener('input', calculate);
   });
 </script>
