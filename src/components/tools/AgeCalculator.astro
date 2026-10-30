@@ -21,18 +21,23 @@
  *   (or Enter in a field). Editing any field after a calculation
  *   clears the stale result, so a wrong number is never shown as
  *   current.
- * - Focus IS auto-advanced, but only under the safe rules
- *   (cross-verified via Exa: WCAG 3.2.2 On Input exception, Adobe
- *   React Aria segmented date fields, native date-picker segments):
- *   advance only when a field is full (2 digits day/month, 4 year),
- *   only within its own date group, never across groups, and never
- *   auto-calculating. Backspace in an empty field moves back to the
- *   previous field, and Tab / Shift+Tab / click always work normally.
- *   The behaviour is announced in a visible hint BEFORE the fields,
- *   which is what makes auto-advance conform to WCAG 3.2.2 — an
- *   unannounced focus move would fail it. GOV.UK / USWDS / ONS
- *   advise against unannounced auto-advance; the advance warning is
- *   the difference.
+ * - Focus IS auto-advanced, but only when the field is full AND
+ *   valid (cross-verified via Exa: Kendo segmented date inputs
+ *   advance "once a valid value is entered"; GOV.UK refuses values
+ *   that "cannot be correct", e.g. month 13): a full but
+ *   out-of-range value (day 32, month 13, year 0000) turns its box
+ *   red and does NOT advance, so focus never leaves a value the
+ *   user still needs to fix. Advance stays within its own date
+ *   group, never across groups, never auto-calculating. Backspace
+ *   in an empty field moves back, Tab / Shift+Tab / click always
+ *   work normally. No advance warning is shown — the pattern is
+ *   now a familiar convention (OTP/date segments) and the user
+ *   explicitly asked to remove the hint.
+ * - Field-level validity is shown live ONLY as a red border, and
+ *   only for complete values that can never become valid; error
+ *   messages still appear only on Calculate (GOV.UK: do not
+ *   validate before the user has finished entering). A red border
+ *   clears the moment the value becomes valid again.
  * - The hint example uses a day >= 13 and a month <= 9 so the field
  *   order is unambiguous, and leading zeros are never required.
  * - The "as of" date uses the same three-field pattern, pre-filled
@@ -78,7 +83,9 @@ const L = {
     errorEmpty: 'Please enter your date of birth.',
     errorInvalid: 'Enter a real date of birth.',
     errorAsOf: "Enter a real 'as of' date.",
-    autoAdvance: 'As you type, focus moves to the next box once a box is full. Backspace in an empty box moves back.',
+    errorDayRange: 'Day must be between 1 and 31',
+    errorMonthRange: 'Month must be between 1 and 12',
+    errorYearDigits: 'Year must be 4 digits',
     note: 'Your dates never leave your device — the calculation happens entirely in your browser.',
   },
   hi: {
@@ -102,7 +109,9 @@ const L = {
     errorEmpty: 'कृपया अपनी जन्म तिथि डालें।',
     errorInvalid: 'सही जन्म तिथि डालें।',
     errorAsOf: 'सही गणना तिथि डालें।',
-    autoAdvance: 'टाइप करते ही बॉक्स भरने पर फोकस अपने आप अगले बॉक्स में चला जाएगा। खाली बॉक्स में Backspace दबाने पर फोकस पिछले बॉक्स में वापस जाएगा।',
+    errorDayRange: 'दिन 1 से 31 के बीच होना चाहिए',
+    errorMonthRange: 'महीना 1 से 12 के बीच होना चाहिए',
+    errorYearDigits: 'वर्ष 4 अंकों का होना चाहिए',
     note: 'आपकी तारीखें आपके डिवाइस से बाहर कभी नहीं जातीं — सारी गणना पूरी तरह आपके ब्राउज़र में होती है।',
   },
 } as const;
@@ -149,10 +158,9 @@ const dobFieldCls =
 <div
   data-age
   data-locale={lang === 'hi' ? 'hi-IN' : 'en-US'}
-  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, examplePrefix: t.examplePrefix })}
+  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, errorDayRange: t.errorDayRange, errorMonthRange: t.errorMonthRange, errorYearDigits: t.errorYearDigits, examplePrefix: t.examplePrefix })}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
-  <p id="age-autoadvance" class="mb-5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.autoAdvance}</p>
   <div class="grid gap-5 sm:grid-cols-2">
     <fieldset data-age-dob-group>
       <legend class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.dateOfBirth}</legend>
@@ -173,7 +181,6 @@ const dobFieldCls =
                 autocomplete={f.auto}
                 placeholder={f.key === 'year' ? 'YYYY' : f.key === 'day' ? 'DD' : 'MM'}
                 aria-label={f.label}
-                aria-describedby="age-autoadvance"
                 class={dobFieldCls}
               />
             </div>
@@ -201,7 +208,6 @@ const dobFieldCls =
                 autocomplete="off"
                 placeholder={f.key === 'year' ? 'YYYY' : f.key === 'day' ? 'DD' : 'MM'}
                 aria-label={f.label}
-                aria-describedby="age-autoadvance"
                 class={dobFieldCls}
               />
             </div>
@@ -279,6 +285,20 @@ const dobFieldCls =
     const n = Number(value);
     if (len !== undefined && value.length !== len) return true;
     return Number.isNaN(n) || n < min || n > max;
+  }
+
+  // Live field-level range check: a field is definitively invalid
+  // ONLY when full (maxlength reached) and out of range — day 1-31,
+  // month 1-12, year 4 digits and not 0000. Partial values can still
+  // become valid, so they are never marked.
+  function fieldRangeBad(input: HTMLInputElement): boolean {
+    const v = input.value;
+    if (v.length < input.maxLength) return false;
+    const n = Number(v);
+    const kind = input.dataset.dob || input.dataset.asof;
+    if (kind === 'day') return n < 1 || n > 31;
+    if (kind === 'month') return n < 1 || n > 12;
+    return n === 0; // year: 0000 is not a real year
   }
 
   document.querySelectorAll<HTMLElement>('[data-age]').forEach((root) => {
@@ -392,22 +412,56 @@ const dobFieldCls =
         return;
       }
       if (!dobAll || !dob) {
-        if (rangeBad(day, 1, 31)) markInvalid(dobDay, true);
-        if (rangeBad(month, 1, 12)) markInvalid(dobMonth, true);
-        if (rangeBad(year, 0, 9999, 4)) markInvalid(dobYear, true);
+        const dayBad = rangeBad(day, 1, 31);
+        const monthBad = rangeBad(month, 1, 12);
+        const yearBad = rangeBad(year, 0, 9999, 4);
+        if (dayBad) markInvalid(dobDay, true);
+        if (monthBad) markInvalid(dobMonth, true);
+        if (yearBad) markInvalid(dobYear, true);
         if (dobAll && !dob) dobFields.forEach((el) => markInvalid(el, true));
-        showError(dobAll ? labels.errorInvalid : labels.errorEmpty);
+        // Missing fields take priority (GOV.UK error priority); when
+        // exactly one field is out of range, name it (ONS pattern),
+        // otherwise the generic real-date message.
+        const badCount = [dayBad, monthBad, yearBad].filter(Boolean).length;
+        showError(
+          !dobAll
+            ? labels.errorEmpty
+            : badCount === 1 && dayBad
+              ? labels.errorDayRange
+              : badCount === 1 && monthBad
+                ? labels.errorMonthRange
+                : badCount === 1 && yearBad
+                  ? labels.errorYearDigits
+                  : labels.errorInvalid,
+        );
         return;
       }
       if (!asOfAll || !asOf) {
-        if (rangeBad(aDay, 1, 31)) markInvalid(asOfDay, true);
-        if (rangeBad(aMonth, 1, 12)) markInvalid(asOfMonth, true);
-        if (rangeBad(aYear, 0, 9999, 4)) markInvalid(asOfYear, true);
+        const aDayBad = rangeBad(aDay, 1, 31);
+        const aMonthBad = rangeBad(aMonth, 1, 12);
+        const aYearBad = rangeBad(aYear, 0, 9999, 4);
+        if (aDayBad) markInvalid(asOfDay, true);
+        if (aMonthBad) markInvalid(asOfMonth, true);
+        if (aYearBad) markInvalid(asOfYear, true);
         if (asOfAll && !asOf) asOfFields.forEach((el) => markInvalid(el, true));
-        showError(labels.errorAsOf);
+        const aBadCount = [aDayBad, aMonthBad, aYearBad].filter(Boolean).length;
+        showError(
+          !asOfAll
+            ? labels.errorAsOf
+            : aBadCount === 1 && aDayBad
+              ? labels.errorDayRange
+              : aBadCount === 1 && aMonthBad
+                ? labels.errorMonthRange
+                : aBadCount === 1 && aYearBad
+                  ? labels.errorYearDigits
+                  : labels.errorAsOf,
+        );
         return;
       }
       if (dob.getTime() > asOf.getTime()) {
+        // The message names the date of birth, so its fields carry
+        // the red border (GOV.UK: the field the error relates to).
+        dobFields.forEach((el) => markInvalid(el, true));
         showError(labels.errorFuture);
         return;
       }
@@ -456,14 +510,22 @@ const dobFieldCls =
     // Input behaviour (safe auto-advance, no live calculation):
     // - Digits only: pasted separators are dropped, never auto-formatted.
     // - NEVER calculate on input/change: typing must not show results
-    //   or errors (Baymard / Smashing Magazine / Adam Silver — live
-    //   validation interrupts users mid-typing). Editing any field
-    //   only clears the stale result and any old error; calculation
-    //   happens solely on the button click or Enter (explicit actions).
-    // - Auto-advance ONLY when the field is full (maxlength reached),
-    //   ONLY to the next field of the same date group, in current DOM
-    //   order (applyFormat may have reordered the fields). Never
-    //   across groups, never auto-calculating, never blocking Tab /
+    //   or error messages (Baymard / Smashing Magazine / Adam Silver
+    //   — live validation interrupts users mid-typing). Editing any
+    //   field only clears the stale result and any old error message;
+    //   calculation happens solely on the button click or Enter.
+    // - Field-level range check, live but border-only: a field is
+    //   marked red ONLY when full and out of range (day 32, month 13,
+    //   year 0000) — values that can never become valid by typing
+    //   more. Partial values are never marked. All fields are
+    //   re-evaluated on every input, so a mark clears the moment its
+    //   value becomes valid again and no stale mark survives.
+    // - Auto-advance ONLY when the field is full AND valid, ONLY to
+    //   the next field of the same date group, in current DOM order
+    //   (applyFormat may have reordered the fields). A full but
+    //   invalid value stays put with its red border — focus never
+    //   leaves a value the user still needs to fix. Never across
+    //   groups, never auto-calculating, never blocking Tab /
     //   Shift+Tab / click.
     // - Backspace in an empty field moves focus to the previous field
     //   of the same group, so mistakes stay correctable by keyboard.
@@ -476,10 +538,10 @@ const dobFieldCls =
         el.value = el.value.replace(/[^0-9]/g, '');
         clearResults();
         errorEl.classList.add('hidden');
-        [...dobFields, ...asOfFields].forEach((f) => markInvalid(f, false));
+        [...dobFields, ...asOfFields].forEach((f) => markInvalid(f, fieldRangeBad(f)));
         const inputs = groupInputs();
         const idx = inputs.indexOf(el);
-        if (el.value.length >= el.maxLength && idx >= 0 && idx < inputs.length - 1) {
+        if (!fieldRangeBad(el) && el.value.length >= el.maxLength && idx >= 0 && idx < inputs.length - 1) {
           inputs[idx + 1].focus();
         }
       });
