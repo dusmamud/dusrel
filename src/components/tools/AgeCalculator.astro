@@ -38,8 +38,7 @@
  *   messages still appear only on Calculate (GOV.UK: do not
  *   validate before the user has finished entering). A red border
  *   clears the moment the value becomes valid again.
- * - The hint example uses a day >= 13 and a month <= 9 so the field
- *   order is unambiguous, and leading zeros are never required.
+ * - Leading zeros are never required in any field.
  * - The "as of" date uses the same three-field pattern, pre-filled
  *   with today's date by default (it can still be changed to any date,
  *   e.g. to see your age on a past or future date).
@@ -63,12 +62,10 @@ const { lang } = Astro.props;
 const L = {
   en: {
     dateOfBirth: 'Date of birth',
-    examplePrefix: 'For example,',
     day: 'Day',
     month: 'Month',
     year: 'Year',
     asOf: 'As of date',
-    asOfHint: 'Defaults to today',
     calculate: 'Calculate age',
     years: 'Years',
     months: 'Months',
@@ -89,12 +86,10 @@ const L = {
   },
   hi: {
     dateOfBirth: 'जन्म तिथि',
-    examplePrefix: 'उदाहरण:',
     day: 'दिन',
     month: 'महीना',
     year: 'वर्ष',
     asOf: 'गणना की तिथि',
-    asOfHint: 'डिफ़ॉल्ट रूप से आज की तिथि',
     calculate: 'उम्र निकालें',
     years: 'वर्ष',
     months: 'महीने',
@@ -146,10 +141,6 @@ const asOfFields =
         { key: 'year', label: t.year, width: 'w-28' },
       ] as const);
 
-// Hint example numbers per format (day 27, month 3: unambiguous order).
-const hintExample = lang === 'hi' ? '27 3 2007' : '3 27 2007';
-const initialDobHint = `${t.examplePrefix} ${hintExample}`;
-
 const dobFieldCls =
   'mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-center text-base text-slate-800 focus:border-[#4d90fe] focus:outline-none dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
 ---
@@ -157,7 +148,7 @@ const dobFieldCls =
 <div
   data-age
   data-locale={lang === 'hi' ? 'hi-IN' : 'en-US'}
-  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, errorDayRange: t.errorDayRange, errorMonthRange: t.errorMonthRange, errorYearDigits: t.errorYearDigits, examplePrefix: t.examplePrefix })}
+  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, errorDayRange: t.errorDayRange, errorMonthRange: t.errorMonthRange, errorYearDigits: t.errorYearDigits })}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
   <div class="grid gap-5 sm:grid-cols-2">
@@ -186,7 +177,6 @@ const dobFieldCls =
           ))
         }
       </div>
-      <p class="mt-2 text-xs text-slate-500 dark:text-slate-400" data-dob-hint>{initialDobHint}</p>
     </fieldset>
     <fieldset data-age-asof-group>
       <legend class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.asOf}</legend>
@@ -213,7 +203,6 @@ const dobFieldCls =
           ))
         }
       </div>
-      <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">{t.asOfHint}</p>
     </fieldset>
   </div>
 
@@ -387,11 +376,10 @@ const dobFieldCls =
 
     const dobGroup = root.querySelector<HTMLElement>('[data-age-dob-group]')!;
     const asOfGroup = root.querySelector<HTMLElement>('[data-age-asof-group]')!;
-    const dobHintEl = root.querySelector<HTMLElement>('[data-dob-hint]')!;
 
     // Reorder the day/month/year fields in both fieldsets to the
-    // detected order and update the DOB hint example. Values travel
-    // with their fields, so nothing already typed is lost.
+    // detected order. Values travel with their fields, so nothing
+    // already typed is lost.
     const applyFormat = (order: DatePart[]) => {
       [dobGroup, asOfGroup].forEach((group) => {
         const row = group.querySelector<HTMLElement>('[data-fields-row]')!;
@@ -400,8 +388,6 @@ const dobFieldCls =
           row.appendChild(field);
         });
       });
-      const example: Record<DatePart, string> = { day: '27', month: '3', year: '2007' };
-      dobHintEl.textContent = `${labels.examplePrefix} ${order.map((k) => example[k]).join(' ')}`;
     };
 
     // Detection chain (user's decision): TIMEZONE FIRST, then
