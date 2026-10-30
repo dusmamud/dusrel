@@ -5,13 +5,14 @@ import { describe, expect, it } from 'vitest';
 import { apps } from './apps.js';
 import {
   downloads,
+  type PlatformSlug,
   platformDownloadFor,
   platformMeta,
-  type PlatformSlug,
 } from './downloads.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
-const publicFile = (p: string) => join(repoRoot, 'public', p.replace(/^\//, ''));
+const publicFile = (p: string) =>
+  join(repoRoot, 'public', p.replace(/^\//, ''));
 
 const slugs = new Set(apps.map((a) => a.slug));
 
@@ -40,7 +41,9 @@ describe('download registry', () => {
   it('every platform carries FAQs with both locales', () => {
     for (const d of downloads) {
       for (const p of d.platforms) {
-        expect(p.faqs.length, `${d.slug}/${p.platform} faqs`).toBeGreaterThan(0);
+        expect(p.faqs.length, `${d.slug}/${p.platform} faqs`).toBeGreaterThan(
+          0,
+        );
         for (const f of p.faqs)
           expect(
             f.q.en && f.q.hi && f.a.en && f.a.hi,
@@ -66,8 +69,13 @@ describe('download registry', () => {
           `${d.slug}/${p.platform} requirements`,
         ).toBeGreaterThan(0);
         for (const r of p.requirements)
-          expect(r.en && r.hi, `${d.slug}/${p.platform} requirement`).toBeTruthy();
-        expect(p.steps.length, `${d.slug}/${p.platform} steps`).toBeGreaterThan(0);
+          expect(
+            r.en && r.hi,
+            `${d.slug}/${p.platform} requirement`,
+          ).toBeTruthy();
+        expect(p.steps.length, `${d.slug}/${p.platform} steps`).toBeGreaterThan(
+          0,
+        );
         for (const s of p.steps)
           expect(
             s.title.en && s.title.hi && s.body.en && s.body.hi,

@@ -863,7 +863,7 @@ export const en = {
     hub: {
       metaTitle: 'Free Online Tools — Password & Username Generators | Dusrel',
       metaDesc:
-        "Free, private online tools by Dusrel: a strong password generator and a username generator. Everything runs locally in your browser — no sign-up, no tracking.",
+        'Free, private online tools by Dusrel: a strong password generator and a username generator. Everything runs locally in your browser — no sign-up, no tracking.',
       eyebrow: 'TOOLS',
       title: 'Free tools, zero fuss',
       sub: 'Handy little tools that run entirely in your browser. No accounts, no uploads, no tracking — just open and use.',
@@ -893,7 +893,8 @@ export const en = {
       metaDesc:
         "Create strong, random passwords instantly with Dusrel's free password generator. Cryptographically secure and 100% in your browser — nothing is sent to a server.",
       h1: 'Password Generator',
-      tagline: 'Strong, random passwords — created on your device, never on a server.',
+      tagline:
+        'Strong, random passwords — created on your device, never on a server.',
       intro: [
         'A strong password is your first line of defence online. This generator creates truly random passwords using the Web Crypto API — the same cryptographic randomness your browser uses for secure connections — so every password is unpredictable and unique.',
         'Aim for at least 16 characters with a mix of uppercase, lowercase, numbers and symbols: that combination carries over 100 bits of entropy, which would take an enormous amount of computing power to crack by brute force. Use a different password for every account, and store them in a password manager.',
@@ -942,7 +943,8 @@ export const en = {
       metaDesc:
         "Get catchy username ideas for Instagram, TikTok, gaming and more with Dusrel's free username generator. Pick a style, tweak the options, click to copy — all in your browser.",
       h1: 'Username Generator',
-      tagline: 'Catchy username ideas in one click — for social media, gaming and everything else.',
+      tagline:
+        'Catchy username ideas in one click — for social media, gaming and everything else.',
       intro: [
         'A good username is short, memorable and easy to type — and finding one that is still available can take forever. This generator combines themed word pairs (Cool, Nature, Tech) with optional separators and numbers to produce dozens of fresh ideas instantly.',
         'Pick a style, tweak the options, and click any idea to copy it. Then check availability on the platform you care about — Instagram, TikTok, YouTube, Twitch, Discord or your favourite game.',
@@ -991,7 +993,8 @@ export const en = {
       metaDesc:
         "Count words, characters, sentences, paragraphs and reading time instantly with Dusrel's free word counter. Live results as you type — your text never leaves your browser.",
       h1: 'Word Counter',
-      tagline: 'Words, characters and reading time — counted live, right in your browser.',
+      tagline:
+        'Words, characters and reading time — counted live, right in your browser.',
       intro: [
         'Word counts matter more than we admit: essay limits, article lengths, speech timings, report briefs, even the 280 characters of a post. This counter updates as you type or paste, showing words, characters with and without spaces, sentences, paragraphs and estimated reading time.',
         'Like every Dusrel tool, the counting happens entirely on your device. Your drafts — assignments, applications, unpublished articles — are never uploaded anywhere.',
@@ -1038,9 +1041,10 @@ export const en = {
     qrCode: {
       metaTitle: 'QR Code Generator — Free, No Watermark | Dusrel',
       metaDesc:
-        "Create a QR code for any link or text and download it as a PNG — free, no watermark, no sign-up, no expiry. Generated locally in your browser.",
+        'Create a QR code for any link or text and download it as a PNG — free, no watermark, no sign-up, no expiry. Generated locally in your browser.',
       h1: 'QR Code Generator',
-      tagline: 'Turn any link or text into a QR code — download it as a crisp PNG.',
+      tagline:
+        'Turn any link or text into a QR code — download it as a crisp PNG.',
       intro: [
         'QR codes connect paper to the web: menus, posters, product packaging, event banners, business cards. Paste a link or text, and this tool builds a standard QR code you can download as a PNG in up to 1024×1024 — sharp enough for print.',
         'Your QR code is a static code that points straight at what you entered — no redirect links, no tracking, no expiry date, and no watermark. It is generated locally in your browser.',
@@ -1087,9 +1091,10 @@ export const en = {
     ageCalculator: {
       metaTitle: 'Age Calculator — Exact Age in Years, Months, Days | Dusrel',
       metaDesc:
-        "Calculate your exact age in years, months and days from your date of birth — plus total days lived and your next birthday. Free, accurate and private.",
+        'Calculate your exact age in years, months and days from your date of birth — plus total days lived and your next birthday. Free, accurate and private.',
       h1: 'Age Calculator',
-      tagline: 'Your exact age — years, months and days — plus a few fun totals.',
+      tagline:
+        'Your exact age — years, months and days — plus a few fun totals.',
       intro: [
         'Exact age matters on government forms, exam applications, school admissions and insurance paperwork — and "about 20" is not good enough there. This calculator does proper calendar math, leap years included, from your date of birth to any date you choose.',
         'Along with your exact age you get your total days and weeks lived, and a countdown to your next birthday. Your birth date never leaves your device.',
@@ -1136,11 +1141,12 @@ export const en = {
     passwordStrength: {
       metaTitle: 'Password Strength Checker — Entropy & Crack Time | Dusrel',
       metaDesc:
-        "Check how strong your password really is: an entropy score, estimated crack time and honest, specific feedback. 100% local in your browser — nothing is sent anywhere.",
+        'Check how strong your password really is: an entropy score, estimated crack time and honest, specific feedback. 100% local in your browser — nothing is sent anywhere.',
       h1: 'Password Strength Checker',
-      tagline: 'How strong is your password, really? Find out — locally and honestly.',
+      tagline:
+        'How strong is your password, really? Find out — locally and honestly.',
       intro: [
-        'Many passwords that look complex are surprisingly weak: short length, predictable patterns and reused words undo them. This checker estimates your password\'s entropy — its true unpredictability — from its length and character variety, and shows how long a fast offline attack would take to crack it.',
+        "Many passwords that look complex are surprisingly weak: short length, predictable patterns and reused words undo them. This checker estimates your password's entropy — its true unpredictability — from its length and character variety, and shows how long a fast offline attack would take to crack it.",
         'It also flags the patterns attackers try first: sequences like 1234 and qwerty, repeated characters, common words and years. Everything runs locally in your browser; your password is never transmitted or stored.',
       ],
       howTitle: 'How to check a password',
@@ -1249,7 +1255,6 @@ export const en = {
       'Email us at hello@dusrel.com with the details — where the issue is, how to reproduce it, and what it could allow. We aim to acknowledge genuine reports within 3 business days and take every report seriously.',
     reportButton: 'Report an issue',
   },
-
 };
 
 export type Dict = typeof en;

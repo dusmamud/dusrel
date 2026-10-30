@@ -170,28 +170,40 @@ export const downloads: AppDownloadPage[] = [
         ],
         faqs: [
           {
-            q: t('Is the ShrinkIt Chrome extension free?', 'क्या ShrinkIt Chrome एक्सटेंशन मुफ्त है?'),
+            q: t(
+              'Is the ShrinkIt Chrome extension free?',
+              'क्या ShrinkIt Chrome एक्सटेंशन मुफ्त है?',
+            ),
             a: t(
               'Yes — ShrinkIt is completely free, with no accounts, no ads and no premium tier. Every feature is available to everyone.',
               'हाँ — ShrinkIt पूरी तरह मुफ्त है, कोई अकाउंट, कोई विज्ञापन और कोई प्रीमियम टियर नहीं। हर फ़ीचर सबके लिए उपलब्ध है।',
             ),
           },
           {
-            q: t('Does ShrinkIt upload my images to a server?', 'क्या ShrinkIt मेरी इमेज किसी सर्वर पर अपलोड करता है?'),
+            q: t(
+              'Does ShrinkIt upload my images to a server?',
+              'क्या ShrinkIt मेरी इमेज किसी सर्वर पर अपलोड करता है?',
+            ),
             a: t(
               'No. All resizing and compression happens locally in your browser. Your images never leave your device, and ShrinkIt collects no data about you or your photos.',
               'नहीं। सारा रिसाइज़ और कंप्रेशन आपके ब्राउज़र में लोकली होता है। आपकी इमेज आपके डिवाइस से बाहर कभी नहीं जातीं, और ShrinkIt आपके या आपकी तस्वीरों के बारे में कोई डेटा इकट्ठा नहीं करता।',
             ),
           },
           {
-            q: t('Why does the extension ask for permission to access all sites?', 'एक्सटेंशन सभी साइट्स की अनुमति क्यों मांगता है?'),
+            q: t(
+              'Why does the extension ask for permission to access all sites?',
+              'एक्सटेंशन सभी साइट्स की अनुमति क्यों मांगता है?',
+            ),
             a: t(
               'ShrinkIt needs that permission for one reason only: to fetch the image you right-click on, so it can resize it. It never reads page content, never tracks your browsing, and only touches the exact image you choose.',
               'ShrinkIt को यह अनुमति सिर्फ़ एक वजह से चाहिए: जिस इमेज पर आप राइट-क्लिक करते हैं उसे लाने के लिए, ताकि उसका साइज़ बदला जा सके। यह कभी पेज का कंटेंट नहीं पढ़ता, आपकी ब्राउज़िंग ट्रैक नहीं करता, और सिर्फ़ उसी इमेज को छूता है जिसे आप चुनते हैं।',
             ),
           },
           {
-            q: t('How do I update or uninstall the extension?', 'एक्सटेंशन को अपडेट या अनइंस्टॉल कैसे करूँ?'),
+            q: t(
+              'How do I update or uninstall the extension?',
+              'एक्सटेंशन को अपडेट या अनइंस्टॉल कैसे करूँ?',
+            ),
             a: t(
               'For this manual (ZIP) install, download the new version from this page and repeat the Load unpacked steps — your settings carry over. To uninstall, open chrome://extensions and click Remove on the ShrinkIt card. Once ShrinkIt is on the Chrome Web Store, updates become automatic.',
               'इस मैन्युअल (ZIP) इंस्टॉल के लिए, इस पेज से नया वर्शन डाउनलोड करें और Load unpacked वाले steps दोहराएं — आपकी सेटिंग्स बनी रहेंगी। अनइंस्टॉल करने के लिए chrome://extensions खोलें और ShrinkIt कार्ड पर Remove क्लिक करें। जब ShrinkIt Chrome Web Store पर आ जाएगा, अपडेट ऑटोमैटिक हो जाएंगे।',
