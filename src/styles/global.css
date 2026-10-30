@@ -110,6 +110,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Headings use Sora (display font) by default, so shared components
+   (tools, search, downloads) and card headings don't fall back to Inter
+   just because they forgot the font-display class. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
 .font-display {
   font-family: var(--font-display);
 }
