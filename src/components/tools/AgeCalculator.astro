@@ -83,6 +83,18 @@ const L = {
     errorMonthRange: 'Month must be between 1 and 12',
     errorYearDigits: 'Year must be 4 digits',
     note: 'Your dates never leave your device — the calculation happens entirely in your browser.',
+    shareResult: 'Share Result',
+    shareGenerating: 'Generating…',
+    shareCopy: 'Copy image',
+    shareCopied: 'Copied!',
+    shareDownloaded: 'Image downloaded.',
+    shareFailed: 'Could not create the image. Try again.',
+    shareMyAgeIs: 'My Age is',
+    shareTotalDays: 'Total Days',
+    shareMessage: 'I just calculated my exact age, right down to the day! Find yours in seconds:',
+    shareVia: 'Share via',
+    shareAttachHint: 'Image downloaded — attach it to the chat.',
+    shareInstagramDone: 'Image downloaded and message copied — paste it into your Instagram DM.',
   },
   hi: {
     dateOfBirth: 'जन्म तिथि',
@@ -107,6 +119,18 @@ const L = {
     errorMonthRange: 'महीना 1 से 12 के बीच होना चाहिए',
     errorYearDigits: 'वर्ष 4 अंकों का होना चाहिए',
     note: 'आपकी तारीखें आपके डिवाइस से बाहर कभी नहीं जातीं — सारी गणना पूरी तरह आपके ब्राउज़र में होती है।',
+    shareResult: 'Parinaam share karein',
+    shareGenerating: 'Ban raha hai…',
+    shareCopy: 'Image copy karein',
+    shareCopied: 'Copy ho gaya!',
+    shareDownloaded: 'Image download ho gayi.',
+    shareFailed: 'Image nahi ban payi. Dobara koshish karein.',
+    shareMyAgeIs: 'Meri umar hai',
+    shareTotalDays: 'Kul din',
+    shareMessage: 'मैंने अभी अपनी सटीक उम्र निकाली है, दिन तक! आप भी कुछ सेकंड में निकालें:',
+    shareVia: 'Share karein',
+    shareAttachHint: 'Image download ho gayi — chat me attach kar do.',
+    shareInstagramDone: 'Image download ho gayi aur message copy ho gaya — Instagram DM me paste karo.',
   },
 } as const;
 const t = L[lang];
@@ -148,7 +172,7 @@ const dobFieldCls =
 <div
   data-age
   data-locale={lang === 'hi' ? 'hi-IN' : 'en-US'}
-  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, errorDayRange: t.errorDayRange, errorMonthRange: t.errorMonthRange, errorYearDigits: t.errorYearDigits })}
+  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, errorDayRange: t.errorDayRange, errorMonthRange: t.errorMonthRange, errorYearDigits: t.errorYearDigits, shareGenerating: t.shareGenerating, shareCopied: t.shareCopied, shareDownloaded: t.shareDownloaded, shareFailed: t.shareFailed, shareMyAgeIs: t.shareMyAgeIs, shareTotalDays: t.shareTotalDays, shareMessage: t.shareMessage, shareAttachHint: t.shareAttachHint, shareInstagramDone: t.shareInstagramDone })}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
   <div class="grid gap-5 sm:grid-cols-2">
@@ -246,10 +270,137 @@ const dobFieldCls =
     </div>
   </dl>
 
+  <div class="mt-6 flex flex-col gap-3">
+    <button
+      type="button"
+      data-age-share
+      disabled
+      class="w-full rounded-2xl border border-slate-300 px-8 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20 dark:text-slate-200"
+    >
+      {t.shareResult}
+    </button>
+    <button
+      type="button"
+      data-age-copy
+      class="hidden w-full rounded-2xl px-8 py-2 text-sm font-medium text-slate-500 transition-colors hover:text-[#4d90fe] dark:text-slate-400"
+    >
+      {t.shareCopy}
+    </button>
+    <div class="mt-1">
+      <p class="mb-2 text-center text-xs font-medium text-slate-500 dark:text-slate-400">{t.shareVia}</p>
+      <div class="grid grid-cols-4 gap-2">
+        <button
+          type="button"
+          data-age-share-wa
+          disabled
+          class="rounded-xl bg-[#25d366] px-2 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          WhatsApp
+        </button>
+        <button
+          type="button"
+          data-age-share-ig
+          disabled
+          class="rounded-xl bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] px-2 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Instagram
+        </button>
+        <button
+          type="button"
+          data-age-share-tg
+          disabled
+          class="rounded-xl bg-[#229ed9] px-2 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Telegram
+        </button>
+        <button
+          type="button"
+          data-age-share-x
+          disabled
+          class="rounded-xl bg-slate-900 px-2 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-900"
+        >
+          X
+        </button>
+      </div>
+    </div>
+    <p data-age-share-status class="hidden text-center text-sm text-slate-500 dark:text-slate-400" role="status"></p>
+  </div>
+
   <p class="mt-4 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
+
+  <!-- Share card: rendered off-screen at exactly 1200x1200 and captured
+    client-side into the share PNG. Never display:none: a hidden node
+    has no layout box to capture. The fixed wrapper only moves it out
+    of the visible viewport; the captured node itself keeps real
+    dimensions. All values are filled from the calculator result right
+    before capture, so no sample numbers can ever leak into a share. -->
+  <div
+    data-age-share-wrap
+    aria-hidden="true"
+    style="position:fixed;top:0;left:-1300px;width:1200px;height:1200px;overflow:hidden;pointer-events:none;"
+  >
+    <div data-age-share-card style="position:relative;width:1200px;height:1200px;background:#ffffff;overflow:hidden;">
+      <img
+        data-age-share-bg
+        src="/age-share/age-share-bg.png"
+        alt=""
+        width="1200"
+        height="1200"
+        style="position:absolute;inset:0;width:1200px;height:1200px;"
+      />
+      <p
+        data-age-share-myage
+        style="position:absolute;left:66px;top:262px;font-family:'Sora',sans-serif;font-size:56px;font-weight:600;line-height:1;color:#616a87;"
+      >
+        {t.shareMyAgeIs}
+      </p>
+      <p
+        style="position:absolute;left:66px;top:330px;font-family:'Sora',sans-serif;font-size:168px;font-weight:800;line-height:1;letter-spacing:-0.02em;"
+      >
+        <span data-age-share-years style="color:#1272fa;">0</span> <span data-age-share-years-label style="color:#061536;">{t.years}</span>
+      </p>
+      <p
+        style="position:absolute;left:66px;top:545px;font-family:'Sora',sans-serif;font-size:56px;font-weight:700;line-height:1;color:#061437;"
+      >
+        <span data-age-share-months>0</span> <span data-age-share-months-label>{t.months}</span> <span data-age-share-days>0</span> <span data-age-share-days-label>{t.days}</span>
+      </p>
+      <div style="position:absolute;left:74px;top:647px;width:1052px;display:flex;gap:22px;">
+        <div style="flex:1;height:290px;background:#ffffff;border:1px solid #dbe4f0;border-radius:24px;display:flex;flex-direction:column;align-items:center;padding-top:40px;">
+          <div style="width:88px;height:88px;border-radius:9999px;background:#dbeafe;display:flex;align-items:center;justify-content:center;">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+          </div>
+          <p data-age-share-card-years style="margin-top:16px;font-family:'Sora',sans-serif;font-size:64px;font-weight:800;line-height:1;color:#061536;">0</p>
+          <p style="margin-top:10px;font-family:'Inter',sans-serif;font-size:24px;line-height:1;color:#616a87;">{t.years}</p>
+        </div>
+        <div style="flex:1;height:290px;background:#ffffff;border:1px solid #dbe4f0;border-radius:24px;display:flex;flex-direction:column;align-items:center;padding-top:40px;">
+          <div style="width:88px;height:88px;border-radius:9999px;background:#dcfce7;display:flex;align-items:center;justify-content:center;">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+          </div>
+          <p data-age-share-card-months style="margin-top:16px;font-family:'Sora',sans-serif;font-size:64px;font-weight:800;line-height:1;color:#061536;">0</p>
+          <p style="margin-top:10px;font-family:'Inter',sans-serif;font-size:24px;line-height:1;color:#616a87;">{t.months}</p>
+        </div>
+        <div style="flex:1;height:290px;background:#ffffff;border:1px solid #dbe4f0;border-radius:24px;display:flex;flex-direction:column;align-items:center;padding-top:40px;">
+          <div style="width:88px;height:88px;border-radius:9999px;background:#fef3c7;display:flex;align-items:center;justify-content:center;">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+          </div>
+          <p data-age-share-card-days style="margin-top:16px;font-family:'Sora',sans-serif;font-size:64px;font-weight:800;line-height:1;color:#061536;">0</p>
+          <p style="margin-top:10px;font-family:'Inter',sans-serif;font-size:24px;line-height:1;color:#616a87;">{t.days}</p>
+        </div>
+        <div style="flex:1;height:290px;background:#ffffff;border:1px solid #dbe4f0;border-radius:24px;display:flex;flex-direction:column;align-items:center;padding-top:40px;">
+          <div style="width:88px;height:88px;border-radius:9999px;background:#ede9fe;display:flex;align-items:center;justify-content:center;">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+          </div>
+          <p data-age-share-card-totaldays style="margin-top:16px;font-family:'Sora',sans-serif;font-size:64px;font-weight:800;line-height:1;color:#061536;">0</p>
+          <p style="margin-top:10px;font-family:'Inter',sans-serif;font-size:24px;line-height:1;color:#616a87;">{t.shareTotalDays}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
+  import { domToBlob } from 'modern-screenshot';
+
   const DAY_MS = 86400000;
 
   // Build a real calendar date from day/month/year parts. Returns null
@@ -307,6 +458,27 @@ const dobFieldCls =
     const totalDaysEl = root.querySelector<HTMLElement>('[data-age-totaldays]')!;
     const totalWeeksEl = root.querySelector<HTMLElement>('[data-age-totalweeks]')!;
     const nextEl = root.querySelector<HTMLElement>('[data-age-next]')!;
+    const shareBtn = root.querySelector<HTMLButtonElement>('[data-age-share]')!;
+    const copyBtn = root.querySelector<HTMLButtonElement>('[data-age-copy]')!;
+    const waBtn = root.querySelector<HTMLButtonElement>('[data-age-share-wa]')!;
+    const igBtn = root.querySelector<HTMLButtonElement>('[data-age-share-ig]')!;
+    const tgBtn = root.querySelector<HTMLButtonElement>('[data-age-share-tg]')!;
+    const xBtn = root.querySelector<HTMLButtonElement>('[data-age-share-x]')!;
+    const shareStatusEl = root.querySelector<HTMLElement>('[data-age-share-status]')!;
+    const shareCard = root.querySelector<HTMLElement>('[data-age-share-card]')!;
+    const shareBg = shareCard.querySelector<HTMLImageElement>('[data-age-share-bg]')!;
+
+    // Last valid calculation, shared with the share card. Null whenever
+    // the inputs change or the calculation fails, so Share can never
+    // export a stale or placeholder result.
+    let lastResult: { years: number; months: number; days: number; totalDays: number } | null = null;
+    let lastShare: { key: string; blob: Blob } | null = null;
+
+    // Copy-image is a secondary action, shown only where the browser
+    // can actually write a PNG to the clipboard.
+    if ('clipboard' in navigator && 'ClipboardItem' in window) {
+      copyBtn.classList.remove('hidden');
+    }
 
     // Default the "as of" date to today, pre-filled in its fields.
     const today = new Date();
@@ -421,6 +593,14 @@ const dobFieldCls =
       totalDaysEl.textContent = '—';
       totalWeeksEl.textContent = '—';
       nextEl.textContent = '—';
+      lastResult = null;
+      lastShare = null;
+      shareBtn.disabled = true;
+      waBtn.disabled = true;
+      igBtn.disabled = true;
+      tgBtn.disabled = true;
+      xBtn.disabled = true;
+      shareStatusEl.classList.add('hidden');
     };
 
     const markInvalid = (el: HTMLInputElement, bad: boolean) => {
@@ -555,6 +735,15 @@ const dobFieldCls =
         until === 0
           ? `${dateStr} — ${labels.today}`
           : `${dateStr} (${labels.inDays.replace('{n}', String(until))})`;
+
+      // Only now is there a valid result worth sharing.
+      lastResult = { years, months, days, totalDays };
+      lastShare = null;
+      shareBtn.disabled = false;
+      waBtn.disabled = false;
+      igBtn.disabled = false;
+      tgBtn.disabled = false;
+      xBtn.disabled = false;
     };
 
     // Input behaviour (safe auto-advance, no live calculation):
@@ -605,6 +794,238 @@ const dobFieldCls =
         }
       });
     });
+    const showShareStatus = (msg: string, isError = false) => {
+      shareStatusEl.textContent = msg;
+      shareStatusEl.classList.toggle('text-red-500', isError);
+      shareStatusEl.classList.remove('hidden');
+    };
+    const hideShareStatus = () => shareStatusEl.classList.add('hidden');
+
+    // Fill the share card from the live result, formatted exactly like
+    // the visible result (same locale grouping and digits).
+    const updateShareCard = () => {
+      if (!lastResult) return;
+      const fmt = (n: number) => n.toLocaleString(locale);
+      const set = (sel: string, value: string) => {
+        shareCard.querySelector<HTMLElement>(sel)!.textContent = value;
+      };
+      set('[data-age-share-years]', fmt(lastResult.years));
+      set('[data-age-share-months]', fmt(lastResult.months));
+      set('[data-age-share-days]', fmt(lastResult.days));
+      set('[data-age-share-card-years]', fmt(lastResult.years));
+      set('[data-age-share-card-months]', fmt(lastResult.months));
+      set('[data-age-share-card-days]', fmt(lastResult.days));
+      set('[data-age-share-card-totaldays]', fmt(lastResult.totalDays));
+    };
+
+    const downloadBlob = (blob: Blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'dusrel-age-result.png';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+
+    // Render the 1200x1200 share PNG entirely in the browser. The blob
+    // is cached per result, so Share and Copy never regenerate the
+    // same image twice.
+    const getShareBlob = async (): Promise<Blob> => {
+      if (!lastResult) throw new Error('No age result to share.');
+      const key = JSON.stringify(lastResult);
+      if (lastShare && lastShare.key === key) return lastShare.blob;
+      updateShareCard();
+      await document.fonts.ready;
+      try {
+        await document.fonts.load('800 168px Sora');
+        await document.fonts.load('700 56px Sora');
+      } catch {
+        // A font that fails to load still leaves its fallback rendering;
+        // never block sharing on it.
+      }
+      try {
+        if (!shareBg.complete) await shareBg.decode();
+      } catch {
+        // decode() rejects for a broken image; capture then fails loudly below.
+      }
+      // iOS Safari sometimes returns an empty or tiny blob on the first
+      // attempt (SVG image decode race); retry while the blob looks wrong.
+      let blob: Blob | null = null;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const candidate = await domToBlob(shareCard, { width: 1200, height: 1200, scale: 1 });
+        if (candidate && candidate.size > 100_000) {
+          blob = candidate;
+          break;
+        }
+      }
+      if (!blob) throw new Error('Image generation returned no data.');
+      lastShare = { key, blob };
+      return blob;
+    };
+
+    // The page being shared: same origin, locale-correct, no query/hash.
+    const pageUrl = () => window.location.origin + window.location.pathname;
+
+    // Synchronous file-share check (used before opening any tab, so a
+    // fallback link still opens inside the click's activation window).
+    const fileShareSupported = () => {
+      try {
+        return (
+          typeof navigator.canShare === 'function' &&
+          navigator.canShare({ files: [new File([''], 'test.png', { type: 'image/png' })] })
+        );
+      } catch {
+        return false;
+      }
+    };
+
+    shareBtn.addEventListener('click', async () => {
+      if (!lastResult || shareBtn.disabled) return;
+      const resultAtClick = lastResult;
+      const originalText = shareBtn.textContent;
+      shareBtn.disabled = true;
+      shareBtn.textContent = labels.shareGenerating;
+      hideShareStatus();
+      try {
+        const blob = await getShareBlob();
+        // The result changed mid-generation: don't share stale numbers.
+        if (lastResult !== resultAtClick) return;
+        const file = new File([blob], 'dusrel-age-result.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            // Image + message + page URL together; on mobile the sheet
+            // offers WhatsApp, Instagram, Telegram and the rest.
+            await navigator.share({ files: [file], text: labels.shareMessage, url: pageUrl(), title: 'My Age — Dusrel' });
+          } catch (err) {
+            // User cancelled the share sheet: not an error, no fallback.
+            if (err instanceof DOMException && err.name === 'AbortError') return;
+            throw err;
+          }
+        } else {
+          downloadBlob(blob);
+          showShareStatus(labels.shareDownloaded);
+        }
+      } catch {
+        // A failed share never touches the calculated result.
+        showShareStatus(labels.shareFailed, true);
+      } finally {
+        shareBtn.textContent = originalText;
+        shareBtn.disabled = !lastResult;
+      }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      if (!lastResult || copyBtn.disabled) return;
+      copyBtn.disabled = true;
+      hideShareStatus();
+      try {
+        const blob = await getShareBlob();
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        showShareStatus(labels.shareCopied);
+      } catch {
+        showShareStatus(labels.shareFailed, true);
+      } finally {
+        copyBtn.disabled = !lastResult;
+      }
+    });
+
+    // Platform buttons. No platform except the system share sheet takes
+    // an image from the web, so every link-based button pairs its text
+    // link with an image download for manual attach. Tabs open
+    // synchronously (before any await) so popup blockers never eat them.
+    waBtn.addEventListener('click', async () => {
+      if (!lastResult || waBtn.disabled) return;
+      const resultAtClick = lastResult;
+      waBtn.disabled = true;
+      hideShareStatus();
+      try {
+        if (fileShareSupported()) {
+          // Sheet flow: the user picks WhatsApp and the image +
+          // message go together.
+          const blob = await getShareBlob();
+          if (lastResult !== resultAtClick) return;
+          const file = new File([blob], 'dusrel-age-result.png', { type: 'image/png' });
+          try {
+            await navigator.share({ files: [file], text: labels.shareMessage, url: pageUrl() });
+          } catch (err) {
+            if (err instanceof DOMException && err.name === 'AbortError') return;
+            throw err;
+          }
+        } else {
+          // wa.me carries text only, so the image downloads alongside.
+          window.open(
+            `https://wa.me/?text=${encodeURIComponent(`${labels.shareMessage} ${pageUrl()}`)}`,
+            '_blank',
+            'noopener',
+          );
+          const blob = await getShareBlob();
+          downloadBlob(blob);
+          showShareStatus(labels.shareAttachHint);
+        }
+      } catch {
+        showShareStatus(labels.shareFailed, true);
+      } finally {
+        waBtn.disabled = !lastResult;
+      }
+    });
+
+    igBtn.addEventListener('click', async () => {
+      if (!lastResult || igBtn.disabled) return;
+      igBtn.disabled = true;
+      hideShareStatus();
+      try {
+        // Instagram offers no web share into DMs at all: download the
+        // image and copy the message for a manual paste.
+        const blob = await getShareBlob();
+        downloadBlob(blob);
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(`${labels.shareMessage} ${pageUrl()}`);
+          copied = true;
+        } catch {
+          // Copy is best-effort; the download already happened.
+        }
+        showShareStatus(copied ? labels.shareInstagramDone : labels.shareDownloaded);
+      } catch {
+        showShareStatus(labels.shareFailed, true);
+      } finally {
+        igBtn.disabled = !lastResult;
+      }
+    });
+
+    const openLinkShare = async (btn: HTMLButtonElement, url: string) => {
+      if (!lastResult || btn.disabled) return;
+      btn.disabled = true;
+      hideShareStatus();
+      window.open(url, '_blank', 'noopener');
+      try {
+        const blob = await getShareBlob();
+        downloadBlob(blob);
+        showShareStatus(labels.shareAttachHint);
+      } catch {
+        // The link already opened; a failed download must not look
+        // like a failed share.
+      } finally {
+        btn.disabled = !lastResult;
+      }
+    };
+
+    tgBtn.addEventListener('click', () =>
+      openLinkShare(
+        tgBtn,
+        `https://t.me/share/url?url=${encodeURIComponent(pageUrl())}&text=${encodeURIComponent(labels.shareMessage)}`,
+      ),
+    );
+
+    xBtn.addEventListener('click', () =>
+      openLinkShare(
+        xBtn,
+        `https://x.com/intent/tweet?text=${encodeURIComponent(`${labels.shareMessage} ${pageUrl()}`)}`,
+      ),
+    );
+
     root.querySelector('[data-age-calc]')!.addEventListener('click', calculate);
   });
 </script>
