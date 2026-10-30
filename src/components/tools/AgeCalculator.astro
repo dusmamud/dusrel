@@ -21,6 +21,16 @@
  * - The "as of" date uses the same three-field pattern, pre-filled
  *   with today's date by default (it can still be changed to any date,
  *   e.g. to see your age on a past or future date).
+ * - Date format is detected AUTOMATICALLY from the browser locale
+ *   region (navigator.language) — no manual selection, users never
+ *   pick a country. The region-to-format mapping is cross-verified
+ *   via Exa against Wikipedia "Date format by country" + ICU locale
+ *   data: DMY (day-month-year, most of the world incl. India
+ *   DD-MM-YYYY), MDY (month-day-year, almost only the US +
+ *   Philippines + US Pacific territories) or YMD (year-month-day:
+ *   China, Japan, Korea, Taiwan, Hungary, Lithuania, Bhutan,
+ *   Mongolia). Unlisted/unknown regions default to DMY, the
+ *   worldwide majority (597 ICU locales vs 28 MDY).
  */
 import type { Lang } from '../../i18n';
 
@@ -32,7 +42,7 @@ const { lang } = Astro.props;
 const L = {
   en: {
     dateOfBirth: 'Date of birth',
-    dobHint: 'For example, 3 27 2007',
+    examplePrefix: 'For example,',
     day: 'Day',
     month: 'Month',
     year: 'Year',
@@ -55,7 +65,7 @@ const L = {
   },
   hi: {
     dateOfBirth: 'जन्म तिथि',
-    dobHint: 'उदाहरण: 27 3 2007',
+    examplePrefix: 'उदाहरण:',
     day: 'दिन',
     month: 'महीना',
     year: 'वर्ष',
@@ -109,6 +119,10 @@ const asOfFields =
         { key: 'year', label: t.year, width: 'w-28' },
       ] as const);
 
+// Hint example numbers per format (day 27, month 3: unambiguous order).
+const hintExample = lang === 'hi' ? '27 3 2007' : '3 27 2007';
+const initialDobHint = `${t.examplePrefix} ${hintExample}`;
+
 const dobFieldCls =
   'mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-center text-base text-slate-800 focus:border-[#4d90fe] focus:outline-none dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
 ---
@@ -116,16 +130,16 @@ const dobFieldCls =
 <div
   data-age
   data-locale={lang === 'hi' ? 'hi-IN' : 'en-US'}
-  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf })}
+  data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, examplePrefix: t.examplePrefix })}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
   <div class="grid gap-5 sm:grid-cols-2">
     <fieldset data-age-dob-group>
       <legend class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.dateOfBirth}</legend>
-      <div class="flex items-start gap-2.5">
+      <div class="flex items-start gap-2.5" data-fields-row>
         {
           dobFields.map((f) => (
-            <div class={f.width}>
+            <div class={f.width} data-field={f.key}>
               <label class="mt-2 block text-xs font-medium text-slate-500 dark:text-slate-400" for={`age-dob-${f.key}`}>
                 {f.label}
               </label>
@@ -145,14 +159,14 @@ const dobFieldCls =
           ))
         }
       </div>
-      <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">{t.dobHint}</p>
+      <p class="mt-2 text-xs text-slate-500 dark:text-slate-400" data-dob-hint>{initialDobHint}</p>
     </fieldset>
     <fieldset data-age-asof-group>
       <legend class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.asOf}</legend>
-      <div class="flex items-start gap-2.5">
+      <div class="flex items-start gap-2.5" data-fields-row>
         {
           asOfFields.map((f) => (
-            <div class={f.width}>
+            <div class={f.width} data-field={f.key}>
               <label class="mt-2 block text-xs font-medium text-slate-500 dark:text-slate-400" for={`age-asof-${f.key}`}>
                 {f.label}
               </label>
@@ -269,6 +283,50 @@ const dobFieldCls =
     asOfDay.value = String(today.getDate());
     asOfMonth.value = String(today.getMonth() + 1);
     asOfYear.value = String(today.getFullYear());
+
+    // Country-based date format (Wikipedia "Date format by country"):
+    // MDY is almost only the US + Philippines + US Pacific territories;
+    // YMD is China, Japan, Korea, Taiwan, Hungary, Lithuania, Bhutan,
+    // Mongolia. Everything else defaults to DMY, the world majority.
+    const MDY_COUNTRIES = new Set(['US', 'PH', 'FM', 'MH', 'PW', 'AS', 'GU', 'MP', 'VI', 'PR', 'KY', 'GL', 'TG']);
+    const YMD_COUNTRIES = new Set(['CN', 'JP', 'KR', 'KP', 'TW', 'HU', 'LT', 'BT', 'MN']);
+    const formatFor = (code: string): 'DMY' | 'MDY' | 'YMD' =>
+      MDY_COUNTRIES.has(code) ? 'MDY' : YMD_COUNTRIES.has(code) ? 'YMD' : 'DMY';
+    const HINT_EXAMPLE: Record<'DMY' | 'MDY' | 'YMD', string> = {
+      DMY: '27 3 2007',
+      MDY: '3 27 2007',
+      YMD: '2007 3 27',
+    };
+
+    const dobGroup = root.querySelector<HTMLElement>('[data-age-dob-group]')!;
+    const asOfGroup = root.querySelector<HTMLElement>('[data-age-asof-group]')!;
+    const dobHintEl = root.querySelector<HTMLElement>('[data-dob-hint]')!;
+
+    // Reorder the day/month/year fields in both fieldsets to the
+    // country's convention and update the DOB hint example. Values
+    // travel with their fields, so nothing already typed is lost.
+    const applyFormat = (format: 'DMY' | 'MDY' | 'YMD') => {
+      const order =
+        format === 'MDY' ? ['month', 'day', 'year'] : format === 'YMD' ? ['year', 'month', 'day'] : ['day', 'month', 'year'];
+      [dobGroup, asOfGroup].forEach((group) => {
+        const row = group.querySelector<HTMLElement>('[data-fields-row]')!;
+        order.forEach((key) => {
+          const field = row.querySelector<HTMLElement>(`[data-field="${key}"]`)!;
+          row.appendChild(field);
+        });
+      });
+      dobHintEl.textContent = `${labels.examplePrefix} ${HINT_EXAMPLE[format]}`;
+    };
+
+    // AUTOMATIC detection, no user action: read the region from the
+    // browser locales (e.g. en-IN -> IN, ja-JP -> JP, en-US -> US),
+    // first locale with a region wins. Unknown/no region -> DMY, the
+    // worldwide majority. Server-rendered order (EN: MDY, HI: DMY)
+    // is corrected here on load when it differs.
+    const browserRegion = (navigator.languages || [navigator.language])
+      .map((l) => (l || '').split('-')[1]?.toUpperCase())
+      .find((r) => r && /^[A-Z]{2}$/.test(r));
+    applyFormat(formatFor(browserRegion ?? ''));
 
     const clearResults = () => {
       yearsEl.textContent = '0';
