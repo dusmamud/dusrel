@@ -14,8 +14,25 @@
  * - Fields are type="text" with inputmode="numeric" (numeric keyboard on
  *   mobile, no number-input spinner/stepper problems), maxlength 2/2/4,
  *   and autocomplete bday-day / bday-month / bday-year (WCAG 2.1 AA).
- * - Focus is NEVER auto-advanced between fields — that breaks keyboard
- *   and screen-reader users (USWDS + ONS explicitly advise against it).
+ * - Calculation is NEVER live: typing never calculates and never
+ *   shows errors (Baymard, Smashing Magazine, Adam Silver — live
+ *   validation interrupts users before they finish typing). The age
+ *   is calculated only on the explicit "Calculate age" button click
+ *   (or Enter in a field). Editing any field after a calculation
+ *   clears the stale result, so a wrong number is never shown as
+ *   current.
+ * - Focus IS auto-advanced, but only under the safe rules
+ *   (cross-verified via Exa: WCAG 3.2.2 On Input exception, Adobe
+ *   React Aria segmented date fields, native date-picker segments):
+ *   advance only when a field is full (2 digits day/month, 4 year),
+ *   only within its own date group, never across groups, and never
+ *   auto-calculating. Backspace in an empty field moves back to the
+ *   previous field, and Tab / Shift+Tab / click always work normally.
+ *   The behaviour is announced in a visible hint BEFORE the fields,
+ *   which is what makes auto-advance conform to WCAG 3.2.2 — an
+ *   unannounced focus move would fail it. GOV.UK / USWDS / ONS
+ *   advise against unannounced auto-advance; the advance warning is
+ *   the difference.
  * - The hint example uses a day >= 13 and a month <= 9 so the field
  *   order is unambiguous, and leading zeros are never required.
  * - The "as of" date uses the same three-field pattern, pre-filled
@@ -61,6 +78,7 @@ const L = {
     errorEmpty: 'Please enter your date of birth.',
     errorInvalid: 'Enter a real date of birth.',
     errorAsOf: "Enter a real 'as of' date.",
+    autoAdvance: 'As you type, focus moves to the next box once a box is full. Backspace in an empty box moves back.',
     note: 'Your dates never leave your device — the calculation happens entirely in your browser.',
   },
   hi: {
@@ -84,6 +102,7 @@ const L = {
     errorEmpty: 'कृपया अपनी जन्म तिथि डालें।',
     errorInvalid: 'सही जन्म तिथि डालें।',
     errorAsOf: 'सही गणना तिथि डालें।',
+    autoAdvance: 'टाइप करते ही बॉक्स भरने पर फोकस अपने आप अगले बॉक्स में चला जाएगा। खाली बॉक्स में Backspace दबाने पर फोकस पिछले बॉक्स में वापस जाएगा।',
     note: 'आपकी तारीखें आपके डिवाइस से बाहर कभी नहीं जातीं — सारी गणना पूरी तरह आपके ब्राउज़र में होती है।',
   },
 } as const;
@@ -133,6 +152,7 @@ const dobFieldCls =
   data-labels={JSON.stringify({ nextBirthday: t.nextBirthday, inDays: t.inDays, today: t.today, errorFuture: t.errorFuture, errorEmpty: t.errorEmpty, errorInvalid: t.errorInvalid, errorAsOf: t.errorAsOf, examplePrefix: t.examplePrefix })}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
+  <p id="age-autoadvance" class="mb-5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.autoAdvance}</p>
   <div class="grid gap-5 sm:grid-cols-2">
     <fieldset data-age-dob-group>
       <legend class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.dateOfBirth}</legend>
@@ -153,6 +173,7 @@ const dobFieldCls =
                 autocomplete={f.auto}
                 placeholder={f.key === 'year' ? 'YYYY' : f.key === 'day' ? 'DD' : 'MM'}
                 aria-label={f.label}
+                aria-describedby="age-autoadvance"
                 class={dobFieldCls}
               />
             </div>
@@ -180,6 +201,7 @@ const dobFieldCls =
                 autocomplete="off"
                 placeholder={f.key === 'year' ? 'YYYY' : f.key === 'day' ? 'DD' : 'MM'}
                 aria-label={f.label}
+                aria-describedby="age-autoadvance"
                 class={dobFieldCls}
               />
             </div>
@@ -284,10 +306,10 @@ const dobFieldCls =
     asOfMonth.value = String(today.getMonth() + 1);
     asOfYear.value = String(today.getFullYear());
 
-    // Country-based date format (Wikipedia "Date format by country"):
-    // MDY is almost only the US + Philippines + US Pacific territories;
-    // YMD is China, Japan, Korea, Taiwan, Hungary, Lithuania, Bhutan,
-    // Mongolia. Everything else defaults to DMY, the world majority.
+    // AUTOMATIC browser-region date format: MDY is almost only the
+    // US + Philippines + US Pacific territories; YMD is China,
+    // Japan, Korea, Taiwan, Hungary, Lithuania, Bhutan, Mongolia.
+    // Everything else defaults to DMY, the world majority.
     const MDY_COUNTRIES = new Set(['US', 'PH', 'FM', 'MH', 'PW', 'AS', 'GU', 'MP', 'VI', 'PR', 'KY', 'GL', 'TG']);
     const YMD_COUNTRIES = new Set(['CN', 'JP', 'KR', 'KP', 'TW', 'HU', 'LT', 'BT', 'MN']);
     const formatFor = (code: string): 'DMY' | 'MDY' | 'YMD' =>
@@ -431,16 +453,45 @@ const dobFieldCls =
           : `${dateStr} (${labels.inDays.replace('{n}', String(until))})`;
     };
 
-    // Keep each field digits-only (pasted separators are dropped, never
-    // auto-formatted), and recalculate live. Focus is deliberately NOT
-    // moved between fields: keyboard and screen-reader users must stay
-    // in control (USWDS + ONS guidance).
+    // Input behaviour (safe auto-advance, no live calculation):
+    // - Digits only: pasted separators are dropped, never auto-formatted.
+    // - NEVER calculate on input/change: typing must not show results
+    //   or errors (Baymard / Smashing Magazine / Adam Silver — live
+    //   validation interrupts users mid-typing). Editing any field
+    //   only clears the stale result and any old error; calculation
+    //   happens solely on the button click or Enter (explicit actions).
+    // - Auto-advance ONLY when the field is full (maxlength reached),
+    //   ONLY to the next field of the same date group, in current DOM
+    //   order (applyFormat may have reordered the fields). Never
+    //   across groups, never auto-calculating, never blocking Tab /
+    //   Shift+Tab / click.
+    // - Backspace in an empty field moves focus to the previous field
+    //   of the same group, so mistakes stay correctable by keyboard.
     [...dobFields, ...asOfFields].forEach((el) => {
+      const groupInputs = () => {
+        const row = el.closest('[data-fields-row]')!;
+        return [...row.querySelectorAll<HTMLInputElement>('input')];
+      };
       el.addEventListener('input', () => {
         el.value = el.value.replace(/[^0-9]/g, '');
-        calculate();
+        clearResults();
+        errorEl.classList.add('hidden');
+        [...dobFields, ...asOfFields].forEach((f) => markInvalid(f, false));
+        const inputs = groupInputs();
+        const idx = inputs.indexOf(el);
+        if (el.value.length >= el.maxLength && idx >= 0 && idx < inputs.length - 1) {
+          inputs[idx + 1].focus();
+        }
       });
-      el.addEventListener('change', calculate);
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && el.value === '') {
+          const inputs = groupInputs();
+          const idx = inputs.indexOf(el);
+          if (idx > 0) inputs[idx - 1].focus();
+        } else if (e.key === 'Enter') {
+          calculate();
+        }
+      });
     });
     root.querySelector('[data-age-calc]')!.addEventListener('click', calculate);
   });
