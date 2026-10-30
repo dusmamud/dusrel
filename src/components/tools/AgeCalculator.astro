@@ -440,6 +440,12 @@ const dobFieldCls =
     const markInvalid = (el: HTMLInputElement, bad: boolean) => {
       el.classList.toggle('border-red-500', bad);
       el.classList.toggle('dark:border-red-500', bad);
+      // Focus state needs its own red rule: the base focus:border-[#4d90fe]
+      // beats plain border-red-500 while the field is focused (a :focus
+      // rule outranks a plain class), so without this the box would stay
+      // blue until blur. The trailing ! (Tailwind v4 important) makes
+      // the red win in both light and dark mode, immediately, while typing.
+      el.classList.toggle('focus:border-red-500!', bad);
     };
 
     const showError = (msg: string) => {
