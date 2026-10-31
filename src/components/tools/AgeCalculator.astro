@@ -333,7 +333,11 @@ const dobFieldCls =
     has no layout box to capture. The fixed wrapper only moves it out
     of the visible viewport; the captured node itself keeps real
     dimensions. All values are filled from the calculator result right
-    before capture, so no sample numbers can ever leak into a share. -->
+    before capture, so no sample numbers can ever leak into a share.
+    Headline lines carry an explicit width + nowrap: a shrink-to-fit
+    absolute <p> wrapped in the capture when the embedded font rendered
+    a pixel wider (seen live 2026-10-31: 'Years' dropped onto the
+    months line), so wrapping must be impossible by construction. -->
   <div
     data-age-share-wrap
     aria-hidden="true"
@@ -350,17 +354,17 @@ const dobFieldCls =
       />
       <p
         data-age-share-myage
-        style="position:absolute;left:66px;top:262px;font-family:'Sora',sans-serif;font-size:56px;font-weight:600;line-height:1;color:#616a87;"
+        style="position:absolute;left:66px;top:262px;width:1068px;white-space:nowrap;font-family:'Sora',sans-serif;font-size:56px;font-weight:600;line-height:1;color:#616a87;"
       >
         {t.shareMyAgeIs}
       </p>
       <p
-        style="position:absolute;left:66px;top:330px;font-family:'Sora',sans-serif;font-size:168px;font-weight:800;line-height:1;letter-spacing:-0.02em;"
+        style="position:absolute;left:66px;top:330px;width:1068px;white-space:nowrap;font-family:'Sora',sans-serif;font-size:154px;font-weight:800;line-height:1;letter-spacing:-0.02em;"
       >
         <span data-age-share-years style="color:#1272fa;">0</span> <span data-age-share-years-label style="color:#061536;">{t.years}</span>
       </p>
       <p
-        style="position:absolute;left:66px;top:545px;font-family:'Sora',sans-serif;font-size:56px;font-weight:700;line-height:1;color:#061437;"
+        style="position:absolute;left:66px;top:530px;width:1068px;white-space:nowrap;font-family:'Sora',sans-serif;font-size:56px;font-weight:700;line-height:1;color:#061437;"
       >
         <span data-age-share-months>0</span> <span data-age-share-months-label>{t.months}</span> <span data-age-share-days>0</span> <span data-age-share-days-label>{t.days}</span>
       </p>
@@ -839,7 +843,7 @@ const dobFieldCls =
       updateShareCard();
       await document.fonts.ready;
       try {
-        await document.fonts.load('800 168px Sora');
+        await document.fonts.load('800 154px Sora');
         await document.fonts.load('700 56px Sora');
       } catch {
         // A font that fails to load still leaves its fallback rendering;
