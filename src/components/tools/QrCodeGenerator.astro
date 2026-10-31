@@ -1,11 +1,13 @@
 ---
 /**
  * QR Code Generator tool island — 100% client-side.
- * Renders with the `qrcode` package in the browser; the text never leaves
- * the device. Used on /pass and /pass/qr-code-generator
- * (EN + HI via the `lang` prop).
+ * The `qrcode` package builds the module matrix; src/lib/qrRender.ts draws
+ * it as styled SVG (templates, eye shapes, frames, centre logo). The text
+ * and the logo never leave the device. Used on /pass and
+ * /pass/qr-code-generator (EN + HI via the `lang` prop).
  */
 import type { Lang } from '../../i18n';
+import { QR_TEMPLATES } from '../../lib/qrRender';
 
 interface Props {
   lang: Lang;
@@ -16,149 +18,638 @@ const L = {
   en: {
     inputLabel: 'Text or URL',
     placeholder: 'https://example.com or any text',
-    size: 'Size',
-    download: 'Download PNG',
+    templates: 'Templates',
+    style: 'Style',
+    moduleShape: 'Module shape',
+    moduleShapeSquare: 'Square',
+    moduleShapeRounded: 'Rounded',
+    moduleShapeDots: 'Dots',
+    eyes: 'Corner eyes',
+    eyesSquare: 'Square',
+    eyesRounded: 'Rounded',
+    eyesCircle: 'Circle',
+    frame: 'Frame',
+    frameNone: 'None',
+    frameScan: 'Scan Me',
+    frameCircle: 'Circle',
+    frameAperture: 'Aperture',
+    colors: 'Colors',
+    moduleColor: 'Code color',
+    bgColor: 'Background',
+    logo: 'Logo',
+    uploadLogo: 'Upload logo',
+    removeLogo: 'Remove',
+    logoSize: 'Logo size',
+    logoSizeNote: 'Max 30% — a bigger logo can break scanning.',
+    logoHNote: 'With a logo, error correction is fixed at H.',
+    logoClamp: 'Logo limited to {pct}% on this small code so the corners stay scannable.',
+    logoTooBig: 'Image is too large (max 2 MB).',
+    logoNotImage: 'Please choose an image file.',
+    ec: 'Error correction',
+    pngSize: 'PNG size',
+    downloadPng: 'Download PNG',
+    downloadSvg: 'Download SVG',
     emptyMsg: 'Type something above to see your QR code.',
     errorMsg: 'That text is too long for a QR code. Try something shorter.',
-    note: 'The QR code is generated locally in your browser — your text is never sent to a server.',
+    dlError: 'Download failed, please try again.',
+    contrastWarn: 'Low contrast — this code may be hard to scan.',
+    invertedWarn: 'Light code on a dark background — most scanners cannot read this.',
+    note: 'The QR code and logo are processed locally in your browser — nothing is ever sent to a server.',
+    frameText: 'SCAN ME',
+    qrAria: 'QR code',
   },
   hi: {
     inputLabel: 'टेक्स्ट या URL',
     placeholder: 'https://example.com या कोई भी टेक्स्ट',
-    size: 'आकार',
-    download: 'PNG डाउनलोड करें',
+    templates: 'टेम्पलेट्स',
+    style: 'स्टाइल',
+    moduleShape: 'मॉड्यूल का आकार',
+    moduleShapeSquare: 'वर्गाकार',
+    moduleShapeRounded: 'गोल कोने',
+    moduleShapeDots: 'बिंदु',
+    eyes: 'कॉर्नर आइज़',
+    eyesSquare: 'वर्गाकार',
+    eyesRounded: 'गोल कोने',
+    eyesCircle: 'गोल',
+    frame: 'फ़्रेम',
+    frameNone: 'कोई नहीं',
+    frameScan: 'स्कैन मी',
+    frameCircle: 'गोलाकार',
+    frameAperture: 'अपर्चर',
+    colors: 'रंग',
+    moduleColor: 'कोड का रंग',
+    bgColor: 'बैकग्राउंड',
+    logo: 'लोगो',
+    uploadLogo: 'लोगो अपलोड करें',
+    removeLogo: 'हटाएं',
+    logoSize: 'लोगो का आकार',
+    logoSizeNote: 'अधिकतम 30% — बड़ा लोगो स्कैन खराब कर सकता है।',
+    logoHNote: 'लोगो के साथ एरर करेक्शन H पर फिक्स है।',
+    logoClamp: 'इस छोटे कोड पर लोगो {pct}% तक सीमित है ताकि कॉर्नर स्कैन हो सकें।',
+    logoTooBig: 'इमेज बहुत बड़ी है (अधिकतम 2 MB)।',
+    logoNotImage: 'कृपया एक इमेज फ़ाइल चुनें।',
+    ec: 'एरर करेक्शन',
+    pngSize: 'PNG आकार',
+    downloadPng: 'PNG डाउनलोड करें',
+    downloadSvg: 'SVG डाउनलोड करें',
     emptyMsg: 'QR कोड देखने के लिए ऊपर कुछ लिखें।',
     errorMsg: 'टेक्स्ट बहुत लंबा है — QR कोड नहीं बन पाया। थोड़ा छोटा टेक्स्ट आज़माएं।',
-    note: 'QR कोड आपके ब्राउज़र में ही बनता है — आपका टेक्स्ट किसी सर्वर पर कभी नहीं जाता।',
+    dlError: 'डाउनलोड नहीं हो पाया, दोबारा कोशिश करें।',
+    contrastWarn: 'कॉन्ट्रास्ट कम है — यह कोड स्कैन होने में मुश्किल हो सकती है।',
+    invertedWarn: 'गहरे बैकग्राउंड पर हल्का कोड — ज़्यादातर स्कैनर इसे नहीं पढ़ पाएंगे।',
+    note: 'QR कोड और लोगो आपके ब्राउज़र में ही बनते हैं — कुछ भी किसी सर्वर पर नहीं जाता।',
+    frameText: 'स्कैन करें',
+    qrAria: 'QR कोड',
   },
 } as const;
 const t = L[lang];
+
+const inputCls =
+  'mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 outline-none transition focus:border-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
+const labelCls = 'text-sm font-medium text-slate-700 dark:text-slate-300';
+const sectionCls = 'mt-8 text-sm font-semibold text-slate-800 dark:text-slate-100';
+const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b45309'];
 ---
 
 <div
   data-qr
+  data-qr-frame-text={t.frameText}
+  data-qr-aria={t.qrAria}
+  data-qr-clamp={t.logoClamp}
+  data-qr-logo-not-image={t.logoNotImage}
+  data-qr-logo-too-big={t.logoTooBig}
   class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 md:p-8"
 >
-  <div>
-    <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="qr-input">{t.inputLabel}</label>
-    <textarea
-      id="qr-input"
-      data-qr-input
-      rows="3"
-      placeholder={t.placeholder}
-      class="mt-2.5 w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
-    >https://dusrel.com</textarea>
-  </div>
-
-  <div class="mt-6 flex justify-center">
-    <div data-qr-wrap class="inline-block rounded-2xl bg-white p-4">
-      <canvas data-qr-canvas class="h-auto w-full max-w-[280px]" aria-label="QR code"></canvas>
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
+    <!-- Text input (left column, row 1) -->
+    <div>
+      <label class={labelCls} for="qr-input">{t.inputLabel}</label>
+      <textarea
+        id="qr-input"
+        data-qr-input
+        rows="3"
+        placeholder={t.placeholder}
+        class="mt-2.5 w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
+      >https://dusrel.com</textarea>
     </div>
-    <p data-qr-empty class="hidden text-center text-sm text-slate-500 dark:text-slate-400">{t.emptyMsg}</p>
-  </div>
-  <p data-qr-error class="mt-3 hidden text-center text-sm font-medium text-red-500">{t.errorMsg}</p>
 
-  <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end">
-    <div class="flex-1">
-      <label class="text-sm font-medium text-slate-700 dark:text-slate-300" for="qr-size">{t.size}</label>
-      <select
-        id="qr-size"
-        data-qr-size
-        class="mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
-      >
-        <option value="256">256 × 256 px</option>
-        <option value="512" selected>512 × 512 px</option>
-        <option value="1024">1024 × 1024 px</option>
-      </select>
+    <!-- Preview + downloads (right column on desktop, sticky) -->
+    <div class="lg:col-start-2 lg:row-start-1 lg:row-span-2">
+      <div class="lg:sticky lg:top-6">
+        <div class="rounded-2xl bg-white p-4 ring-1 ring-slate-200">
+          <div data-qr-preview class="mx-auto w-full max-w-[320px]"></div>
+          <p data-qr-empty class="hidden py-10 text-center text-sm text-slate-500">{t.emptyMsg}</p>
+        </div>
+        <p data-qr-error class="mt-3 hidden text-center text-sm font-medium text-red-500">{t.errorMsg}</p>
+        <p data-qr-contrast-warn class="mt-3 hidden text-center text-sm font-medium text-amber-600 dark:text-amber-400" role="alert">{t.contrastWarn}</p>
+        <p data-qr-inverted-warn class="mt-3 hidden text-center text-sm font-medium text-red-500" role="alert">{t.invertedWarn}</p>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            data-qr-download-png
+            class="rounded-2xl bg-[#4d90fe] px-4 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0] disabled:opacity-50"
+          >
+            {t.downloadPng}
+          </button>
+          <button
+            type="button"
+            data-qr-download-svg
+            class="rounded-2xl border border-slate-300 px-4 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] disabled:opacity-50 dark:border-white/20 dark:text-slate-200"
+          >
+            {t.downloadSvg}
+          </button>
+        </div>
+        <p data-qr-dl-error class="mt-3 hidden text-center text-sm font-medium text-red-500">{t.dlError}</p>
+        <p class="mt-4 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
+      </div>
     </div>
-    <button
-      type="button"
-      data-qr-download
-      class="rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0] disabled:opacity-50"
-    >
-      {t.download}
-    </button>
-  </div>
 
-  <p class="mt-4 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
+    <!-- Customization (left column, row 2) -->
+    <div>
+      <p class={sectionCls}>{t.templates}</p>
+      <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {
+          QR_TEMPLATES.map((tpl) => (
+            <button
+              type="button"
+              data-qr-template={tpl.id}
+              aria-label={tpl.label}
+              class="rounded-2xl border border-slate-200 bg-white p-2 transition hover:border-[#4d90fe] data-[active=true]:border-[#4d90fe] data-[active=true]:ring-2 data-[active=true]:ring-[#4d90fe]/40 dark:border-white/10 dark:bg-white/5"
+            >
+              <span data-qr-mini class="block aspect-square w-full" />
+              <span class="mt-1.5 block text-center text-xs font-medium text-slate-700 dark:text-slate-300">{tpl.label}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <p class={sectionCls}>{t.style}</p>
+      <div class="mt-3 grid gap-4">
+        <div>
+          <label class={labelCls} for="qr-shape">{t.moduleShape}</label>
+          <select id="qr-shape" data-qr-shape class={inputCls}>
+            <option value="square">{t.moduleShapeSquare}</option>
+            <option value="rounded" selected>{t.moduleShapeRounded}</option>
+            <option value="dots">{t.moduleShapeDots}</option>
+          </select>
+        </div>
+        <div>
+          <label class={labelCls} for="qr-eyes">{t.eyes}</label>
+          <select id="qr-eyes" data-qr-eyes class={inputCls}>
+            <option value="square">{t.eyesSquare}</option>
+            <option value="rounded" selected>{t.eyesRounded}</option>
+            <option value="circle">{t.eyesCircle}</option>
+          </select>
+        </div>
+        <div>
+          <label class={labelCls} for="qr-frame">{t.frame}</label>
+          <select id="qr-frame" data-qr-frame class={inputCls}>
+            <option value="none" selected>{t.frameNone}</option>
+            <option value="scan">{t.frameScan}</option>
+            <option value="circle">{t.frameCircle}</option>
+            <option value="aperture">{t.frameAperture}</option>
+          </select>
+        </div>
+      </div>
+
+      <p class={sectionCls}>{t.colors}</p>
+      <div class="mt-3 grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class={labelCls} for="qr-fg">{t.moduleColor}</label>
+          <div class="mt-2.5 flex flex-wrap items-center gap-2">
+            <input
+              id="qr-fg"
+              type="color"
+              data-qr-fg
+              value="#0f172a"
+              aria-label={t.moduleColor}
+              class="h-11 w-14 cursor-pointer rounded-xl border border-slate-300 bg-white p-1 dark:border-white/20 dark:bg-[#1e1e1e]"
+            />
+            <span data-qr-fg-hex class="text-sm text-slate-500 dark:text-slate-400">#0f172a</span>
+            {
+              swatches.map((hex) => (
+                <button
+                  type="button"
+                  data-qr-swatch={hex}
+                  aria-label={hex}
+                  style={`background-color:${hex}`}
+                  class="h-8 w-8 rounded-full shadow ring-1 ring-slate-300 transition hover:scale-110 dark:ring-white/30"
+                />
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <label class={labelCls} for="qr-bg">{t.bgColor}</label>
+          <div class="mt-2.5 flex items-center gap-2">
+            <input
+              id="qr-bg"
+              type="color"
+              data-qr-bg
+              value="#ffffff"
+              aria-label={t.bgColor}
+              class="h-11 w-14 cursor-pointer rounded-xl border border-slate-300 bg-white p-1 dark:border-white/20 dark:bg-[#1e1e1e]"
+            />
+            <span data-qr-bg-hex class="text-sm text-slate-500 dark:text-slate-400">#ffffff</span>
+          </div>
+        </div>
+      </div>
+
+      <p class={sectionCls}>{t.logo}</p>
+      <div class="mt-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <label
+            class="cursor-pointer rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20"
+          >
+            {t.uploadLogo}
+            <input type="file" data-qr-logo-file accept="image/*" class="hidden" />
+          </label>
+          <span data-qr-logo-name class="hidden items-center gap-2">
+            <img data-qr-logo-thumb alt="" class="h-10 w-10 rounded-lg bg-white object-contain ring-1 ring-slate-200" />
+            <span data-qr-logo-filename class="max-w-[160px] truncate text-sm text-slate-600 dark:text-slate-300"></span>
+            <button type="button" data-qr-logo-remove class="text-sm font-medium text-red-500 hover:underline">
+              {t.removeLogo}
+            </button>
+          </span>
+        </div>
+        <div data-qr-logo-size-wrap class="mt-4 hidden">
+          <label class={labelCls} for="qr-logo-size">
+            {t.logoSize} — <span data-qr-logo-size-val>22%</span>
+          </label>
+          <input
+            id="qr-logo-size"
+            type="range"
+            data-qr-logo-size
+            min="10"
+            max="30"
+            step="1"
+            value="22"
+            class="mt-2.5 w-full accent-[#4d90fe]"
+          />
+          <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{t.logoSizeNote}</p>
+        </div>
+        <p data-qr-logo-h-note class="mt-3 hidden text-xs font-medium text-slate-500 dark:text-slate-400">{t.logoHNote}</p>
+        <p data-qr-logo-clamp-note class="mt-3 hidden text-xs font-medium text-amber-600 dark:text-amber-400"></p>
+        <p data-qr-logo-error class="mt-3 hidden text-sm font-medium text-red-500"></p>
+      </div>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class={labelCls} for="qr-ec">{t.ec}</label>
+          <select id="qr-ec" data-qr-ec class={inputCls}>
+            <option value="M" selected>M (15%)</option>
+            <option value="Q">Q (25%)</option>
+            <option value="H">H (30%)</option>
+          </select>
+        </div>
+        <div>
+          <label class={labelCls} for="qr-size">{t.pngSize}</label>
+          <select id="qr-size" data-qr-size class={inputCls}>
+            <option value="256">256 × 256 px</option>
+            <option value="512" selected>512 × 512 px</option>
+            <option value="1024">1024 × 1024 px</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  import QRCode from 'qrcode';
+  import {
+    buildQrSvg,
+    hexLuminance,
+    qrLuminanceDiff,
+    QR_LOGO_DEFAULT_PCT,
+    QR_LOGO_MAX_PCT,
+    QR_LOGO_MIN_PCT,
+    QR_MIN_LUMINANCE_DIFF,
+    QR_TEMPLATES,
+    type QrECLevel,
+    type QrEyeStyle,
+    type QrFrameStyle,
+    type QrModuleShape,
+    type QrStyle,
+  } from '../../lib/qrRender';
+
+  const SAMPLE_TEXT = 'https://dusrel.com';
+  const MAX_LOGO_BYTES = 2 * 1024 * 1024;
 
   document.querySelectorAll<HTMLElement>('[data-qr]').forEach((root) => {
+    const frameText = root.dataset.qrFrameText ?? 'SCAN ME';
+    const ariaLabel = root.dataset.qrAria ?? 'QR code';
+    const clampTemplate = root.dataset.qrClamp ?? 'Logo limited to {pct}%.';
+
     const input = root.querySelector<HTMLTextAreaElement>('[data-qr-input]')!;
-    const sizeSel = root.querySelector<HTMLSelectElement>('[data-qr-size]')!;
-    const wrap = root.querySelector<HTMLElement>('[data-qr-wrap]')!;
-    const canvas = root.querySelector<HTMLCanvasElement>('[data-qr-canvas]')!;
+    const preview = root.querySelector<HTMLElement>('[data-qr-preview]')!;
     const emptyEl = root.querySelector<HTMLElement>('[data-qr-empty]')!;
     const errorEl = root.querySelector<HTMLElement>('[data-qr-error]')!;
-    const downloadBtn = root.querySelector<HTMLButtonElement>('[data-qr-download]')!;
+    const contrastEl = root.querySelector<HTMLElement>('[data-qr-contrast-warn]')!;
+    const invertedEl = root.querySelector<HTMLElement>('[data-qr-inverted-warn]')!;
+    const dlErrorEl = root.querySelector<HTMLElement>('[data-qr-dl-error]')!;
+    const pngBtn = root.querySelector<HTMLButtonElement>('[data-qr-download-png]')!;
+    const svgBtn = root.querySelector<HTMLButtonElement>('[data-qr-download-svg]')!;
+    const templateBtns = root.querySelectorAll<HTMLButtonElement>('[data-qr-template]');
+    const shapeSel = root.querySelector<HTMLSelectElement>('[data-qr-shape]')!;
+    const eyesSel = root.querySelector<HTMLSelectElement>('[data-qr-eyes]')!;
+    const frameSel = root.querySelector<HTMLSelectElement>('[data-qr-frame]')!;
+    const fgInput = root.querySelector<HTMLInputElement>('[data-qr-fg]')!;
+    const bgInput = root.querySelector<HTMLInputElement>('[data-qr-bg]')!;
+    const fgHex = root.querySelector<HTMLElement>('[data-qr-fg-hex]')!;
+    const bgHex = root.querySelector<HTMLElement>('[data-qr-bg-hex]')!;
+    const swatchBtns = root.querySelectorAll<HTMLButtonElement>('[data-qr-swatch]');
+    const logoFile = root.querySelector<HTMLInputElement>('[data-qr-logo-file]')!;
+    const logoName = root.querySelector<HTMLElement>('[data-qr-logo-name]')!;
+    const logoThumb = root.querySelector<HTMLImageElement>('[data-qr-logo-thumb]')!;
+    const logoFilename = root.querySelector<HTMLElement>('[data-qr-logo-filename]')!;
+    const logoRemove = root.querySelector<HTMLButtonElement>('[data-qr-logo-remove]')!;
+    const logoSizeWrap = root.querySelector<HTMLElement>('[data-qr-logo-size-wrap]')!;
+    const logoSize = root.querySelector<HTMLInputElement>('[data-qr-logo-size]')!;
+    const logoSizeVal = root.querySelector<HTMLElement>('[data-qr-logo-size-val]')!;
+    const logoHNote = root.querySelector<HTMLElement>('[data-qr-logo-h-note]')!;
+    const logoClampNote = root.querySelector<HTMLElement>('[data-qr-logo-clamp-note]')!;
+    const logoError = root.querySelector<HTMLElement>('[data-qr-logo-error]')!;
+    const ecSel = root.querySelector<HTMLSelectElement>('[data-qr-ec]')!;
+    const sizeSel = root.querySelector<HTMLSelectElement>('[data-qr-size]')!;
 
-    const render = () => {
+    const state: {
+      style: QrStyle;
+      ec: QrECLevel;
+      size: number;
+      logo: string | null;
+      logoPct: number;
+    } = {
+      style: { moduleShape: 'rounded', eyeStyle: 'rounded', frame: 'none', moduleColor: '#0f172a', bgColor: '#ffffff' },
+      ec: 'M',
+      size: 512,
+      logo: null,
+      logoPct: QR_LOGO_DEFAULT_PCT,
+    };
+
+    const show = (el: HTMLElement, visible: boolean): void => {
+      el.classList.toggle('hidden', !visible);
+    };
+    const showFlex = (el: HTMLElement, visible: boolean): void => {
+      el.classList.toggle('hidden', !visible);
+      el.classList.toggle('flex', visible);
+    };
+    const setDownloadsEnabled = (enabled: boolean): void => {
+      pngBtn.disabled = !enabled;
+      svgBtn.disabled = !enabled;
+    };
+
+    const currentOpts = (sizing: 'responsive' | 'fill' | 'absolute') => ({
+      ...state.style,
+      // A logo always forces error correction H: it spends the correction budget.
+      ec: (state.logo ? 'H' : state.ec) as QrECLevel,
+      frameText,
+      ariaLabel,
+      logo: state.logo ? { dataUrl: state.logo, pct: state.logoPct } : null,
+      sizing,
+    });
+
+    const render = (): void => {
       const text = input.value;
-      errorEl.classList.add('hidden');
+      show(dlErrorEl, false);
       if (!text.trim()) {
-        wrap.classList.add('hidden');
-        emptyEl.classList.remove('hidden');
-        downloadBtn.disabled = true;
+        show(preview, false);
+        show(emptyEl, true);
+        show(errorEl, false);
+        show(contrastEl, false);
+        show(invertedEl, false);
+        show(logoClampNote, false);
+        setDownloadsEnabled(false);
         return;
       }
-      emptyEl.classList.add('hidden');
-      wrap.classList.remove('hidden');
-      downloadBtn.disabled = false;
-      QRCode.toCanvas(
-        canvas,
-        text,
-        {
-          width: parseInt(sizeSel.value, 10),
-          margin: 2,
-          errorCorrectionLevel: 'M',
-          color: { dark: '#0f172a', light: '#ffffff' },
-        },
-        (err) => {
-          if (err) {
-            wrap.classList.add('hidden');
-            errorEl.classList.remove('hidden');
-            downloadBtn.disabled = true;
-          }
-        },
-      );
+      const result = buildQrSvg(text, currentOpts('responsive'));
+      if (!result) {
+        show(preview, false);
+        show(emptyEl, false);
+        show(errorEl, true);
+        show(contrastEl, false);
+        show(invertedEl, false);
+        show(logoClampNote, false);
+        setDownloadsEnabled(false);
+        return;
+      }
+      show(emptyEl, false);
+      show(errorEl, false);
+      show(preview, true);
+      preview.innerHTML = result.svg;
+      setDownloadsEnabled(true);
+
+      // Contrast warnings: warn, never block — the user decides.
+      const inverted = hexLuminance(state.style.moduleColor) > hexLuminance(state.style.bgColor);
+      const lowContrast = qrLuminanceDiff(state.style.moduleColor, state.style.bgColor) < QR_MIN_LUMINANCE_DIFF;
+      show(invertedEl, inverted);
+      show(contrastEl, !inverted && lowContrast);
+
+      if (result.logoClamped && result.logoPct !== null) {
+        logoClampNote.textContent = clampTemplate.replace('{pct}', String(result.logoPct));
+        show(logoClampNote, true);
+        logoSize.value = String(result.logoPct);
+        logoSizeVal.textContent = `${result.logoPct}%`;
+      } else {
+        show(logoClampNote, false);
+      }
+
+      for (const btn of templateBtns) {
+        const tpl = QR_TEMPLATES.find((t) => t.id === btn.dataset.qrTemplate);
+        btn.dataset.active =
+          tpl !== undefined &&
+          tpl.moduleShape === state.style.moduleShape &&
+          tpl.eyeStyle === state.style.eyeStyle &&
+          tpl.frame === state.style.frame &&
+          tpl.moduleColor === state.style.moduleColor &&
+          tpl.bgColor === state.style.bgColor
+            ? 'true'
+            : 'false';
+      }
+    };
+
+    // Template thumbnails: rendered once from a fixed sample — they show the
+    // template's own look and never change while typing.
+    for (const btn of templateBtns) {
+      const tpl = QR_TEMPLATES.find((t) => t.id === btn.dataset.qrTemplate);
+      const slot = btn.querySelector<HTMLElement>('[data-qr-mini]');
+      if (tpl && slot) {
+        const mini = buildQrSvg(SAMPLE_TEXT, { ...tpl, ec: 'M', frameText, ariaLabel, sizing: 'fill' });
+        if (mini) slot.innerHTML = mini.svg;
+      }
+    }
+
+    const applyTemplate = (id: string): void => {
+      const tpl = QR_TEMPLATES.find((t) => t.id === id);
+      if (!tpl) return;
+      state.style = {
+        moduleShape: tpl.moduleShape,
+        eyeStyle: tpl.eyeStyle,
+        frame: tpl.frame,
+        moduleColor: tpl.moduleColor,
+        bgColor: tpl.bgColor,
+      };
+      shapeSel.value = tpl.moduleShape;
+      eyesSel.value = tpl.eyeStyle;
+      frameSel.value = tpl.frame;
+      fgInput.value = tpl.moduleColor;
+      bgInput.value = tpl.bgColor;
+      fgHex.textContent = tpl.moduleColor;
+      bgHex.textContent = tpl.bgColor;
+      render();
     };
 
     let timer: ReturnType<typeof setTimeout> | undefined;
-    const debounced = () => {
+    input.addEventListener('input', () => {
       clearTimeout(timer);
       timer = setTimeout(render, 200);
+    });
+    for (const btn of templateBtns) {
+      btn.addEventListener('click', () => applyTemplate(btn.dataset.qrTemplate ?? ''));
+    }
+    shapeSel.addEventListener('change', () => {
+      state.style.moduleShape = shapeSel.value as QrModuleShape;
+      render();
+    });
+    eyesSel.addEventListener('change', () => {
+      state.style.eyeStyle = eyesSel.value as QrEyeStyle;
+      render();
+    });
+    frameSel.addEventListener('change', () => {
+      state.style.frame = frameSel.value as QrFrameStyle;
+      render();
+    });
+    fgInput.addEventListener('input', () => {
+      state.style.moduleColor = fgInput.value;
+      fgHex.textContent = fgInput.value;
+      render();
+    });
+    bgInput.addEventListener('input', () => {
+      state.style.bgColor = bgInput.value;
+      bgHex.textContent = bgInput.value;
+      render();
+    });
+    for (const btn of swatchBtns) {
+      btn.addEventListener('click', () => {
+        const hex = btn.dataset.qrSwatch ?? '#0f172a';
+        fgInput.value = hex;
+        state.style.moduleColor = hex;
+        fgHex.textContent = hex;
+        render();
+      });
+    }
+
+    const setLogoUi = (visible: boolean): void => {
+      showFlex(logoName, visible);
+      show(logoSizeWrap, visible);
+      show(logoHNote, visible);
     };
+    logoFile.addEventListener('change', () => {
+      const file = logoFile.files?.[0];
+      show(logoError, false);
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        logoError.textContent = root.dataset.qrLogoNotImage ?? 'Please choose an image file.';
+        show(logoError, true);
+        logoFile.value = '';
+        return;
+      }
+      if (file.size > MAX_LOGO_BYTES) {
+        logoError.textContent = root.dataset.qrLogoTooBig ?? 'Image is too large (max 2 MB).';
+        show(logoError, true);
+        logoFile.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result;
+        if (typeof dataUrl !== 'string') return;
+        state.logo = dataUrl;
+        logoThumb.src = dataUrl;
+        logoFilename.textContent = file.name;
+        setLogoUi(true);
+        ecSel.value = 'H';
+        ecSel.disabled = true;
+        render();
+      };
+      reader.readAsDataURL(file);
+    });
+    logoRemove.addEventListener('click', () => {
+      state.logo = null;
+      logoFile.value = '';
+      setLogoUi(false);
+      show(logoClampNote, false);
+      ecSel.disabled = false;
+      render();
+    });
+    logoSize.addEventListener('input', () => {
+      const pct = Math.max(QR_LOGO_MIN_PCT, Math.min(QR_LOGO_MAX_PCT, Number.parseInt(logoSize.value, 10) || QR_LOGO_DEFAULT_PCT));
+      state.logoPct = pct;
+      logoSizeVal.textContent = `${pct}%`;
+      render();
+    });
+    ecSel.addEventListener('change', () => {
+      state.ec = ecSel.value as QrECLevel;
+      render();
+    });
+    sizeSel.addEventListener('change', () => {
+      state.size = Number.parseInt(sizeSel.value, 10) || 512;
+    });
 
-    input.addEventListener('input', debounced);
-    sizeSel.addEventListener('change', render);
-
-    downloadBtn.addEventListener('click', () => {
-      const text = input.value;
-      if (!text.trim()) return;
-      const off = document.createElement('canvas');
-      QRCode.toCanvas(
-        off,
-        text,
-        {
-          width: parseInt(sizeSel.value, 10),
-          margin: 2,
-          errorCorrectionLevel: 'M',
-          color: { dark: '#0f172a', light: '#ffffff' },
-        },
-        (err) => {
-          if (err) {
-            errorEl.classList.remove('hidden');
+    const downloadBlob = (blob: Blob, filename: string): void => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+    svgBtn.addEventListener('click', () => {
+      if (!input.value.trim()) return;
+      const result = buildQrSvg(input.value, currentOpts('absolute'));
+      if (!result) {
+        show(dlErrorEl, true);
+        return;
+      }
+      downloadBlob(new Blob([result.svg], { type: 'image/svg+xml;charset=utf-8' }), 'dusrel-qr-code.svg');
+    });
+    pngBtn.addEventListener('click', async () => {
+      if (!input.value.trim()) return;
+      const result = buildQrSvg(input.value, currentOpts('absolute'));
+      if (!result) {
+        show(dlErrorEl, true);
+        return;
+      }
+      try {
+        const svgUrl = URL.createObjectURL(new Blob([result.svg], { type: 'image/svg+xml;charset=utf-8' }));
+        const img = new Image();
+        await new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = () => reject(new Error('svg load failed'));
+          img.src = svgUrl;
+        });
+        URL.revokeObjectURL(svgUrl);
+        const size = state.size;
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('no 2d context');
+        ctx.fillStyle = state.style.bgColor;
+        ctx.fillRect(0, 0, size, size);
+        const scale = Math.min(size / result.vbW, size / result.vbH);
+        const w = result.vbW * scale;
+        const h = result.vbH * scale;
+        ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            show(dlErrorEl, true);
             return;
           }
-          const a = document.createElement('a');
-          a.href = off.toDataURL('image/png');
-          a.download = 'dusrel-qr-code.png';
-          a.click();
-        },
-      );
+          downloadBlob(blob, 'dusrel-qr-code.png');
+        }, 'image/png');
+      } catch {
+        show(dlErrorEl, true);
+      }
     });
 
     render();
