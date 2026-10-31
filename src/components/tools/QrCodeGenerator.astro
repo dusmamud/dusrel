@@ -5,6 +5,22 @@
  * it as styled SVG (templates, eye shapes, frames, centre logo). The text
  * and the logo never leave the device. Used on /pass and
  * /pass/qr-code-generator (EN + HI via the `lang` prop).
+ *
+ * Form-control best practices applied (cross-verified via Exa, 2026-10-31):
+ * - USWDS/CMS rule: a dropdown is only for ~7-15 options; with 3-4 options
+ *   a segmented radio group wins (all options visible, one click). So every
+ *   former <select> here is a native radio group styled as segments.
+ * - Labels always visible above controls, never placeholder-as-label.
+ * - Text inputs are 16px so iOS Safari does not auto-zoom on focus.
+ * - 44px touch targets; visible :focus-visible rings on every control.
+ * - Native range slider with a 28px thumb, visible value text + aria-valuetext.
+ * - Color swatches show their hex, carry a clear selected ring + aria-pressed,
+ *   and the hex itself is an editable, validated text input.
+ * - The file input is sr-only (not hidden) so keyboard users can reach it,
+ *   and its label shows the focus ring via an adjacent-sibling CSS rule.
+ * - Segmented groups are styled with adjacent-sibling CSS (`:checked + label`),
+ *   NOT Tailwind's peer-checked: peer uses the general sibling combinator (~),
+ *   which would paint every segment after the checked one as selected.
  */
 import type { Lang } from '../../i18n';
 import { QR_TEMPLATES } from '../../lib/qrRender';
@@ -35,7 +51,10 @@ const L = {
     frameAperture: 'Aperture',
     colors: 'Colors',
     moduleColor: 'Code color',
+    moduleColorHex: 'Code color hex value',
     bgColor: 'Background',
+    bgColorHex: 'Background hex value',
+    hexError: 'Invalid hex color — use the #rrggbb format.',
     logo: 'Logo',
     uploadLogo: 'Upload logo',
     removeLogo: 'Remove',
@@ -78,7 +97,10 @@ const L = {
     frameAperture: 'अपर्चर',
     colors: 'रंग',
     moduleColor: 'कोड का रंग',
+    moduleColorHex: 'कोड का रंग (hex)',
     bgColor: 'बैकग्राउंड',
+    bgColorHex: 'बैकग्राउंड (hex)',
+    hexError: 'गलत hex color — #rrggbb फॉर्मेट में लिखें।',
     logo: 'लोगो',
     uploadLogo: 'लोगो अपलोड करें',
     removeLogo: 'हटाएं',
@@ -104,11 +126,15 @@ const L = {
 } as const;
 const t = L[lang];
 
-const inputCls =
-  'mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 outline-none transition focus:border-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
 const labelCls = 'text-sm font-medium text-slate-700 dark:text-slate-300';
 const sectionCls = 'mt-8 text-sm font-semibold text-slate-800 dark:text-slate-100';
 const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b45309'];
+const segmentGroupCls =
+  'mt-2.5 flex overflow-hidden rounded-xl border border-slate-300 bg-white dark:border-white/20 dark:bg-[#1e1e1e]';
+const segmentLabelCls =
+  'flex-1 cursor-pointer border-slate-300 px-2 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-white/20 dark:text-slate-200 dark:hover:bg-white/5';
+const hexInputCls =
+  'h-11 w-[86px] min-w-0 rounded-lg border border-slate-300 bg-white px-2 font-mono text-sm text-slate-800 outline-none focus-visible:border-[#4d90fe] focus-visible:ring-2 focus-visible:ring-[#4d90fe]/40 dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
 ---
 
 <div
@@ -129,7 +155,8 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
         data-qr-input
         rows="3"
         placeholder={t.placeholder}
-        class="mt-2.5 w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
+        aria-describedby="qr-error"
+        class="mt-2.5 w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 text-base text-slate-800 outline-none transition focus-visible:border-[#4d90fe] focus-visible:ring-2 focus-visible:ring-[#4d90fe]/40 dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
       >https://dusrel.com</textarea>
     </div>
 
@@ -140,26 +167,26 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
           <div data-qr-preview class="mx-auto w-full max-w-[320px]"></div>
           <p data-qr-empty class="hidden py-10 text-center text-sm text-slate-500">{t.emptyMsg}</p>
         </div>
-        <p data-qr-error class="mt-3 hidden text-center text-sm font-medium text-red-500">{t.errorMsg}</p>
+        <p id="qr-error" data-qr-error class="mt-3 hidden text-center text-sm font-medium text-red-500" role="alert">{t.errorMsg}</p>
         <p data-qr-contrast-warn class="mt-3 hidden text-center text-sm font-medium text-amber-600 dark:text-amber-400" role="alert">{t.contrastWarn}</p>
         <p data-qr-inverted-warn class="mt-3 hidden text-center text-sm font-medium text-red-500" role="alert">{t.invertedWarn}</p>
         <div class="mt-4 grid grid-cols-2 gap-3">
           <button
             type="button"
             data-qr-download-png
-            class="rounded-2xl bg-[#4d90fe] px-4 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0] disabled:opacity-50"
+            class="touch-manipulation rounded-2xl bg-[#4d90fe] px-4 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4d90fe]/60 focus-visible:ring-offset-2 disabled:opacity-50"
           >
             {t.downloadPng}
           </button>
           <button
             type="button"
             data-qr-download-svg
-            class="rounded-2xl border border-slate-300 px-4 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] disabled:opacity-50 dark:border-white/20 dark:text-slate-200"
+            class="touch-manipulation rounded-2xl border border-slate-300 px-4 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4d90fe]/60 focus-visible:ring-offset-2 disabled:opacity-50 dark:border-white/20 dark:text-slate-200"
           >
             {t.downloadSvg}
           </button>
         </div>
-        <p data-qr-dl-error class="mt-3 hidden text-center text-sm font-medium text-red-500">{t.dlError}</p>
+        <p data-qr-dl-error class="mt-3 hidden text-center text-sm font-medium text-red-500" role="alert">{t.dlError}</p>
         <p class="mt-4 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
       </div>
     </div>
@@ -174,7 +201,7 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
               type="button"
               data-qr-template={tpl.id}
               aria-label={tpl.label}
-              class="rounded-2xl border border-slate-200 bg-white p-2 transition hover:border-[#4d90fe] data-[active=true]:border-[#4d90fe] data-[active=true]:ring-2 data-[active=true]:ring-[#4d90fe]/40 dark:border-white/10 dark:bg-white/5"
+              class="touch-manipulation rounded-2xl border border-slate-200 bg-white p-2 transition hover:border-[#4d90fe] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4d90fe]/60 data-[active=true]:border-[#4d90fe] data-[active=true]:ring-2 data-[active=true]:ring-[#4d90fe]/40 dark:border-white/10 dark:bg-white/5"
             >
               <span data-qr-mini class="block aspect-square w-full" />
               <span class="mt-1.5 block text-center text-xs font-medium text-slate-700 dark:text-slate-300">{tpl.label}</span>
@@ -186,29 +213,39 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
       <p class={sectionCls}>{t.style}</p>
       <div class="mt-3 grid gap-4">
         <div>
-          <label class={labelCls} for="qr-shape">{t.moduleShape}</label>
-          <select id="qr-shape" data-qr-shape class={inputCls}>
-            <option value="square">{t.moduleShapeSquare}</option>
-            <option value="rounded" selected>{t.moduleShapeRounded}</option>
-            <option value="dots">{t.moduleShapeDots}</option>
-          </select>
+          <span id="qr-shape-label" class={labelCls}>{t.moduleShape}</span>
+          <div role="radiogroup" aria-labelledby="qr-shape-label" class={segmentGroupCls}>
+            <input type="radio" name="qr-shape" id="qr-shape-square" value="square" class="sr-only" />
+            <label for="qr-shape-square" class={`${segmentLabelCls} border-r`}>{t.moduleShapeSquare}</label>
+            <input type="radio" name="qr-shape" id="qr-shape-rounded" value="rounded" class="sr-only" checked />
+            <label for="qr-shape-rounded" class={`${segmentLabelCls} border-r`}>{t.moduleShapeRounded}</label>
+            <input type="radio" name="qr-shape" id="qr-shape-dots" value="dots" class="sr-only" />
+            <label for="qr-shape-dots" class={segmentLabelCls}>{t.moduleShapeDots}</label>
+          </div>
         </div>
         <div>
-          <label class={labelCls} for="qr-eyes">{t.eyes}</label>
-          <select id="qr-eyes" data-qr-eyes class={inputCls}>
-            <option value="square">{t.eyesSquare}</option>
-            <option value="rounded" selected>{t.eyesRounded}</option>
-            <option value="circle">{t.eyesCircle}</option>
-          </select>
+          <span id="qr-eyes-label" class={labelCls}>{t.eyes}</span>
+          <div role="radiogroup" aria-labelledby="qr-eyes-label" class={segmentGroupCls}>
+            <input type="radio" name="qr-eyes" id="qr-eyes-square" value="square" class="sr-only" />
+            <label for="qr-eyes-square" class={`${segmentLabelCls} border-r`}>{t.eyesSquare}</label>
+            <input type="radio" name="qr-eyes" id="qr-eyes-rounded" value="rounded" class="sr-only" checked />
+            <label for="qr-eyes-rounded" class={`${segmentLabelCls} border-r`}>{t.eyesRounded}</label>
+            <input type="radio" name="qr-eyes" id="qr-eyes-circle" value="circle" class="sr-only" />
+            <label for="qr-eyes-circle" class={segmentLabelCls}>{t.eyesCircle}</label>
+          </div>
         </div>
         <div>
-          <label class={labelCls} for="qr-frame">{t.frame}</label>
-          <select id="qr-frame" data-qr-frame class={inputCls}>
-            <option value="none" selected>{t.frameNone}</option>
-            <option value="scan">{t.frameScan}</option>
-            <option value="circle">{t.frameCircle}</option>
-            <option value="aperture">{t.frameAperture}</option>
-          </select>
+          <span id="qr-frame-label" class={labelCls}>{t.frame}</span>
+          <div role="radiogroup" aria-labelledby="qr-frame-label" class={segmentGroupCls}>
+            <input type="radio" name="qr-frame" id="qr-frame-none" value="none" class="sr-only" checked />
+            <label for="qr-frame-none" class={`${segmentLabelCls} border-r`}>{t.frameNone}</label>
+            <input type="radio" name="qr-frame" id="qr-frame-scan" value="scan" class="sr-only" />
+            <label for="qr-frame-scan" class={`${segmentLabelCls} border-r`}>{t.frameScan}</label>
+            <input type="radio" name="qr-frame" id="qr-frame-circle" value="circle" class="sr-only" />
+            <label for="qr-frame-circle" class={`${segmentLabelCls} border-r`}>{t.frameCircle}</label>
+            <input type="radio" name="qr-frame" id="qr-frame-aperture" value="aperture" class="sr-only" />
+            <label for="qr-frame-aperture" class={segmentLabelCls}>{t.frameAperture}</label>
+          </div>
         </div>
       </div>
 
@@ -216,24 +253,37 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
       <div class="mt-3 grid gap-4 sm:grid-cols-2">
         <div>
           <label class={labelCls} for="qr-fg">{t.moduleColor}</label>
-          <div class="mt-2.5 flex flex-wrap items-center gap-2">
+          <div class="mt-2.5 flex items-center gap-2">
             <input
               id="qr-fg"
               type="color"
               data-qr-fg
               value="#0f172a"
               aria-label={t.moduleColor}
-              class="h-11 w-14 cursor-pointer rounded-xl border border-slate-300 bg-white p-1 dark:border-white/20 dark:bg-[#1e1e1e]"
+              class="h-11 w-14 shrink-0 cursor-pointer rounded-xl border border-slate-300 bg-white p-1 outline-none focus-visible:ring-2 focus-visible:ring-[#4d90fe]/50 dark:border-white/20 dark:bg-[#1e1e1e]"
             />
-            <span data-qr-fg-hex class="text-sm text-slate-500 dark:text-slate-400">#0f172a</span>
+            <input
+              type="text"
+              data-qr-fg-hex
+              value="#0f172a"
+              spellcheck="false"
+              autocomplete="off"
+              maxlength="7"
+              aria-label={t.moduleColorHex}
+              class={hexInputCls}
+            />
+          </div>
+          <div class="mt-2 flex flex-wrap gap-2">
             {
               swatches.map((hex) => (
                 <button
                   type="button"
                   data-qr-swatch={hex}
                   aria-label={hex}
+                  aria-pressed="false"
+                  title={hex}
                   style={`background-color:${hex}`}
-                  class="h-8 w-8 rounded-full shadow ring-1 ring-slate-300 transition hover:scale-110 dark:ring-white/30"
+                  class="h-11 w-11 touch-manipulation rounded-full shadow ring-1 ring-slate-300 transition hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4d90fe] focus-visible:ring-offset-2 aria-pressed:ring-2 aria-pressed:ring-[#4d90fe] aria-pressed:ring-offset-2 dark:ring-white/30"
                 />
               ))
             }
@@ -248,26 +298,41 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
               data-qr-bg
               value="#ffffff"
               aria-label={t.bgColor}
-              class="h-11 w-14 cursor-pointer rounded-xl border border-slate-300 bg-white p-1 dark:border-white/20 dark:bg-[#1e1e1e]"
+              class="h-11 w-14 shrink-0 cursor-pointer rounded-xl border border-slate-300 bg-white p-1 outline-none focus-visible:ring-2 focus-visible:ring-[#4d90fe]/50 dark:border-white/20 dark:bg-[#1e1e1e]"
             />
-            <span data-qr-bg-hex class="text-sm text-slate-500 dark:text-slate-400">#ffffff</span>
+            <input
+              type="text"
+              data-qr-bg-hex
+              value="#ffffff"
+              spellcheck="false"
+              autocomplete="off"
+              maxlength="7"
+              aria-label={t.bgColorHex}
+              class={hexInputCls}
+            />
           </div>
         </div>
       </div>
+      <p data-qr-hex-error class="mt-2 hidden text-xs font-medium text-red-500" role="alert">{t.hexError}</p>
 
       <p class={sectionCls}>{t.logo}</p>
       <div class="mt-3">
         <div class="flex flex-wrap items-center gap-3">
+          <input type="file" id="qr-logo-file" data-qr-logo-file accept="image/*" class="sr-only" />
           <label
-            class="cursor-pointer rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20"
+            for="qr-logo-file"
+            class="cursor-pointer rounded-xl bg-slate-100 px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20"
           >
             {t.uploadLogo}
-            <input type="file" data-qr-logo-file accept="image/*" class="hidden" />
           </label>
           <span data-qr-logo-name class="hidden items-center gap-2">
             <img data-qr-logo-thumb alt="" class="h-10 w-10 rounded-lg bg-white object-contain ring-1 ring-slate-200" />
             <span data-qr-logo-filename class="max-w-[160px] truncate text-sm text-slate-600 dark:text-slate-300"></span>
-            <button type="button" data-qr-logo-remove class="text-sm font-medium text-red-500 hover:underline">
+            <button
+              type="button"
+              data-qr-logo-remove
+              class="rounded-lg px-3 py-2.5 text-sm font-medium text-red-500 transition hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60 dark:hover:bg-red-500/10"
+            >
               {t.removeLogo}
             </button>
           </span>
@@ -284,31 +349,38 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
             max="30"
             step="1"
             value="22"
-            class="mt-2.5 w-full accent-[#4d90fe]"
+            aria-valuetext="22%"
+            class="mt-2.5 w-full cursor-pointer"
           />
           <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{t.logoSizeNote}</p>
         </div>
         <p data-qr-logo-h-note class="mt-3 hidden text-xs font-medium text-slate-500 dark:text-slate-400">{t.logoHNote}</p>
         <p data-qr-logo-clamp-note class="mt-3 hidden text-xs font-medium text-amber-600 dark:text-amber-400"></p>
-        <p data-qr-logo-error class="mt-3 hidden text-sm font-medium text-red-500"></p>
+        <p data-qr-logo-error class="mt-3 hidden text-sm font-medium text-red-500" role="alert"></p>
       </div>
 
       <div class="mt-8 grid gap-4 sm:grid-cols-2">
         <div>
-          <label class={labelCls} for="qr-ec">{t.ec}</label>
-          <select id="qr-ec" data-qr-ec class={inputCls}>
-            <option value="M" selected>M (15%)</option>
-            <option value="Q">Q (25%)</option>
-            <option value="H">H (30%)</option>
-          </select>
+          <span id="qr-ec-label" class={labelCls}>{t.ec}</span>
+          <div role="radiogroup" aria-labelledby="qr-ec-label" class={segmentGroupCls}>
+            <input type="radio" name="qr-ec" id="qr-ec-m" value="M" class="sr-only" checked />
+            <label for="qr-ec-m" class={`${segmentLabelCls} border-r`}>M (15%)</label>
+            <input type="radio" name="qr-ec" id="qr-ec-q" value="Q" class="sr-only" />
+            <label for="qr-ec-q" class={`${segmentLabelCls} border-r`}>Q (25%)</label>
+            <input type="radio" name="qr-ec" id="qr-ec-h" value="H" class="sr-only" />
+            <label for="qr-ec-h" class={`${segmentLabelCls}`}>H (30%)</label>
+          </div>
         </div>
         <div>
-          <label class={labelCls} for="qr-size">{t.pngSize}</label>
-          <select id="qr-size" data-qr-size class={inputCls}>
-            <option value="256">256 × 256 px</option>
-            <option value="512" selected>512 × 512 px</option>
-            <option value="1024">1024 × 1024 px</option>
-          </select>
+          <span id="qr-size-label" class={labelCls}>{t.pngSize}</span>
+          <div role="radiogroup" aria-labelledby="qr-size-label" class={segmentGroupCls}>
+            <input type="radio" name="qr-size" id="qr-size-256" value="256" class="sr-only" />
+            <label for="qr-size-256" class={`${segmentLabelCls} border-r`}>256 × 256</label>
+            <input type="radio" name="qr-size" id="qr-size-512" value="512" class="sr-only" checked />
+            <label for="qr-size-512" class={`${segmentLabelCls} border-r`}>512 × 512</label>
+            <input type="radio" name="qr-size" id="qr-size-1024" value="1024" class="sr-only" />
+            <label for="qr-size-1024" class={segmentLabelCls}>1024 × 1024</label>
+          </div>
         </div>
       </div>
     </div>
@@ -334,11 +406,13 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
 
   const SAMPLE_TEXT = 'https://dusrel.com';
   const MAX_LOGO_BYTES = 2 * 1024 * 1024;
+  const HEX_RE = /^#[0-9a-fA-F]{6}$/;
 
   document.querySelectorAll<HTMLElement>('[data-qr]').forEach((root) => {
     const frameText = root.dataset.qrFrameText ?? 'SCAN ME';
     const ariaLabel = root.dataset.qrAria ?? 'QR code';
     const clampTemplate = root.dataset.qrClamp ?? 'Logo limited to {pct}%.';
+    const hexErrorText = root.querySelector<HTMLElement>('[data-qr-hex-error]')?.textContent ?? 'Invalid hex color.';
 
     const input = root.querySelector<HTMLTextAreaElement>('[data-qr-input]')!;
     const preview = root.querySelector<HTMLElement>('[data-qr-preview]')!;
@@ -350,13 +424,11 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
     const pngBtn = root.querySelector<HTMLButtonElement>('[data-qr-download-png]')!;
     const svgBtn = root.querySelector<HTMLButtonElement>('[data-qr-download-svg]')!;
     const templateBtns = root.querySelectorAll<HTMLButtonElement>('[data-qr-template]');
-    const shapeSel = root.querySelector<HTMLSelectElement>('[data-qr-shape]')!;
-    const eyesSel = root.querySelector<HTMLSelectElement>('[data-qr-eyes]')!;
-    const frameSel = root.querySelector<HTMLSelectElement>('[data-qr-frame]')!;
     const fgInput = root.querySelector<HTMLInputElement>('[data-qr-fg]')!;
     const bgInput = root.querySelector<HTMLInputElement>('[data-qr-bg]')!;
-    const fgHex = root.querySelector<HTMLElement>('[data-qr-fg-hex]')!;
-    const bgHex = root.querySelector<HTMLElement>('[data-qr-bg-hex]')!;
+    const fgHex = root.querySelector<HTMLInputElement>('[data-qr-fg-hex]')!;
+    const bgHex = root.querySelector<HTMLInputElement>('[data-qr-bg-hex]')!;
+    const hexError = root.querySelector<HTMLElement>('[data-qr-hex-error]')!;
     const swatchBtns = root.querySelectorAll<HTMLButtonElement>('[data-qr-swatch]');
     const logoFile = root.querySelector<HTMLInputElement>('[data-qr-logo-file]')!;
     const logoName = root.querySelector<HTMLElement>('[data-qr-logo-name]')!;
@@ -369,8 +441,6 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
     const logoHNote = root.querySelector<HTMLElement>('[data-qr-logo-h-note]')!;
     const logoClampNote = root.querySelector<HTMLElement>('[data-qr-logo-clamp-note]')!;
     const logoError = root.querySelector<HTMLElement>('[data-qr-logo-error]')!;
-    const ecSel = root.querySelector<HTMLSelectElement>('[data-qr-ec]')!;
-    const sizeSel = root.querySelector<HTMLSelectElement>('[data-qr-size]')!;
 
     const state: {
       style: QrStyle;
@@ -397,11 +467,35 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
       pngBtn.disabled = !enabled;
       svgBtn.disabled = !enabled;
     };
+    const setRadio = (name: string, value: string): void => {
+      const el = root.querySelector<HTMLInputElement>(`input[name="${name}"][value="${value}"]`);
+      if (el) el.checked = true;
+    };
+    const setRadiosDisabled = (name: string, disabled: boolean): void => {
+      root.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`).forEach((el) => {
+        el.disabled = disabled;
+      });
+    };
+    const syncSwatchPressed = (): void => {
+      for (const btn of swatchBtns) {
+        btn.setAttribute('aria-pressed', btn.dataset.qrSwatch === state.style.moduleColor ? 'true' : 'false');
+      }
+    };
+    const clearHexInvalid = (el: HTMLInputElement): void => {
+      el.removeAttribute('aria-invalid');
+      el.classList.remove('border-red-500!');
+      show(hexError, false);
+    };
+    const markHexInvalid = (el: HTMLInputElement): void => {
+      el.setAttribute('aria-invalid', 'true');
+      el.classList.add('border-red-500!');
+      hexError.textContent = hexErrorText;
+      show(hexError, true);
+    };
 
     const currentOpts = (sizing: 'responsive' | 'fill' | 'absolute') => ({
       ...state.style,
-      // A logo always forces error correction H: it spends the correction budget.
-      ec: (state.logo ? 'H' : state.ec) as QrECLevel,
+      ec: state.ec,
       frameText,
       ariaLabel,
       logo: state.logo ? { dataUrl: state.logo, pct: state.logoPct } : null,
@@ -418,6 +512,8 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
         show(contrastEl, false);
         show(invertedEl, false);
         show(logoClampNote, false);
+        input.removeAttribute('aria-invalid');
+        input.classList.remove('border-red-500!');
         setDownloadsEnabled(false);
         return;
       }
@@ -429,6 +525,8 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
         show(contrastEl, false);
         show(invertedEl, false);
         show(logoClampNote, false);
+        input.setAttribute('aria-invalid', 'true');
+        input.classList.add('border-red-500!');
         setDownloadsEnabled(false);
         return;
       }
@@ -436,6 +534,8 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
       show(errorEl, false);
       show(preview, true);
       preview.innerHTML = result.svg;
+      input.removeAttribute('aria-invalid');
+      input.classList.remove('border-red-500!');
       setDownloadsEnabled(true);
 
       // Contrast warnings: warn, never block — the user decides.
@@ -449,6 +549,7 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
         show(logoClampNote, true);
         logoSize.value = String(result.logoPct);
         logoSizeVal.textContent = `${result.logoPct}%`;
+        logoSize.setAttribute('aria-valuetext', `${result.logoPct}%`);
       } else {
         show(logoClampNote, false);
       }
@@ -488,13 +589,36 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
         moduleColor: tpl.moduleColor,
         bgColor: tpl.bgColor,
       };
-      shapeSel.value = tpl.moduleShape;
-      eyesSel.value = tpl.eyeStyle;
-      frameSel.value = tpl.frame;
+      setRadio('qr-shape', tpl.moduleShape);
+      setRadio('qr-eyes', tpl.eyeStyle);
+      setRadio('qr-frame', tpl.frame);
       fgInput.value = tpl.moduleColor;
       bgInput.value = tpl.bgColor;
-      fgHex.textContent = tpl.moduleColor;
-      bgHex.textContent = tpl.bgColor;
+      fgHex.value = tpl.moduleColor;
+      bgHex.value = tpl.bgColor;
+      clearHexInvalid(fgHex);
+      clearHexInvalid(bgHex);
+      syncSwatchPressed();
+      render();
+    };
+
+    const applyHex = (el: HTMLInputElement, which: 'fg' | 'bg'): void => {
+      const v = el.value.trim();
+      if (!HEX_RE.test(v)) {
+        markHexInvalid(el);
+        return;
+      }
+      const hex = v.toLowerCase();
+      el.value = hex;
+      clearHexInvalid(el);
+      if (which === 'fg') {
+        fgInput.value = hex;
+        state.style.moduleColor = hex;
+        syncSwatchPressed();
+      } else {
+        bgInput.value = hex;
+        state.style.bgColor = hex;
+      }
       render();
     };
 
@@ -506,38 +630,63 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
     for (const btn of templateBtns) {
       btn.addEventListener('click', () => applyTemplate(btn.dataset.qrTemplate ?? ''));
     }
-    shapeSel.addEventListener('change', () => {
-      state.style.moduleShape = shapeSel.value as QrModuleShape;
+    const onRadioGroup = (name: string, apply: (value: string) => void): void => {
+      root.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`).forEach((el) => {
+        el.addEventListener('change', () => {
+          if (el.checked) apply(el.value);
+        });
+      });
+    };
+    onRadioGroup('qr-shape', (value) => {
+      state.style.moduleShape = value as QrModuleShape;
       render();
     });
-    eyesSel.addEventListener('change', () => {
-      state.style.eyeStyle = eyesSel.value as QrEyeStyle;
+    onRadioGroup('qr-eyes', (value) => {
+      state.style.eyeStyle = value as QrEyeStyle;
       render();
     });
-    frameSel.addEventListener('change', () => {
-      state.style.frame = frameSel.value as QrFrameStyle;
+    onRadioGroup('qr-frame', (value) => {
+      state.style.frame = value as QrFrameStyle;
       render();
+    });
+    onRadioGroup('qr-ec', (value) => {
+      state.ec = value as QrECLevel;
+      render();
+    });
+    onRadioGroup('qr-size', (value) => {
+      state.size = Number.parseInt(value, 10) || 512;
     });
     fgInput.addEventListener('input', () => {
       state.style.moduleColor = fgInput.value;
-      fgHex.textContent = fgInput.value;
+      fgHex.value = fgInput.value;
+      clearHexInvalid(fgHex);
+      syncSwatchPressed();
       render();
     });
     bgInput.addEventListener('input', () => {
       state.style.bgColor = bgInput.value;
-      bgHex.textContent = bgInput.value;
+      bgHex.value = bgInput.value;
+      clearHexInvalid(bgHex);
       render();
     });
+    fgHex.addEventListener('change', () => applyHex(fgHex, 'fg'));
+    bgHex.addEventListener('change', () => applyHex(bgHex, 'bg'));
+    fgHex.addEventListener('input', () => clearHexInvalid(fgHex));
+    bgHex.addEventListener('input', () => clearHexInvalid(bgHex));
     for (const btn of swatchBtns) {
       btn.addEventListener('click', () => {
         const hex = btn.dataset.qrSwatch ?? '#0f172a';
         fgInput.value = hex;
+        fgHex.value = hex;
         state.style.moduleColor = hex;
-        fgHex.textContent = hex;
+        clearHexInvalid(fgHex);
+        syncSwatchPressed();
         render();
       });
     }
 
+    const formatBytes = (bytes: number): string =>
+      bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(bytes < 10240 ? 1 : 0)} KB`;
     const setLogoUi = (visible: boolean): void => {
       showFlex(logoName, visible);
       show(logoSizeWrap, visible);
@@ -564,11 +713,15 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
         const dataUrl = reader.result;
         if (typeof dataUrl !== 'string') return;
         state.logo = dataUrl;
+        // A logo always forces error correction H — and the state now says so
+        // too, so the displayed selection and the rendered code can no longer
+        // disagree when the logo is removed later.
+        state.ec = 'H';
         logoThumb.src = dataUrl;
-        logoFilename.textContent = file.name;
+        logoFilename.textContent = `${file.name} · ${formatBytes(file.size)}`;
         setLogoUi(true);
-        ecSel.value = 'H';
-        ecSel.disabled = true;
+        setRadio('qr-ec', 'H');
+        setRadiosDisabled('qr-ec', true);
         render();
       };
       reader.readAsDataURL(file);
@@ -578,21 +731,15 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
       logoFile.value = '';
       setLogoUi(false);
       show(logoClampNote, false);
-      ecSel.disabled = false;
+      setRadiosDisabled('qr-ec', false);
       render();
     });
     logoSize.addEventListener('input', () => {
       const pct = Math.max(QR_LOGO_MIN_PCT, Math.min(QR_LOGO_MAX_PCT, Number.parseInt(logoSize.value, 10) || QR_LOGO_DEFAULT_PCT));
       state.logoPct = pct;
       logoSizeVal.textContent = `${pct}%`;
+      logoSize.setAttribute('aria-valuetext', `${pct}%`);
       render();
-    });
-    ecSel.addEventListener('change', () => {
-      state.ec = ecSel.value as QrECLevel;
-      render();
-    });
-    sizeSel.addEventListener('change', () => {
-      state.size = Number.parseInt(sizeSel.value, 10) || 512;
     });
 
     const downloadBlob = (blob: Blob, filename: string): void => {
@@ -652,6 +799,79 @@ const swatches = ['#0f172a', '#0b4f9c', '#166534', '#9d174d', '#7c3aed', '#b4530
       }
     });
 
+    syncSwatchPressed();
     render();
   });
 </script>
+
+<style>
+  /* Segmented radio groups: the adjacent-sibling combinator (+) styles ONLY
+     the label belonging to the checked/focused/disabled input. Tailwind's
+     peer-checked must not be used here — it uses ~ and would paint every
+     segment after the checked one as selected. */
+  [data-qr] input[type='radio']:checked + label {
+    background-color: #4d90fe;
+    border-color: #4d90fe;
+    color: #ffffff;
+  }
+  [data-qr] input[type='radio']:focus-visible + label {
+    position: relative;
+    z-index: 10;
+    box-shadow: inset 0 0 0 2px #4d90fe;
+  }
+  [data-qr] input[type='radio']:disabled + label {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  /* File upload: the sr-only input stays keyboard-focusable; its label
+     (the visible button) shows the focus ring. */
+  [data-qr] input[type='file']:focus-visible + label {
+    outline: 3px solid #4d90fe;
+    outline-offset: 2px;
+  }
+  /* Native range slider: 28px thumb (WCAG 2.5.8 wants 24px+, touch wants 44px
+     hit area — the thumb plus its surrounding track padding gets close while
+     staying visually light), blue thumb with a white edge for 3:1 contrast
+     against the track, and a clear focus-visible outline. */
+  [data-qr] input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    height: 28px;
+  }
+  [data-qr] input[type='range']::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: #e2e8f0;
+  }
+  [data-qr] input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    margin-top: -10px;
+    border-radius: 9999px;
+    background: #4d90fe;
+    border: 3px solid #ffffff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
+    cursor: pointer;
+  }
+  [data-qr] input[type='range']::-moz-range-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: #e2e8f0;
+  }
+  [data-qr] input[type='range']::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    background: #4d90fe;
+    border: 3px solid #ffffff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.3);
+    cursor: pointer;
+  }
+  [data-qr] input[type='range']:focus-visible {
+    outline: 3px solid #4d90fe;
+    outline-offset: 4px;
+  }
+</style>
