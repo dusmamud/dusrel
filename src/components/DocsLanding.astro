@@ -25,6 +25,23 @@ interface Props {
 }
 
 const { lang, docs } = Astro.props;
+
+// Card thumbnails live in src/assets/docs-cards (convention: <slug>.png =
+// transparent object, <slug>.jpg = 16:9 scene). Resolved by slug so no
+// frontmatter or registry change is needed per doc.
+const cardModules = import.meta.glob('../assets/docs-cards/*.{png,jpg}', { eager: true });
+const cardFor = (slug: string) => {
+  const key = Object.keys(cardModules).find(
+    (k) => k.endsWith(`/${slug}.png`) || k.endsWith(`/${slug}.jpg`),
+  );
+  if (!key) return null;
+  const mod = cardModules[key] as { default?: { src?: string } | string };
+  const d = mod.default;
+  const src = typeof d === 'string' ? d : d?.src;
+  if (!src) return null;
+  return { src, kind: key.endsWith('.png') ? 'transparent' : 'scene' };
+};
+
 const lp = (p: string) => `${lang === 'hi' ? '/hi' : ''}${p}/`;
 const canonical = `https://dusrel.com${lp('/docs')}`;
 const title = lang === 'hi' ? 'डॉक्स — Dusrel' : 'Docs — Dusrel';
@@ -68,20 +85,45 @@ const emptyNote =
           <section class="mt-14">
             <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{cat[lang]}</h2>
             <div class="mt-6 grid gap-4 sm:grid-cols-2">
-              {items.map((d) => (
+              {items.map((d) => {
+                const card = cardFor(d.slug);
+                return (
                 <a
                   href={docHref(d.slug, lang)}
-                  class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#4d90fe] hover:shadow-md dark:border-white/10 dark:bg-white/5"
+                  class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-[#4d90fe] hover:shadow-md dark:border-white/10 dark:bg-white/5"
                 >
-                  <p class="font-semibold text-slate-900 dark:text-white">{d.title}</p>
-                  <p class="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-                    {d.description}
-                  </p>
-                  <span class="mt-3 inline-block rounded-full bg-[#4d90fe]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4d90fe]">
-                    {docTypeLabels[d.type]?.[lang] ?? d.type}
-                  </span>
+                  {card && (
+                    <div
+                      class={
+                        card.kind === 'transparent'
+                          ? 'flex aspect-[16/9] items-center justify-center bg-[#4d90fe]/5 p-5 dark:bg-white/5'
+                          : 'aspect-[16/9] overflow-hidden'
+                      }
+                    >
+                      <img
+                        src={card.src}
+                        alt=""
+                        decoding="async"
+                        class={
+                          card.kind === 'transparent'
+                            ? 'h-full w-full object-contain'
+                            : 'h-full w-full object-cover transition group-hover:scale-105'
+                        }
+                      />
+                    </div>
+                  )}
+                  <div class="p-5">
+                    <p class="font-semibold text-slate-900 dark:text-white">{d.title}</p>
+                    <p class="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                      {d.description}
+                    </p>
+                    <span class="mt-3 inline-block rounded-full bg-[#4d90fe]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4d90fe]">
+                      {docTypeLabels[d.type]?.[lang] ?? d.type}
+                    </span>
+                  </div>
                 </a>
-              ))}
+                );
+              })}
             </div>
           </section>
         );
