@@ -12,11 +12,17 @@ Dusrel is an independent, privacy-first collection of free tools and apps, built
 
 ## Who builds it
 
+![Who builds it](/docs-sections/about-dusrel-s1.jpg)
+
+
 Dusrel is built by one independent developer. It is not a registered company, and it is not a team: a single person designs, builds and maintains the tools and apps. That is worth saying plainly, because it shapes what Dusrel can honestly promise. A one-person project can move carefully and keep its tools simple, but it also cannot offer the kind of round-the-clock support a large company might.
 
 The project started from a simple frustration: every useful app seemed to want your data in return. Dusrel is the attempt to build the alternative — tools that serve you instead of advertisers, with nothing to install and no account needed for the tools that exist today.
 
 ## What exists today
+
+![What exists today](/docs-sections/about-dusrel-s2.jpg)
+
 
 As of this writing, Dusrel offers:
 
@@ -28,12 +34,18 @@ Eight more apps — Drive, Chat, Docs, Sheets, Notes, Mail, Meet and Calendar �
 
 ## What Dusrel promises
 
+![What Dusrel promises](/docs-sections/about-dusrel-s3.jpg)
+
+
 Two promises run through the whole project:
 
 - **Privacy first.** The tools are designed so that your data stays yours. For the pass tools and ShrinkIt, that promise is concrete: everything is processed on your device, and your files and inputs never leave it. See [Privacy on your device](/docs/privacy-on-device/) for exactly which products that covers and where its limits are.
 - **Free core tools.** The tools and apps available today are free to use, with no account wall in front of them. Dusrel does not ask you to sign up before you can generate a password, resize an image or make a QR code.
 
 ## What Dusrel does not claim
+
+![What Dusrel does not claim](/docs-sections/about-dusrel-s4.jpg)
+
 
 Honesty about limits is part of the project:
 
@@ -42,5 +54,8 @@ Honesty about limits is part of the project:
 - Dusrel does not claim its tools are perfect. If a tool has a limit — for example, very large images that a browser cannot safely process — the tool should say so rather than pretend otherwise.
 
 ## Contact
+
+![Contact](/docs-sections/about-dusrel-s5.jpg)
+
 
 For questions about Dusrel, the public contact address is hello@dusrel.com. For help using a specific tool, start with that tool's own guide in these docs.

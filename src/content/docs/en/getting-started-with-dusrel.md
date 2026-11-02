@@ -14,6 +14,9 @@ This guide shows you where things live and walks you through using one tool from
 
 ## Where to find things
 
+![Where to find things](/docs-sections/getting-started-with-dusrel-s1.jpg)
+
+
 There are two places to start:
 
 - **The apps hub** at [dusrel.com/apps/](https://dusrel.com/apps/) lists the full apps. Four are live today:
@@ -35,6 +38,9 @@ The site is available in English and Hindi. The Hindi version lives under `/hi/`
 
 ## Walkthrough: make a QR code
 
+![Walkthrough: make a QR code](/docs-sections/getting-started-with-dusrel-s2.jpg)
+
+
 The QR code generator is a good first tool because it shows the whole pattern: open a page, do the work, download the result. No account is needed at any step.
 
 1. Open [dusrel.com/pass/qr-code-generator/](https://dusrel.com/pass/qr-code-generator/).
@@ -48,11 +54,17 @@ That is the full flow, and it is the same shape for the other quick tools: open 
 
 ## Tips for your first visit
 
+![Tips for your first visit](/docs-sections/getting-started-with-dusrel-s3.jpg)
+
+
 - Start from the apps hub if you want a full app, and from `/pass/` if you want one small job done fast.
 - If a tool asks for a file, such as ShrinkIt asking for images, the file stays on your device while it is processed.
 - If something looks wrong on a small phone screen, try rotating the phone or using a wider window — the tools are built to work on phones, tablets and desktops.
 
 ## What to read next
+
+![What to read next](/docs-sections/getting-started-with-dusrel-s4.jpg)
+
 
 - [Privacy on your device](/docs/privacy-on-device/) — how the pass tools and ShrinkIt handle your data.
 - [About Dusrel](/docs/about-dusrel/) — who builds Dusrel and what it promises.

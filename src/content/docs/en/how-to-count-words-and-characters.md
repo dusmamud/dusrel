@@ -12,6 +12,9 @@ Dusrel's word counter measures your text as you type — no button to press, no 
 
 ## Steps
 
+![Steps](/docs-sections/how-to-count-words-and-characters-s1.jpg)
+
+
 1. **Open the tool.** You will see an empty text box with six count cards underneath it, all starting at zero.
 2. **Paste or type your text.** Click into the box and write, or paste from another app. The counts update live as the text changes.
 3. **Read the six counts.** Each card shows one measurement:
@@ -25,6 +28,9 @@ Dusrel's word counter measures your text as you type — no button to press, no 
 
 ## How each count works
 
+![How each count works](/docs-sections/how-to-count-words-and-characters-s2.jpg)
+
+
 - **Words** are counted by splitting the text on whitespace, ignoring extra spaces at the start and end. Pasting text with double spaces will not inflate the word count.
 - **Characters** counts everything you typed, including spaces and line breaks. Use `Characters without spaces` when a limit — such as a bio or post limit — counts only visible characters.
 - **Sentences** are counted wherever the text is split by a sentence-ending mark (`.`, `!`, `?`, or `…`), as long as the part before it contains a letter or digit. A row of punctuation on its own does not count as a sentence.
@@ -32,6 +38,9 @@ Dusrel's word counter measures your text as you type — no button to press, no 
 - **Reading time** assumes a reading speed of 200 words per minute. Under one minute it shows `< 1 min`; longer texts are rounded to whole minutes.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-count-words-and-characters-s3.jpg)
+
 
 - **Check a limit before you post.** If a platform allows, say, 280 characters, watch the `Characters` card while you edit — or `Characters without spaces` if that platform ignores spaces.
 - **Use it for essays and assignments.** The word count plus the paragraph count together make it easy to check a piece against a required length and structure.

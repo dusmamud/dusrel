@@ -265,6 +265,16 @@ const techArticleLd = {
     margin: 2rem 0;
     border-color: #e2e8f0;
   }
+  .doc-body :global(img) {
+    display: block;
+    margin: 1.25rem 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+  }
   :global(.dark) .doc-body :global(h2),
   :global(.dark) .doc-body :global(h3),
   :global(.dark) .doc-body :global(strong) {
@@ -280,6 +290,9 @@ const techArticleLd = {
     background: rgba(255, 255, 255, 0.1);
   }
   :global(.dark) .doc-body :global(hr) {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  :global(.dark) .doc-body :global(img) {
     border-color: rgba(255, 255, 255, 0.1);
   }
 </style>

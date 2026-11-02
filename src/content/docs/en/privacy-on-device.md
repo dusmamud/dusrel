@@ -14,6 +14,9 @@ This page explains what that means, which products it covers, and where its limi
 
 ## What "on-device" means
 
+![What "on-device" means](/docs-sections/privacy-on-device-s1.jpg)
+
+
 Your browser downloads the tool's code from dusrel.com, just like it downloads any web page. After that, everything happens locally:
 
 - The text you type, the password you test, or the image you drop in is read by code running on your device.
@@ -24,6 +27,9 @@ There is no server step in the middle for these tools, and no account is require
 
 ## Which products this covers
 
+![Which products this covers](/docs-sections/privacy-on-device-s2.jpg)
+
+
 This claim is deliberately narrow. It covers exactly these products:
 
 - **The six pass tools** at dusrel.com/pass/: the password generator, password strength checker, username generator, word counter, QR code generator and age calculator. All six run entirely in the browser. This matters most for the password tools: a password you generate or test is never sent over the network, so testing a password here does not expose it to anyone.
@@ -33,6 +39,9 @@ That is the full list. This page does not claim the same for any other app, and 
 
 ## What on-device processing does not do
 
+![What on-device processing does not do](/docs-sections/privacy-on-device-s3.jpg)
+
+
 On-device processing is a real protection, but it is not magic. A few honest limits:
 
 - **It protects your input from Dusrel's servers, not from your own actions.** If you take a generated QR code or a resized photo and post it publicly, that is your choice, and the result is public from then on.
@@ -41,8 +50,14 @@ On-device processing is a real protection, but it is not magic. A few honest lim
 
 ## Why Dusrel builds this way
 
+![Why Dusrel builds this way](/docs-sections/privacy-on-device-s4.jpg)
+
+
 The idea behind Dusrel is that useful software should not demand your data as the price of using it. Building tools that run entirely in the browser is one way to keep that promise concrete: instead of asking you to trust a policy, the tool is designed so that the data never leaves in the first place. Where a future product genuinely needs a server, Dusrel will need to say so plainly rather than stretch this claim to cover it.
 
 ## In short
+
+![In short](/docs-sections/privacy-on-device-s5.jpg)
+
 
 For the pass tools and ShrinkIt: your input goes in, the work happens on your device, and the result comes out — with no upload step in between. For everything else, read that product's own page before assuming anything.

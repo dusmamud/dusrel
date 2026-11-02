@@ -17,6 +17,9 @@ images in one batch.
 
 ## Resize and compress an image
 
+![Resize and compress an image](/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s1.jpg)
+
+
 1. Open [shrinkit.dusrel.com](https://shrinkit.dusrel.com).
 2. Add your images with the dropzone or the file picker. You can add more
    than one image at a time.
@@ -32,6 +35,9 @@ That is the whole flow. Your original files are never sent anywhere: the
 resizing and encoding happen on your own device.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s2.jpg)
+
 
 - **Start from percent when you just need smaller files.** Resizing to
   50% is usually enough for sharing photos online, and you do not need to

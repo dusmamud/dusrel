@@ -12,6 +12,9 @@ Dusrel is an independent project building a suite of web apps and small browser 
 
 ## Live apps
 
+![Live apps](/docs-sections/dusrel-apps-overview-s1.jpg)
+
+
 These apps are live and open to use. Each entry links to the app itself and to its detail page on this site.
 
 - **ShrinkIt** — Resize, compress and convert images in the browser. Live at [shrinkit.dusrel.com](https://shrinkit.dusrel.com). Detail page: [/apps/shrinkit/](/apps/shrinkit/).
@@ -20,6 +23,9 @@ These apps are live and open to use. Each entry links to the app itself and to i
 - **PDF Tools** — Client-side PDF tools, including merge, rotate, watermark and page numbering, processed in the browser. Live at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/). Detail page: [/apps/pdf-tools/](/apps/pdf-tools/).
 
 ## Pass tools
+
+![Pass tools](/docs-sections/dusrel-apps-overview-s2.jpg)
+
 
 The tools at [dusrel.com/pass/](/pass/) are small single-purpose utilities. They run in the browser, need no account, and are free to use.
 
@@ -31,6 +37,9 @@ The tools at [dusrel.com/pass/](/pass/) are small single-purpose utilities. They
 - **Password Strength Checker** — Check how strong a password is. [/pass/password-strength-checker/](/pass/password-strength-checker/)
 
 ## Coming soon
+
+![Coming soon](/docs-sections/dusrel-apps-overview-s3.jpg)
+
 
 The following products are planned but not available yet. They have no live URL, so no link is given here. Do not expect to sign up for or use them today.
 
@@ -44,5 +53,8 @@ The following products are planned but not available yet. They have no live URL,
 - Calendar
 
 ## How this list is kept honest
+
+![How this list is kept honest](/docs-sections/dusrel-apps-overview-s4.jpg)
+
 
 This page is a reference, not a roadmap promise. A product moves from "Coming soon" to "Live apps" only when it has a public URL you can open. Dates and plans for unreleased products are deliberately not stated here, because they are not decided.

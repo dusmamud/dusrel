@@ -13,6 +13,9 @@ Everything runs in your browser — the password you type is never sent anywhere
 
 ## Check a password
 
+![Check a password](/docs-sections/how-to-check-password-strength-s1.jpg)
+
+
 1. Open the [Password Strength Checker](/pass/password-strength-checker/).
 2. Type a password in the box. The result updates live with every keystroke — there is no button to press.
 3. Read the `Strength` rating, the bits of entropy, and the `Estimated crack time` below the bar.
@@ -21,11 +24,17 @@ If you want to see what you typed, click `Show`. Click `Hide` to mask it again.
 
 ## How to read the result
 
+![How to read the result](/docs-sections/how-to-check-password-strength-s2.jpg)
+
+
 - **Strength** has four levels: `Weak`, `Fair`, `Strong` and `Excellent`. The bar fills and changes colour with the rating.
 - **Bits of entropy** is a single number for how unpredictable the password is. Longer passwords and a wider mix of character types both raise it. Roughly: under 40 bits rates `Weak`, 40 or more rates `Fair`, 60 or more rates `Strong`, and 80 or more rates `Excellent`.
 - **Estimated crack time** translates the entropy into a time — from `instant` for very weak passwords up to years and beyond for strong ones. It is an estimate based on an offline attacker guessing at high speed, not a guarantee, so treat it as a comparison guide rather than a promise.
 
 ## The checklist
+
+![The checklist](/docs-sections/how-to-check-password-strength-s3.jpg)
+
 
 Below the bar, five checks show exactly what to improve:
 
@@ -39,6 +48,9 @@ Each check turns green with a tick when it passes. A password can have a good ra
 
 ## Make a password stronger
 
+![Make a password stronger](/docs-sections/how-to-check-password-strength-s4.jpg)
+
+
 The two most effective changes are length first, then variety:
 
 1. **Make it longer.** Adding a few characters raises entropy faster than swapping characters around. Twelve characters is the minimum the checklist asks for; more is better.
@@ -48,5 +60,8 @@ The two most effective changes are length first, then variety:
 A practical approach: start from a phrase you can remember, then stretch it with mixed case, a number and a symbol until all five checks pass and the rating reads `Strong` or `Excellent`.
 
 ## One honest warning
+
+![One honest warning](/docs-sections/how-to-check-password-strength-s5.jpg)
+
 
 Do not type a real password you currently use into any website tool, including this one. The check happens only in your browser and nothing is sent or stored, but the safest habit is to test a similar made-up password instead — one with the same length and character mix as the real one. You will get the same quality of answer without exposing the password itself.

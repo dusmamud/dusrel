@@ -15,6 +15,9 @@ never leaves your browser — the MP3 is processed locally on your device.
 
 ## Create a synced lyrics file
 
+![Create a synced lyrics file](/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s1.jpg)
+
+
 1. Open [Ricsline](https://dusmamud.github.io/ricsline/) and go to the
    maker.
 2. Paste or type your lyrics, one line per row. You can also import an
@@ -32,6 +35,9 @@ never leaves your browser — the MP3 is processed locally on your device.
 
 ## Fix timing mistakes
 
+![Fix timing mistakes](/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s2.jpg)
+
+
 You do not need to start over if a line is off:
 
 - **Click a line to seek.** Clicking any lyric line jumps the audio to
@@ -44,6 +50,9 @@ You do not need to start over if a line is off:
   one step.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s3.jpg)
+
 
 - **Sync in short passes.** Do one full pass without worrying about
   perfection, then replay and fix the lines that feel off. It is faster

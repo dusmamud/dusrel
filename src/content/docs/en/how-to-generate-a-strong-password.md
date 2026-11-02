@@ -12,6 +12,9 @@ Dusrel's password generator creates a random password for you in the browser —
 
 ## Steps
 
+![Steps](/docs-sections/how-to-generate-a-strong-password-s1.jpg)
+
+
 1. **Open the tool.** A password is generated for you straight away, using the default settings: 16 characters, with uppercase letters, lowercase letters, numbers, and symbols all included.
 2. **Set the length.** Drag the `Password length` slider to anything from 8 to 64 characters. Longer passwords are stronger — for an important account, 16 characters or more is a good choice.
 3. **Choose the character types.** Tick or untick the four boxes: `Uppercase (ABC)`, `Lowercase (abc)`, `Numbers (123)`, and `Symbols (#$&)`. Every change generates a new password immediately, so you can see the result of each choice at once.
@@ -20,6 +23,9 @@ Dusrel's password generator creates a random password for you in the browser —
 6. **Copy it.** Click `Copy` next to the password. The button briefly shows `Copied!` — then paste the password wherever you need it, such as your password manager or the account's sign-up form.
 
 ## What the strength meter tells you
+
+![What the strength meter tells you](/docs-sections/how-to-generate-a-strong-password-s2.jpg)
+
 
 Under the password you will see a strength label, a number in "bits of entropy", and a coloured bar. Bits of entropy measure how hard the password is to guess: more bits means a larger number of possible combinations.
 
@@ -31,6 +37,9 @@ Under the password you will see a strength label, a number in "bits of entropy",
 Two things raise the number: a longer password, and a wider mix of character types. If your password shows `Weak` or `Fair`, lengthen it or tick more character types until it reaches `Strong` or `Excellent`.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-generate-a-strong-password-s3.jpg)
+
 
 - **Every selected character type is always represented.** The generator guarantees at least one character from each type you ticked, so ticking `Symbols` really does put a symbol in the password.
 - **You cannot end up with nothing selected.** If you untick every character type, lowercase letters are switched back on automatically so a password can still be generated.

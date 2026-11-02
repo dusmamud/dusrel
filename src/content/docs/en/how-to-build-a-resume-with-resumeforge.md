@@ -16,6 +16,9 @@ Open it at [dusmamud.github.io/resumeforge/](https://dusmamud.github.io/resumefo
 
 ## Build your resume
 
+![Build your resume](/docs-sections/how-to-build-a-resume-with-resumeforge-s1.jpg)
+
+
 1. Open [ResumeForge](https://dusmamud.github.io/resumeforge/).
 2. Pick a template. There are four ATS-friendly templates — Minimal,
    Professional, Modern, and Classic — each with a live preview, so you
@@ -33,6 +36,9 @@ Because drafts autosave in your browser, you can close the tab and come
 back to your resume later without losing your work.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-build-a-resume-with-resumeforge-s2.jpg)
+
 
 - **Write bullets as results, not duties.** Instead of listing what a
   job involved, say what you achieved — start with an action word and

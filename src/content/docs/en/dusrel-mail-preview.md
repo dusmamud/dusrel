@@ -14,6 +14,9 @@ The preview lives at [mail.dusrel.com](https://mail.dusrel.com/). Its landing ta
 
 ## What the preview is
 
+![What the preview is](/docs-sections/dusrel-mail-preview-s1.jpg)
+
+
 Dusrel Mail is planned as the first Dusrel web app: a webmail client that runs in the browser on desktop and mobile, with no install step. The Phase 1 build is a frontend-only demo of that interface. It shows what the mailbox is designed to look and feel like, using sample messages, while the real backend is not connected yet.
 
 What you can see in the demo:
@@ -29,6 +32,9 @@ Every message, folder count and setting in this demo is sample data. Actions suc
 
 ## What the design plans, but Phase 1 does not do yet
 
+![What the design plans, but Phase 1 does not do yet](/docs-sections/dusrel-mail-preview-s2.jpg)
+
+
 The landing presents several features as part of the design. These are goals, not working features in the preview:
 
 - **End-to-end encryption** — the design intends that only you and your recipient can read an encrypted message, with decryption happening on your device. In Phase 1 it is not connected to a real backend.
@@ -39,6 +45,9 @@ The landing presents several features as part of the design. These are goals, no
 
 ## What is definitely not here yet
 
+![What is definitely not here yet](/docs-sections/dusrel-mail-preview-s3.jpg)
+
+
 - Real accounts and real login. The demo login is not an account.
 - Real sending, receiving or delivery of mail. There is no mail backend (no JMAP server) connected.
 - Real encryption or decryption of messages.
@@ -47,6 +56,9 @@ The landing presents several features as part of the design. These are goals, no
 - A price or a plan. The FAQ states pricing is undecided.
 
 ## How to think about this preview
+
+![How to think about this preview](/docs-sections/dusrel-mail-preview-s4.jpg)
+
 
 Treat it as a walkthrough of an interface, not as an inbox. It is useful for seeing the layout, the folder structure, the compose panel and the privacy settings screens, and for understanding what Dusrel Mail aims to be. It is not a place to receive mail, store messages or share anything sensitive.
 

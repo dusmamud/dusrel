@@ -15,6 +15,9 @@ Open it at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/
 
 ## The 11 tools
 
+![The 11 tools](/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s1.jpg)
+
+
 - **Merge** — combine several PDFs into one document.
 - **Split** — break one PDF into separate files.
 - **Compress** — shrink a PDF's file size.
@@ -28,6 +31,9 @@ Open it at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/
 - **Protect** — add a password to a PDF.
 
 ## Which tool do I need?
+
+![Which tool do I need?](/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s2.jpg)
+
 
 - Several files into one document → **Merge**.
 - One file into several documents → **Split**.
@@ -43,6 +49,9 @@ Open it at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/
 
 ## Use any tool
 
+![Use any tool](/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s3.jpg)
+
+
 The flow is the same for every tool:
 
 1. Open [PDF Tools](https://dusmamud.github.io/pdf-tools/) and pick the
@@ -55,6 +64,9 @@ Heavy files are handled in background workers, so the page stays
 responsive while processing runs.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s4.jpg)
+
 
 - **Do conversions before edits.** If you need a JPG as part of an
   edited PDF, convert it to PDF first, then use Merge or Organize on the

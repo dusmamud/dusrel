@@ -12,6 +12,9 @@ Dusrel's username generator suggests names built from two-word combinations, suc
 
 ## Steps
 
+![Steps](/docs-sections/how-to-generate-a-username-s1.jpg)
+
+
 1. **Open the tool.** Twelve username suggestions appear straight away, using the default settings: the `Cool` style, all lowercase, with no separator.
 2. **Pick a style.** Under `Style`, choose one of three themes:
    - `Cool` — punchy words like Swift, Neon, and Falcon
@@ -24,6 +27,9 @@ Dusrel's username generator suggests names built from two-word combinations, suc
 7. **Copy the one you like.** Click any suggestion to copy it. It briefly shows `Copied!`, and you can then paste it into a sign-up form or profile.
 
 ## Tips
+
+![Tips](/docs-sections/how-to-generate-a-username-s2.jpg)
+
 
 - **Keep generating until one fits.** There is no limit on how many batches you can generate, so run through a few sets before settling on a name.
 - **Every batch is unique.** The twelve suggestions in one batch never repeat each other, so you are always choosing between twelve genuinely different names.
