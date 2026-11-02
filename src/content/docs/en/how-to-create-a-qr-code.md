@@ -13,7 +13,7 @@ Everything runs in your browser — the text you type and any logo you upload ne
 
 ## Create a basic QR code
 
-![Create a basic QR code](/docs-sections/how-to-create-a-qr-code-s1.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s1.jpg" alt="Create a basic QR code" width="1200" height="675">
 
 
 1. Open the [QR Code Generator](/pass/qr-code-generator/).
@@ -24,7 +24,7 @@ The sections below cover styling and downloads.
 
 ## Pick a template
 
-![Pick a template](/docs-sections/how-to-create-a-qr-code-s2.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s2.jpg" alt="Pick a template" width="1200" height="675">
 
 
 Under `Templates` are eight ready-made styles. Click any preview to apply it:
@@ -42,7 +42,7 @@ Picking a template sets the module shape, corner eyes, frame and colours in one 
 
 ## Change the style
 
-![Change the style](/docs-sections/how-to-create-a-qr-code-s3.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s3.jpg" alt="Change the style" width="1200" height="675">
 
 
 Under `Style` there are three controls:
@@ -53,7 +53,7 @@ Under `Style` there are three controls:
 
 ## Change the colours
 
-![Change the colours](/docs-sections/how-to-create-a-qr-code-s4.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s4.jpg" alt="Change the colours" width="1200" height="675">
 
 
 Under `Colors` you can set the `Code color` and the `Background`:
@@ -68,7 +68,7 @@ Two warnings can appear here:
 
 ## Add a logo
 
-![Add a logo](/docs-sections/how-to-create-a-qr-code-s5.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s5.jpg" alt="Add a logo" width="1200" height="675">
 
 
 1. Under `Logo`, click `Upload logo` and choose an image file (up to 2 MB).
@@ -79,7 +79,7 @@ Two things happen automatically when a logo is added. Error correction is fixed 
 
 ## Error correction
 
-![Error correction](/docs-sections/how-to-create-a-qr-code-s6.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s6.jpg" alt="Error correction" width="1200" height="675">
 
 
 Under `Error correction` you can choose how much damage the code can survive and still scan:
@@ -92,7 +92,7 @@ Higher error correction makes the code denser, so for very long text, stay at `M
 
 ## Download the code
 
-![Download the code](/docs-sections/how-to-create-a-qr-code-s7.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s7.jpg" alt="Download the code" width="1200" height="675">
 
 
 - **PNG size** — choose `256 px`, `512 px` or `1024 px`. The default is 512 px, which suits most screens and documents. Pick 1024 px for print.
@@ -102,7 +102,7 @@ If your text is too long, an error message appears instead of the preview. Short
 
 ## Tips
 
-![Tips](/docs-sections/how-to-create-a-qr-code-s8.jpg)
+<img src="/docs-sections/how-to-create-a-qr-code-s8.jpg" alt="Tips" width="1200" height="675">
 
 
 - Test the finished code with your phone camera before printing or publishing it, especially after changing colours or adding a logo.

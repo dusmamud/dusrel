@@ -13,7 +13,7 @@ Everything runs in your browser — the dates you enter never leave your device.
 
 ## Calculate your age
 
-![Calculate your age](/docs-sections/how-to-calculate-your-exact-age-s1.jpg)
+<img src="/docs-sections/how-to-calculate-your-exact-age-s1.jpg" alt="Calculate your age" width="1200" height="675">
 
 
 1. Open the [Age Calculator](/pass/age-calculator/).
@@ -25,7 +25,7 @@ Your result appears below the button: your age in `Years`, `Months` and `Days`, 
 
 ## Notes on entering dates
 
-![Notes on entering dates](/docs-sections/how-to-calculate-your-exact-age-s2.jpg)
+<img src="/docs-sections/how-to-calculate-your-exact-age-s2.jpg" alt="Notes on entering dates" width="1200" height="675">
 
 
 - **Nothing is calculated while you type.** The result only appears when you click `Calculate age` (or press Enter). If you edit a date after calculating, the old result is cleared so a stale number is never shown as current.
@@ -39,7 +39,7 @@ Your result appears below the button: your age in `Years`, `Months` and `Days`, 
 
 ## Calculate age on another date
 
-![Calculate age on another date](/docs-sections/how-to-calculate-your-exact-age-s3.jpg)
+<img src="/docs-sections/how-to-calculate-your-exact-age-s3.jpg" alt="Calculate age on another date" width="1200" height="675">
 
 
 The `As of date` does not have to be today. Change it to any date to see your age on that date — for example, your age on a past date, or how old you will be on a future date. The same rule applies: the date of birth cannot be after the `As of date`.
@@ -48,7 +48,7 @@ The `Next birthday` line is worked out from the `As of date` as well. It shows h
 
 ## Share your result
 
-![Share your result](/docs-sections/how-to-calculate-your-exact-age-s4.jpg)
+<img src="/docs-sections/how-to-calculate-your-exact-age-s4.jpg" alt="Share your result" width="1200" height="675">
 
 
 After a valid calculation, the share buttons become active:
@@ -60,7 +60,7 @@ The share buttons stay disabled until you have a valid result, so you cannot acc
 
 ## Tips
 
-![Tips](/docs-sections/how-to-calculate-your-exact-age-s5.jpg)
+<img src="/docs-sections/how-to-calculate-your-exact-age-s5.jpg" alt="Tips" width="1200" height="675">
 
 
 - If you only need your age in years, the large `Years` number is the answer — the months and days figures are the remainder on top of it.

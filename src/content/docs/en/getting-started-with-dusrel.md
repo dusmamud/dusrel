@@ -14,7 +14,7 @@ This guide shows you where things live and walks you through using one tool from
 
 ## Where to find things
 
-![Where to find things](/docs-sections/getting-started-with-dusrel-s1.jpg)
+<img src="/docs-sections/getting-started-with-dusrel-s1.jpg" alt="Where to find things" width="1200" height="675">
 
 
 There are two places to start:
@@ -38,7 +38,7 @@ The site is available in English and Hindi. The Hindi version lives under `/hi/`
 
 ## Walkthrough: make a QR code
 
-![Walkthrough: make a QR code](/docs-sections/getting-started-with-dusrel-s2.jpg)
+<img src="/docs-sections/getting-started-with-dusrel-s2.jpg" alt="Walkthrough: make a QR code" width="1200" height="675">
 
 
 The QR code generator is a good first tool because it shows the whole pattern: open a page, do the work, download the result. No account is needed at any step.
@@ -54,7 +54,7 @@ That is the full flow, and it is the same shape for the other quick tools: open 
 
 ## Tips for your first visit
 
-![Tips for your first visit](/docs-sections/getting-started-with-dusrel-s3.jpg)
+<img src="/docs-sections/getting-started-with-dusrel-s3.jpg" alt="Tips for your first visit" width="1200" height="675">
 
 
 - Start from the apps hub if you want a full app, and from `/pass/` if you want one small job done fast.
@@ -63,7 +63,7 @@ That is the full flow, and it is the same shape for the other quick tools: open 
 
 ## What to read next
 
-![What to read next](/docs-sections/getting-started-with-dusrel-s4.jpg)
+<img src="/docs-sections/getting-started-with-dusrel-s4.jpg" alt="What to read next" width="1200" height="675">
 
 
 - [Privacy on your device](/docs/privacy-on-device/) — how the pass tools and ShrinkIt handle your data.

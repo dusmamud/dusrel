@@ -265,13 +265,15 @@ const techArticleLd = {
     margin: 2rem 0;
     border-color: #e2e8f0;
   }
+  /* Section images carry width="1200" height="675" attributes, so the
+     browser reserves the 16:9 space before load (no layout shift).
+     max-width + height:auto (web.dev/MDN rule) keeps every image inside
+     its container at every viewport width without stretching. */
   .doc-body :global(img) {
     display: block;
-    margin: 1.25rem 0;
-    width: 100%;
+    margin: 1.25rem auto;
+    max-width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
     border-radius: 1rem;
     border: 1px solid #e2e8f0;
   }

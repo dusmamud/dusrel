@@ -13,7 +13,7 @@ Everything runs in your browser — the password you type is never sent anywhere
 
 ## Check a password
 
-![Check a password](/docs-sections/how-to-check-password-strength-s1.jpg)
+<img src="/docs-sections/how-to-check-password-strength-s1.jpg" alt="Check a password" width="1200" height="675">
 
 
 1. Open the [Password Strength Checker](/pass/password-strength-checker/).
@@ -24,7 +24,7 @@ If you want to see what you typed, click `Show`. Click `Hide` to mask it again.
 
 ## How to read the result
 
-![How to read the result](/docs-sections/how-to-check-password-strength-s2.jpg)
+<img src="/docs-sections/how-to-check-password-strength-s2.jpg" alt="How to read the result" width="1200" height="675">
 
 
 - **Strength** has four levels: `Weak`, `Fair`, `Strong` and `Excellent`. The bar fills and changes colour with the rating.
@@ -33,7 +33,7 @@ If you want to see what you typed, click `Show`. Click `Hide` to mask it again.
 
 ## The checklist
 
-![The checklist](/docs-sections/how-to-check-password-strength-s3.jpg)
+<img src="/docs-sections/how-to-check-password-strength-s3.jpg" alt="The checklist" width="1200" height="675">
 
 
 Below the bar, five checks show exactly what to improve:
@@ -48,7 +48,7 @@ Each check turns green with a tick when it passes. A password can have a good ra
 
 ## Make a password stronger
 
-![Make a password stronger](/docs-sections/how-to-check-password-strength-s4.jpg)
+<img src="/docs-sections/how-to-check-password-strength-s4.jpg" alt="Make a password stronger" width="1200" height="675">
 
 
 The two most effective changes are length first, then variety:
@@ -61,7 +61,7 @@ A practical approach: start from a phrase you can remember, then stretch it with
 
 ## One honest warning
 
-![One honest warning](/docs-sections/how-to-check-password-strength-s5.jpg)
+<img src="/docs-sections/how-to-check-password-strength-s5.jpg" alt="One honest warning" width="1200" height="675">
 
 
 Do not type a real password you currently use into any website tool, including this one. The check happens only in your browser and nothing is sent or stored, but the safest habit is to test a similar made-up password instead — one with the same length and character mix as the real one. You will get the same quality of answer without exposing the password itself.

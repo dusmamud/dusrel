@@ -15,7 +15,7 @@ never leaves your browser — the MP3 is processed locally on your device.
 
 ## Create a synced lyrics file
 
-![Create a synced lyrics file](/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s1.jpg)
+<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s1.jpg" alt="Create a synced lyrics file" width="1200" height="675">
 
 
 1. Open [Ricsline](https://dusmamud.github.io/ricsline/) and go to the
@@ -35,7 +35,7 @@ never leaves your browser — the MP3 is processed locally on your device.
 
 ## Fix timing mistakes
 
-![Fix timing mistakes](/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s2.jpg)
+<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s2.jpg" alt="Fix timing mistakes" width="1200" height="675">
 
 
 You do not need to start over if a line is off:
@@ -51,7 +51,7 @@ You do not need to start over if a line is off:
 
 ## Tips
 
-![Tips](/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s3.jpg)
+<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s3.jpg" alt="Tips" width="1200" height="675">
 
 
 - **Sync in short passes.** Do one full pass without worrying about
