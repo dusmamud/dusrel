@@ -235,6 +235,7 @@ export const hi: Dict = {
     ],
   },
   footNav: {
+    docs: 'डॉक्स',
     company: 'कंपनी',
     legal: 'कानूनी',
     apps: 'ऐप्स',

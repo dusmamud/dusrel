@@ -1,0 +1,92 @@
+---
+/**
+ * Docs landing: groups published docs by category, in src/data/docs.ts order.
+ * Receives already-sorted entries (title/description/category/type from
+ * frontmatter). When a locale has no docs yet, renders an honest empty state
+ * with a link to the English docs instead of fake entries.
+ */
+import Base from '../layouts/Base.astro';
+import SiteNav from './SiteNav.astro';
+import Footer from './Footer.astro';
+import { docCategories, docTypeLabels, docHref } from '../data/docs';
+import type { Lang } from '../i18n';
+
+interface DocItem {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  type: string;
+}
+
+interface Props {
+  lang: Lang;
+  docs: DocItem[];
+}
+
+const { lang, docs } = Astro.props;
+const lp = (p: string) => `${lang === 'hi' ? '/hi' : ''}${p}/`;
+const canonical = `https://dusrel.com${lp('/docs')}`;
+const title = lang === 'hi' ? 'डॉक्स — Dusrel' : 'Docs — Dusrel';
+const intro =
+  lang === 'hi'
+    ? 'Dusrel के ऐप्स और टूल्स के बारे में विस्तृत गाइड, तकनीकी जानकारी और इस्तेमाल का तरीका।'
+    : 'Detailed guides, technical references and how-tos for Dusrel apps and tools.';
+const emptyNote =
+  lang === 'hi'
+    ? 'हिंदी दस्तावेज़ जल्द आ रहे हैं। तब तक अंग्रेज़ी संस्करण देखें।'
+    : 'No docs in this language yet.';
+---
+
+<Base lang={lang} title={title} description={intro} canonical={canonical}>
+  <SiteNav lang={lang} />
+  <main class="mx-auto max-w-3xl px-4 pb-20 pt-10">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl">
+        {lang === 'hi' ? 'डॉक्स' : 'Docs'}
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-400">{intro}</p>
+    </div>
+
+    {docs.length === 0 ? (
+      <p class="mt-12 rounded-2xl border border-slate-200 bg-white p-6 text-center leading-relaxed text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+        {emptyNote}
+        {lang === 'hi' && (
+          <>
+            {' '}
+            <a href="/docs/" class="font-medium text-[#4d90fe] hover:underline">
+              English docs देखें
+            </a>
+          </>
+        )}
+      </p>
+    ) : (
+      docCategories.map((cat) => {
+        const items = docs.filter((d) => d.category === cat.id);
+        if (items.length === 0) return null;
+        return (
+          <section class="mt-14">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{cat[lang]}</h2>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              {items.map((d) => (
+                <a
+                  href={docHref(d.slug, lang)}
+                  class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#4d90fe] hover:shadow-md dark:border-white/10 dark:bg-white/5"
+                >
+                  <p class="font-semibold text-slate-900 dark:text-white">{d.title}</p>
+                  <p class="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                    {d.description}
+                  </p>
+                  <span class="mt-3 inline-block rounded-full bg-[#4d90fe]/10 px-2.5 py-0.5 text-xs font-semibold text-[#4d90fe]">
+                    {docTypeLabels[d.type]?.[lang] ?? d.type}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })
+    )}
+  </main>
+  <Footer lang={lang} />
+</Base>

@@ -13,9 +13,15 @@ interface Props {
   /** OG/Twitter share image path, e.g. '/og-shrinkit.png'. Defaults to the site card. */
   image?: string;
   noindex?: boolean;
+  /**
+   * Skip the alternate-locale hreflang link (used by English docs pages with
+   * no Hindi translation yet — linking to a missing /hi/ page would break
+   * the bidirectional hreflang rule). x-default then points at this page.
+   */
+  hideAltLang?: boolean;
 }
 
-const { lang, title: titleOverride, description: descriptionOverride, canonical: canonicalOverride, image: imagePath, noindex = false } = Astro.props;
+const { lang, title: titleOverride, description: descriptionOverride, canonical: canonicalOverride, image: imagePath, noindex = false, hideAltLang = false } = Astro.props;
 const t = dict[lang];
 const title = titleOverride ?? t.meta.title;
 const description = descriptionOverride ?? t.meta.description;
@@ -33,8 +39,9 @@ const altHref =
   lang === 'en'
     ? canonical.replace('https://dusrel.com/', 'https://dusrel.com/hi/')
     : canonical.replace('https://dusrel.com/hi/', 'https://dusrel.com/');
-// x-default always points at the English version of THIS page.
-const xDefault = lang === 'en' ? canonical : altHref;
+// x-default always points at the English version of THIS page — or at this
+// page itself when its alternate locale does not exist (hideAltLang).
+const xDefault = hideAltLang ? canonical : lang === 'en' ? canonical : altHref;
 
 // ---- Structured data, generated centrally so EVERY page carries it ----
 // Organization (with sameAs from src/data/social.ts), WebSite on the
@@ -69,6 +76,16 @@ const staticLabels: Record<string, { en: string; hi: string }> = {
   terms: { en: 'Terms', hi: 'शर्तें' },
   download: { en: 'Download', hi: 'डाउनलोड' },
   pass: { en: 'Tools', hi: 'टूल्स' },
+  docs: { en: 'Docs', hi: 'डॉक्स' },
+  'getting-started': { en: 'Getting Started', hi: 'शुरुआत करें' },
+  'shrinkit-web': { en: 'ShrinkIt Web', hi: 'श्रिंकइट वेब' },
+  'ricsline-lrc-maker': { en: 'Ricsline LRC Maker', hi: 'रिक्सलाइन LRC मेकर' },
+  resumeforge: { en: 'ResumeForge', hi: 'रिज़्यूमफ़ोर्ज' },
+  'pdf-tools': { en: 'PDF Tools', hi: 'PDF टूल्स' },
+  'dusrel-mail-preview': { en: 'Dusrel Mail Preview', hi: 'डसरेल मेल प्रीव्यू' },
+  'dusrel-apps-overview': { en: 'Dusrel Apps Overview', hi: 'डसरेल ऐप्स' },
+  'privacy-on-device': { en: 'Privacy on Your Device', hi: 'आपके डिवाइस पर प्राइवेसी' },
+  'about-dusrel': { en: 'About Dusrel', hi: 'डसरेल के बारे में' },
   'password-generator': { en: 'Password Generator', hi: 'पासवर्ड जेनरेटर' },
   'username-generator': { en: 'Username Generator', hi: 'यूज़रनेम जेनरेटर' },
   'word-counter': { en: 'Word Counter', hi: 'वर्ड काउंटर' },
@@ -157,12 +174,12 @@ const websiteLd =
     </script>
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={lang} href={canonical} />
-    <link rel="alternate" hreflang={altLang} href={altHref} />
+    {!hideAltLang && <link rel="alternate" hreflang={altLang} href={altHref} />}
     <link rel="alternate" hreflang="x-default" href={xDefault} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dusrel" />
     <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'hi_IN'} />
-    <meta property="og:locale:alternate" content={lang === 'en' ? 'hi_IN' : 'en_US'} />
+    {!hideAltLang && <meta property="og:locale:alternate" content={lang === 'en' ? 'hi_IN' : 'en_US'} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

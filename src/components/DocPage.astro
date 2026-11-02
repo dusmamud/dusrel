@@ -1,0 +1,284 @@
+---
+/**
+ * Shared template for /docs/<slug> pages (EN + HI).
+ * Content comes from the docs / docsHi content collections; order, prev/next
+ * and grouping come from src/data/docs.ts. Breadcrumbs come from Base.astro
+ * (see its staticLabels); TechArticle JSON-LD is emitted here.
+ * The language switcher only appears when the other locale's translation
+ * actually exists (altSlug) — an untranslated doc never links to a missing page.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SiteNav from './SiteNav.astro';
+import Footer from './Footer.astro';
+import { docCategories, docTypeLabels, docHref } from '../data/docs';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<'docs'> | CollectionEntry<'docsHi'>;
+  prev: { slug: string; title: string } | null;
+  next: { slug: string; title: string } | null;
+  /** Slug of the other locale's translation, or null when untranslated. */
+  altSlug: string | null;
+}
+
+const { lang, entry, prev, next, altSlug } = Astro.props;
+const { data } = entry;
+// Content-layer collections (glob loader) render via the standalone
+// render() — entry.render() only exists on legacy collections.
+const { Content, headings } = await render(entry);
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const lp = (p: string) => `${lang === 'hi' ? '/hi' : ''}${p}/`;
+const canonical = `https://dusrel.com${lp(`/docs/${entry.id}`)}`;
+const category = docCategories.find((c) => c.id === data.category);
+const updated = new Date(`${data.updated}T00:00:00`).toLocaleDateString(
+  lang === 'hi' ? 'hi-IN' : 'en-GB',
+  { day: 'numeric', month: 'long', year: 'numeric' },
+);
+const ui = {
+  home: lang === 'hi' ? 'होम' : 'Home',
+  docs: lang === 'hi' ? 'डॉक्स' : 'Docs',
+  onThisPage: lang === 'hi' ? 'इस पेज पर' : 'On this page',
+  updated: lang === 'hi' ? 'अपडेट' : 'Updated',
+  previous: lang === 'hi' ? '← पिछला' : '← Previous',
+  next: lang === 'hi' ? 'अगला →' : 'Next →',
+  readIn: lang === 'hi' ? 'Read in English' : 'हिंदी में पढ़ें',
+};
+
+const techArticleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: data.title,
+  description: data.description,
+  url: canonical,
+  dateModified: data.updated,
+  inLanguage: lang === 'hi' ? 'hi-IN' : 'en-US',
+  author: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
+  publisher: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
+};
+---
+
+<Base
+  lang={lang}
+  title={`${data.title} — Dusrel`}
+  description={data.description}
+  canonical={canonical}
+  hideAltLang={lang === 'en' && !altSlug}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(techArticleLd)} />
+  </Fragment>
+  <SiteNav lang={lang} />
+  <main class="mx-auto max-w-6xl px-4 pb-20 pt-10">
+    <nav class="text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+      <a href={lp('')} class="hover:text-[#4d90fe]">{ui.home}</a>
+      <span class="mx-2">/</span>
+      <a href={lp('/docs')} class="hover:text-[#4d90fe]">{ui.docs}</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-900 dark:text-white">{data.title}</span>
+    </nav>
+
+    <div class="mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-12">
+      <article class="min-w-0">
+        <p class="flex flex-wrap items-center gap-2 text-sm">
+          {category && (
+            <span class="rounded-full bg-[#4d90fe]/10 px-3 py-1 font-semibold text-[#4d90fe]">
+              {category[lang]}
+            </span>
+          )}
+          <span class="rounded-full border border-slate-200 px-3 py-1 text-slate-500 dark:border-white/10 dark:text-slate-400">
+            {docTypeLabels[data.type][lang]}
+          </span>
+        </p>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl">
+          {data.title}
+        </h1>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600 dark:text-slate-400">{data.description}</p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-500 dark:text-slate-400">
+          <span>{ui.updated}: {updated}</span>
+          {altSlug && (
+            <a
+              href={docHref(altSlug, lang === 'hi' ? 'en' : 'hi')}
+              class="font-medium text-[#4d90fe] hover:underline"
+            >
+              {ui.readIn}
+            </a>
+          )}
+        </p>
+
+        {toc.length > 0 && (
+          <details class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/5 lg:hidden">
+            <summary class="cursor-pointer font-semibold text-slate-900 dark:text-white">{ui.onThisPage}</summary>
+            <ul class="mt-3 space-y-2 text-sm">
+              {toc.map((h) => (
+                <li class={h.depth === 3 ? 'pl-4' : ''}>
+                  <a href={`#${h.slug}`} class="text-slate-600 hover:text-[#4d90fe] dark:text-slate-300">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+
+        <div class="doc-body mt-8">
+          <Content />
+        </div>
+
+        {(prev || next) && (
+          <nav class="mt-14 grid gap-4 border-t border-slate-200 pt-8 sm:grid-cols-2 dark:border-white/10">
+            {prev ? (
+              <a
+                href={docHref(prev.slug, lang)}
+                class="group rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#4d90fe] dark:border-white/10 dark:bg-white/5"
+              >
+                <span class="text-sm text-slate-500 dark:text-slate-400">{ui.previous}</span>
+                <span class="mt-1 block font-semibold text-slate-900 group-hover:text-[#4d90fe] dark:text-white">
+                  {prev.title}
+                </span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next && (
+              <a
+                href={docHref(next.slug, lang)}
+                class="group rounded-2xl border border-slate-200 bg-white p-5 text-right transition hover:border-[#4d90fe] dark:border-white/10 dark:bg-white/5"
+              >
+                <span class="text-sm text-slate-500 dark:text-slate-400">{ui.next}</span>
+                <span class="mt-1 block font-semibold text-slate-900 group-hover:text-[#4d90fe] dark:text-white">
+                  {next.title}
+                </span>
+              </a>
+            )}
+          </nav>
+        )}
+      </article>
+
+      {toc.length > 0 && (
+        <aside class="hidden lg:block">
+          <div class="sticky top-24">
+            <p class="text-sm font-semibold text-slate-900 dark:text-white">{ui.onThisPage}</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              {toc.map((h) => (
+                <li class={h.depth === 3 ? 'pl-4' : ''}>
+                  <a
+                    href={`#${h.slug}`}
+                    class="text-slate-500 hover:text-[#4d90fe] dark:text-slate-400"
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      )}
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Base>
+
+<style>
+  /* Rendered Markdown has no Tailwind typography plugin on this site, so the
+     article body is styled explicitly. :global keeps the selectors working
+     on the compiled Markdown HTML. */
+  .doc-body :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: var(--doc-heading, #0f172a);
+  }
+  .doc-body :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+    color: var(--doc-heading, #0f172a);
+  }
+  .doc-body :global(p) {
+    margin: 1rem 0;
+    line-height: 1.75;
+    color: #475569;
+  }
+  .doc-body :global(ul) {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+    line-height: 1.75;
+    color: #475569;
+  }
+  .doc-body :global(ol) {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    list-style-type: decimal;
+    line-height: 1.75;
+    color: #475569;
+  }
+  .doc-body :global(li) {
+    margin: 0.375rem 0;
+  }
+  .doc-body :global(a) {
+    color: #4d90fe;
+  }
+  .doc-body :global(a:hover) {
+    text-decoration: underline;
+  }
+  .doc-body :global(strong) {
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .doc-body :global(code) {
+    border-radius: 0.375rem;
+    background: #f1f5f9;
+    padding: 0.125rem 0.375rem;
+    font-family: ui-monospace, monospace;
+    font-size: 0.875rem;
+  }
+  .doc-body :global(pre) {
+    margin: 1rem 0;
+    overflow-x: auto;
+    border-radius: 1rem;
+    background: #0f172a;
+    padding: 1rem;
+    color: #e2e8f0;
+  }
+  .doc-body :global(pre code) {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+  }
+  .doc-body :global(blockquote) {
+    margin: 1rem 0;
+    border-left: 3px solid #4d90fe;
+    padding-left: 1rem;
+    color: #475569;
+  }
+  .doc-body :global(hr) {
+    margin: 2rem 0;
+    border-color: #e2e8f0;
+  }
+  :global(.dark) .doc-body :global(h2),
+  :global(.dark) .doc-body :global(h3),
+  :global(.dark) .doc-body :global(strong) {
+    color: #fff;
+  }
+  :global(.dark) .doc-body :global(p),
+  :global(.dark) .doc-body :global(ul),
+  :global(.dark) .doc-body :global(ol),
+  :global(.dark) .doc-body :global(blockquote) {
+    color: #cbd5e1;
+  }
+  :global(.dark) .doc-body :global(code) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  :global(.dark) .doc-body :global(hr) {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+</style>

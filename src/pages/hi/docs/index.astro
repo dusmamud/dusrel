@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLanding from '../../../components/DocsLanding.astro';
+import { docOrder } from '../../../data/docs';
+
+const entries = await getCollection('docsHi', ({ data }) => !data.draft);
+const orderIndex = (slug: string) => {
+  const i = docOrder.indexOf(slug);
+  return i === -1 ? docOrder.length : i;
+};
+const docs = entries
+  .filter((e) => docOrder.includes(e.id))
+  .sort((a, b) => orderIndex(a.id) - orderIndex(b.id))
+  .map((e) => ({
+    slug: e.id,
+    title: e.data.title,
+    description: e.data.description,
+    category: e.data.category,
+    type: e.data.type,
+  }));
+---
+
+<DocsLanding lang="hi" docs={docs} />

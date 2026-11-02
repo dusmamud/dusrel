@@ -11,6 +11,7 @@ const page = (path: string) => `${root}${path}`;
 const anchor = (hash: string) => `${root === '' ? '/' : root}${hash}`;
 
 const companyLinks = [
+  { label: t.footNav.docs, href: page('/docs') },
   { label: t.nav.about, href: page('/about') },
   { label: t.nav.openSource, href: page('/open-source') },
   { label: t.footNav.changelog, href: page('/changelog') },

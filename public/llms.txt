@@ -36,6 +36,10 @@
 - [Changelog](https://dusrel.com/changelog/): What changed on dusrel.com and in the apps.
 - [Contact](https://dusrel.com/contact/): How to reach Dusrel.
 
+## Docs
+
+- [Docs](https://dusrel.com/docs/): Detailed guides, technical references and how-tos for Dusrel apps and tools — including the 6 free browser tools, ShrinkIt, Ricsline, ResumeForge, PDF Tools, and an honest Phase 1 preview of Dusrel Mail.
+
 ## Optional
 
 - [Full content (llms-full.txt)](https://dusrel.com/llms-full.txt): The complete text of every key page on dusrel.com in one Markdown file — read this instead of crawling page by page.

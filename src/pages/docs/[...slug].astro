@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import DocPage from '../../components/DocPage.astro';
+import { docOrder } from '../../data/docs';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs', ({ data }) => !data.draft);
+  return entries
+    .filter((e) => docOrder.includes(e.id))
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const orderIndex = (slug: string) => {
+  const i = docOrder.indexOf(slug);
+  return i === -1 ? docOrder.length : i;
+};
+const all = (await getCollection('docs', ({ data }) => !data.draft))
+  .filter((e) => docOrder.includes(e.id))
+  .sort((a, b) => orderIndex(a.id) - orderIndex(b.id));
+const sameCategory = all.filter((e) => e.data.category === entry.data.category);
+const pos = sameCategory.findIndex((e) => e.id === entry.id);
+const toNav = (e: (typeof all)[number] | undefined) =>
+  e ? { slug: e.id, title: e.data.title } : null;
+const prev = toNav(sameCategory[pos - 1]);
+const next = toNav(sameCategory[pos + 1]);
+const hiEntries = await getCollection('docsHi', ({ data }) => !data.draft);
+const altSlug = hiEntries.some((e) => e.id === entry.id) ? entry.id : null;
+---
+
+<DocPage lang="en" entry={entry} prev={prev} next={next} altSlug={altSlug} />

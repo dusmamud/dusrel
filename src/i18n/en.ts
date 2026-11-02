@@ -234,6 +234,7 @@ export const en = {
     ],
   },
   footNav: {
+    docs: 'Docs',
     company: 'Company',
     legal: 'Legal',
     apps: 'Apps',
