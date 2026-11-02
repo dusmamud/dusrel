@@ -57,7 +57,9 @@ jobs:
         run: npm ci
 
       - name: TypeScript check
-        run: npx tsc --noEmit -p tsconfig.json
+        # Content-collection types live in gitignored .astro/ (generated), so
+        # sync first — a fresh checkout otherwise fails resolving astro:content.
+        run: npx astro sync && npx tsc --noEmit -p tsconfig.json
 
       - name: Lint (Biome)
         run: npm run lint

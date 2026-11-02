@@ -1,0 +1,13 @@
+# Docs slug renames (2026-11-02): doc slugs now match their titles.
+# Old short slugs redirect to the new title slugs so published links keep working.
+/docs/age-calculator/ /docs/how-to-calculate-your-exact-age/ 301
+/docs/getting-started/ /docs/getting-started-with-dusrel/ 301
+/docs/password-generator/ /docs/how-to-generate-a-strong-password/ 301
+/docs/password-strength-checker/ /docs/how-to-check-password-strength/ 301
+/docs/pdf-tools/ /docs/how-to-work-with-pdfs-using-pdf-tools/ 301
+/docs/qr-code-generator/ /docs/how-to-create-a-qr-code/ 301
+/docs/resumeforge/ /docs/how-to-build-a-resume-with-resumeforge/ 301
+/docs/ricsline-lrc-maker/ /docs/how-to-create-synced-lyrics-lrc-with-ricsline/ 301
+/docs/shrinkit-web/ /docs/how-to-resize-and-compress-images-with-shrinkit/ 301
+/docs/username-generator/ /docs/how-to-generate-a-username/ 301
+/docs/word-counter/ /docs/how-to-count-words-and-characters/ 301
