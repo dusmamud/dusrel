@@ -29,3 +29,4 @@ npm run build    # static build -> dist/
 
 All rights reserved © 2026 Dusrel.
 The site ships in English and Hindi — English at `src/pages/index.astro` and Hindi at `src/pages/hi/index.astro`, sharing the `src/i18n/` en/hi dictionaries.
+Tip: `npm run build` produces a static `dist/` — the site makes no external requests, with Sora and Inter self-hosted.
