@@ -28,3 +28,4 @@ npm run build    # static build -> dist/
 ## License
 
 All rights reserved © 2026 Dusrel.
+The site ships in English and Hindi — English at `src/pages/index.astro` and Hindi at `src/pages/hi/index.astro`, sharing the `src/i18n/` en/hi dictionaries.
