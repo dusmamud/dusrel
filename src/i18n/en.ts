@@ -16,17 +16,17 @@ export const en = {
     cta: 'Explore apps',
   },
   hero: {
-    eyebrow: 'YOUR PRIVACY MATTERS',
+    eyebrow: 'Your privacy matters',
     titleAccent: 'One company.',
     title: 'Every app you will ever need.',
     sub: 'Dusrel crafts free apps that truly respect your privacy. Your data stays yours — we never sell it.',
     ctaApps: 'Explore the apps',
     ctaPrivacy: 'Our privacy promise',
     stats: [
-      { value: '4', label: 'apps' },
-      { value: '8', label: 'coming soon' },
-      { value: '2', label: 'languages' },
-      { value: '100%', label: 'free core' },
+      { value: '4', label: 'Apps' },
+      { value: '8', label: 'Coming soon' },
+      { value: '2', label: 'Languages' },
+      { value: '100%', label: 'Free core' },
     ],
   },
   ecosystem: {
@@ -189,12 +189,12 @@ export const en = {
     ctaContact: 'Contact us',
   },
   showcase: {
-    eyebrow: 'APP SPOTLIGHT',
+    eyebrow: 'App spotlight',
     title: 'Loved apps, built right',
     sub: 'A closer look at what each app does — and why people keep coming back.',
   },
   pricing: {
-    eyebrow: 'PRICING',
+    eyebrow: 'Pricing',
     title: 'Free. Forever.',
     sub: 'One simple plan. It costs nothing.',
     price: 'Free',
@@ -228,9 +228,9 @@ export const en = {
     ],
     button: 'View on GitHub',
     codeLines: [
-      { hash: 'b81318d', msg: 'Full landing page + AI visuals' },
-      { hash: 'a3c0a1c', msg: 'Theme toggle v2 — circular reveal' },
-      { hash: '61cd227', msg: 'Hero v6 — real app logos' },
+      { hash: '341c136', msg: 'docs: restore README clarifications reverted by a11y push' },
+      { hash: '3881fb6', msg: 'pass: a11y fix (aria labels, cursor pointers, focus-visible rings)' },
+      { hash: '156554b', msg: 'pass: password generator sticky result panel layout (no more scroll loop)' },
     ],
   },
   footNav: {

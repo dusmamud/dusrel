@@ -13,10 +13,8 @@ const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 <section id="showcase" class="py-20 md:py-24">
   <div class="max-w-6xl mx-auto px-6">
     <div class="text-center max-w-2xl mx-auto">
-      <p>
-        <span class="inline-block rounded-full border border-[#4d90fe]/40 bg-[#4d90fe]/5 px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[#4d90fe]">
-          {t.showcase.eyebrow}
-        </span>
+      <p class="text-sm font-semibold text-[#4d90fe]">
+        {t.showcase.eyebrow}
       </p>
       <h2 class="font-display mt-5 text-3xl md:text-4xl font-bold text-slate-900 dark:text-[#e8eaed]">
         {t.showcase.title}
@@ -36,7 +34,7 @@ const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
                   src={appShowcaseImage(app.slug)}
                   alt={detail.name}
                   loading="lazy"
-                  class="aspect-[4/3] w-full rounded-3xl border border-slate-200 object-cover shadow-sm dark:border-white/10"
+                  class="aspect-[4/3] w-full rounded-[20px] border border-slate-200 object-cover shadow-sm dark:border-white/10"
                 />
               </div>
               <div class={flip ? 'md:order-1' : ''}>

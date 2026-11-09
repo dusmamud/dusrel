@@ -18,16 +18,8 @@ const orbitApps = liveApps.map((app) => {
   const content = appContentFor(t.appContent, app.slug);
   return { ...app, name: content.name, logo: appIcon(app.slug), imgClass: 'h-10 w-10' };
 });
-const delays = ['0s', '1.4s', '2.8s', '4.2s'];
-
-const accentWords = t.hero.titleAccent.split(' ');
-const titleWords = t.hero.title.split(' ');
-const step = 0.07;
-const accentStart = 0.15;
-const titleStart = accentStart + accentWords.length * step;
 
 const soonNames = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
-const soonItems = [...soonNames, ...soonNames];
 ---
 
 <!-- Floating pill header -->
@@ -96,45 +88,27 @@ const soonItems = [...soonNames, ...soonNames];
 
 <!-- Hero -->
 <section id="hero" class="relative overflow-hidden">
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
-    <div class="absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(77,144,254,0.10),transparent)] dark:bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(77,144,254,0.16),transparent)]"></div>
-    <div class="absolute inset-0 opacity-50 [background-image:radial-gradient(circle,#cbd5e1_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_70%_55%_at_50%_32%,black,transparent)] dark:opacity-30 dark:[background-image:radial-gradient(circle,#3a3a3a_1px,transparent_1px)]"></div>
-  </div>
-
   <div class="relative mx-auto max-w-4xl px-4 pt-32 text-center sm:px-6 sm:pt-40">
-    <div class="parallax" style="--pd:10px">
-      <p class="animate-rise" style="animation-delay:0.05s">
-        <span class="inline-block rounded-full border border-[#4d90fe]/40 bg-[#4d90fe]/5 px-4 py-1.5 text-[11px] font-semibold tracking-[0.18em] text-[#4d90fe]">
-          {t.hero.eyebrow}
-        </span>
+    <div class="animate-rise">
+      <p class="text-sm font-semibold text-[#4d90fe]">
+        {t.hero.eyebrow}
       </p>
-      <h1 class="font-display mt-7 text-[2.6rem] font-bold leading-[1.08] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl dark:text-[#e8eaed]">
-        {accentWords.map((w, i) => (
-          <span
-            class="animate-rise inline-block bg-gradient-to-r from-[#4d90fe] to-[#2b6bf0] bg-clip-text text-transparent"
-            style={`animation-delay:${(accentStart + i * step).toFixed(2)}s`}
-          >{w}</span>
-        )).reduce((acc: any, el: any, i: number) => i === 0 ? [el] : [...acc, ' ', el], [])}{' '}
-        {titleWords.map((w, i) => (
-          <span
-            class="animate-rise inline-block"
-            style={`animation-delay:${(titleStart + i * step).toFixed(2)}s`}
-          >{w}</span>
-        )).reduce((acc: any, el: any, i: number) => i === 0 ? [el] : [...acc, ' ', el], [])}
+      <h1 class="font-display mt-6 text-[2.6rem] font-bold leading-[1.08] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl dark:text-[#e8eaed]">
+        {t.hero.titleAccent} {t.hero.title}
       </h1>
-      <p class="animate-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300" style="animation-delay:0.55s">
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
         {t.hero.sub}
       </p>
-      <div class="animate-rise mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4" style="animation-delay:0.7s">
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
         <a
           href="#apps"
-          class="w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#3b7de0] hover:shadow-md sm:w-auto"
+          class="w-full rounded-[10px] bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#3b7de0] sm:w-auto"
         >
           {t.hero.ctaApps}
         </a>
         <a
           href="#privacy"
-          class="w-full rounded-2xl border border-slate-300 bg-white px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:bg-transparent dark:text-[#e8eaed]"
+          class="w-full rounded-[10px] border border-slate-300 bg-white px-8 py-3.5 text-base font-semibold text-slate-900 transition-colors hover:border-[#4d90fe] hover:text-[#4d90fe] sm:w-auto dark:border-white/20 dark:bg-transparent dark:text-[#e8eaed]"
         >
           {t.hero.ctaPrivacy}
         </a>
@@ -142,81 +116,73 @@ const soonItems = [...soonNames, ...soonNames];
     </div>
   </div>
 
-  <!-- Ecosystem orbit visual -->
-  <div class="relative mx-auto mt-16 max-w-3xl px-4 sm:mt-20">
-    <div class="animate-rise" style="animation-delay:0.85s">
-      <div class="parallax" style="--pd:-16px">
-        <!-- desktop orbit -->
-        <div class="relative hidden h-[400px] sm:block">
-          <img src="/logo.svg" alt="" aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.05] dark:opacity-[0.08]" />
-          <div class="animate-orbit absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/80 dark:border-white/10"></div>
-          <div class="animate-orbit absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/60 dark:border-white/[0.07]" style="animation-direction:reverse;animation-duration:100s"></div>
-          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div class="flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-slate-200/80 bg-white p-4 shadow-[0_12px_40px_rgba(77,144,254,0.18)] dark:border-white/10 dark:bg-[#1e1e1e]">
-              <img src="/logo.svg" alt="" class="h-full w-full" />
-            </div>
-          </div>
-          <a href={orbitApps[0].url} target="_blank" rel="noopener" style={`animation-delay:${delays[0]}`}
-            class="animate-float absolute left-[1%] top-[6%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <img src={orbitApps[0].logo} alt="" class={orbitApps[0].imgClass} width="48" height="48" />
-            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[0].name}</span>
-          </a>
-          <a href={orbitApps[1].url} target="_blank" rel="noopener" style={`animation-delay:${delays[1]}`}
-            class="animate-float absolute right-[1%] top-[2%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <img src={orbitApps[1].logo} alt="" class={orbitApps[1].imgClass} width="48" height="48" />
-            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[1].name}</span>
-          </a>
-          <a href={orbitApps[2].url} target="_blank" rel="noopener" style={`animation-delay:${delays[2]}`}
-            class="animate-float absolute bottom-[8%] left-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <img src={orbitApps[2].logo} alt="" class={orbitApps[2].imgClass} width="48" height="48" />
-            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[2].name}</span>
-          </a>
-          <a href={orbitApps[3].url} target="_blank" rel="noopener" style={`animation-delay:${delays[3]}`}
-            class="animate-float absolute bottom-[4%] right-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-transform hover:scale-105 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
-            <img src={orbitApps[3].logo} alt="" class={orbitApps[3].imgClass} width="48" height="48" />
-            <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[3].name}</span>
-          </a>
-        </div>
-
-        <!-- mobile: simple 2x2 grid -->
-        <div class="grid grid-cols-2 gap-3 sm:hidden">
-          {orbitApps.map((app) => (
-            <a href={app.url} target="_blank" rel="noopener"
-              class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 dark:border-white/10 dark:bg-[#1e1e1e]">
-              <img src={app.logo} alt="" class={`${app.imgClass} shrink-0`} width="48" height="48" />
-              <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
-            </a>
-          ))}
+  <!-- Ecosystem orbit visual (static) -->
+  <div class="relative mx-auto mt-12 max-w-3xl px-4 sm:mt-14">
+    <!-- desktop orbit -->
+    <div class="relative hidden h-[320px] sm:block">
+      <div class="absolute left-1/2 top-1/2 h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/80 dark:border-white/10"></div>
+      <div class="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/60 dark:border-white/[0.07]"></div>
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-slate-200/80 bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#1e1e1e]">
+          <img src="/logo.svg" alt="" class="h-full w-full" />
         </div>
       </div>
+      <a href={orbitApps[0].url} target="_blank" rel="noopener"
+        class="absolute left-[1%] top-[6%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-colors hover:border-[#4d90fe]/40 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <img src={orbitApps[0].logo} alt="" class={orbitApps[0].imgClass} width="48" height="48" />
+        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[0].name}</span>
+      </a>
+      <a href={orbitApps[1].url} target="_blank" rel="noopener"
+        class="absolute right-[1%] top-[2%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-colors hover:border-[#4d90fe]/40 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <img src={orbitApps[1].logo} alt="" class={orbitApps[1].imgClass} width="48" height="48" />
+        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[1].name}</span>
+      </a>
+      <a href={orbitApps[2].url} target="_blank" rel="noopener"
+        class="absolute bottom-[8%] left-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-colors hover:border-[#4d90fe]/40 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <img src={orbitApps[2].logo} alt="" class={orbitApps[2].imgClass} width="48" height="48" />
+        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[2].name}</span>
+      </a>
+      <a href={orbitApps[3].url} target="_blank" rel="noopener"
+        class="absolute bottom-[4%] right-[4%] flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-colors hover:border-[#4d90fe]/40 dark:border-white/10 dark:bg-[#1e1e1e] dark:shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <img src={orbitApps[3].logo} alt="" class={orbitApps[3].imgClass} width="48" height="48" />
+        <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{orbitApps[3].name}</span>
+      </a>
+    </div>
+
+    <!-- mobile: simple 2x2 grid -->
+    <div class="grid grid-cols-2 gap-3 sm:hidden">
+      {orbitApps.map((app) => (
+        <a href={app.url} target="_blank" rel="noopener"
+          class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 dark:border-white/10 dark:bg-[#1e1e1e]">
+          <img src={app.logo} alt="" class={`${app.imgClass} shrink-0`} width="48" height="48" />
+          <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
+        </a>
+      ))}
     </div>
 
     <!-- stats strip -->
-    <dl class="animate-rise mx-auto mt-14 grid max-w-2xl grid-cols-2 gap-y-6 sm:grid-cols-4" style="animation-delay:1.05s">
+    <dl class="mx-auto mt-10 grid max-w-2xl grid-cols-2 gap-y-6 sm:grid-cols-4">
       {t.hero.stats.map((s) => (
         <div class="px-4">
           <dt class="sr-only">{s.label}</dt>
-          <dd class="font-display text-2xl font-bold text-slate-900 sm:text-3xl dark:text-[#e8eaed]">{s.value}</dd>
-          <dd class="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{s.label}</dd>
+          <dd class="font-display text-2xl font-bold tabular-nums text-slate-900 sm:text-3xl dark:text-[#e8eaed]">{s.value}</dd>
+          <dd class="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">{s.label}</dd>
         </div>
       ))}
     </dl>
   </div>
 
-  <!-- coming-soon marquee -->
-  <div class="animate-rise relative mt-14 overflow-hidden border-y border-slate-200/70 py-4 dark:border-white/10" style="animation-delay:1.2s" aria-hidden="true">
-    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent dark:from-[#121212]"></div>
-    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent dark:from-[#121212]"></div>
-    <div class="animate-marquee flex w-max items-center gap-10">
-      {soonItems.map((name) => (
-        <span class="flex items-center gap-10 whitespace-nowrap text-sm font-semibold tracking-wide text-slate-400 dark:text-slate-500">
+  <!-- coming-soon list (static) -->
+  <div class="relative mt-10 overflow-hidden border-y border-slate-200/70 py-4 dark:border-white/10" aria-hidden="true">
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4">
+      {soonNames.map((name) => (
+        <span class="flex items-center gap-10 whitespace-nowrap text-sm font-semibold text-slate-400 dark:text-slate-500">
           {name}
           <span class="h-1.5 w-1.5 rounded-full bg-[#4d90fe]/50"></span>
         </span>
       ))}
     </div>
   </div>
-  <div class="h-16 sm:h-20"></div>
 </section>
 
 <script is:inline>
@@ -252,22 +218,6 @@ const soonItems = [...soonNames, ...soonNames];
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
-    }
-
-    // Mouse parallax on hero
-    var hero = document.getElementById('hero');
-    if (hero && window.matchMedia('(pointer: fine)').matches) {
-      hero.addEventListener('mousemove', function (e) {
-        var r = hero.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        hero.style.setProperty('--mx', x.toFixed(3));
-        hero.style.setProperty('--my', y.toFixed(3));
-      });
-      hero.addEventListener('mouseleave', function () {
-        hero.style.setProperty('--mx', '0');
-        hero.style.setProperty('--my', '0');
-      });
     }
   })();
 </script>

@@ -18,7 +18,7 @@ export const hi: Dict = {
     cta: 'ऐप्स देखें',
   },
   hero: {
-    eyebrow: 'YOUR PRIVACY MATTERS',
+    eyebrow: 'Your privacy matters',
     titleAccent: 'एक कंपनी।',
     title: 'हर ऐप जो आपको चाहिए।',
     sub: 'दुसरेल ऐसे मुफ्त ऐप्स बनाता है जो आपकी प्राइवेसी का सचमुच सम्मान करते हैं। आपका डेटा हमेशा आपका रहता है — हम इसे कभी नहीं बेचते।',
@@ -229,9 +229,9 @@ export const hi: Dict = {
     ],
     button: 'GitHub पर देखें',
     codeLines: [
-      { hash: 'b81318d', msg: 'Full landing page + AI visuals' },
-      { hash: 'a3c0a1c', msg: 'Theme toggle v2 — circular reveal' },
-      { hash: '61cd227', msg: 'Hero v6 — real app logos' },
+      { hash: '341c136', msg: 'docs: restore README clarifications reverted by a11y push' },
+      { hash: '3881fb6', msg: 'pass: a11y fix (aria labels, cursor pointers, focus-visible rings)' },
+      { hash: '156554b', msg: 'pass: password generator sticky result panel layout (no more scroll loop)' },
     ],
   },
   footNav: {

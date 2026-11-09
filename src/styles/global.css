@@ -25,47 +25,17 @@ section[id] {
 }
 
 @theme {
-  --animate-float: float 7s ease-in-out infinite;
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(-8px);
-    }
-    50% {
-      transform: translateY(8px);
-    }
-  }
-  --animate-orbit: orbit 70s linear infinite;
-  @keyframes orbit {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-rise: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   @keyframes rise {
     from {
       opacity: 0;
-      filter: blur(10px);
-      transform: translateY(26px);
+      transform: translateY(12px);
     }
     to {
       opacity: 1;
-      filter: blur(0);
       transform: translateY(0);
     }
   }
-  --animate-marquee: marquee 32s linear infinite;
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-}
-
-.parallax {
-  transform: translate3d(calc(var(--mx, 0) * var(--pd, 12px)), calc(var(--my, 0) * var(--pd, 12px)), 0);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
 }
 
 #site-header {
@@ -92,13 +62,8 @@ section[id] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-orbit,
-  .animate-rise,
-  .animate-marquee,
-  .parallax {
+  .animate-rise {
     animation: none;
-    transition: none;
   }
   ::view-transition-old(root),
   ::view-transition-new(root) {
@@ -140,5 +105,11 @@ h3 {
   }
   summary {
     cursor: pointer;
+  }
+  /* Visible keyboard focus everywhere (a11y trio): one consistent ring
+     for links, buttons, summaries and inputs, light and dark. */
+  :focus-visible {
+    outline: 2px solid #4d90fe;
+    outline-offset: 2px;
   }
 }
