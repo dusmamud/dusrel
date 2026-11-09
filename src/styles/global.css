@@ -123,3 +123,22 @@ h3 {
 .font-display {
   font-family: var(--font-display);
 }
+
+/* Cursor cues (Tailwind v4): v4 preflight no longer gives buttons
+   cursor:pointer, so every button showed the default arrow. Restore the
+   pointer for enabled buttons/role=button (Tailwind upgrade guide's own
+   snippet), not-allowed for disabled ones, and pointer for <summary>
+   (FAQ accordions are interactive too). */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  button:disabled,
+  [role="button"]:disabled {
+    cursor: not-allowed;
+  }
+  summary {
+    cursor: pointer;
+  }
+}

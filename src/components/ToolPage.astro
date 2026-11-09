@@ -117,7 +117,7 @@ const moreToolsLabel = lang === 'hi' ? 'और मुफ्त टूल्स' 
       <div class="mt-5 space-y-3">
         {d.faqs.map((f) => (
           <details class="group rounded-2xl border border-slate-200 bg-white px-5 py-4 dark:border-white/10 dark:bg-white/5">
-            <summary class="cursor-pointer list-none font-semibold text-slate-900 marker:hidden dark:text-white [&::-webkit-details-marker]:hidden">
+            <summary class="cursor-pointer list-none font-semibold text-slate-900 marker:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe] dark:text-white [&::-webkit-details-marker]:hidden">
               <span class="flex items-center justify-between gap-4">
                 {f.q}
                 <span aria-hidden="true" class="text-[#4d90fe] transition-transform group-open:rotate-45">+</span>
