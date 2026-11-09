@@ -15,6 +15,9 @@ export const en = {
     search: 'Search',
     cta: 'Explore apps',
   },
+  a11y: {
+    skipToContent: 'Skip to main content',
+  },
   hero: {
     eyebrow: 'Your privacy matters',
     titleAccent: 'One company.',

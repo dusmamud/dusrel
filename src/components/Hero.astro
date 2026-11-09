@@ -24,6 +24,15 @@ const soonNames = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
 const soonItems = [...soonNames, ...soonNames];
 ---
 
+<!-- Skip link (WCAG 2.4.1 / G1): first focusable element on the page,
+     visible on keyboard focus; jumps to #main. -->
+<a
+  href="#main"
+  class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[100] focus:rounded-[10px] focus:bg-[#4d90fe] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+>
+  {t.a11y.skipToContent}
+</a>
+
 <!-- Floating pill header -->
 <div class="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
   <header id="site-header" class="mx-auto max-w-5xl rounded-2xl border border-slate-200/80 bg-white/85 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#161616]/85 dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
@@ -155,9 +164,9 @@ const soonItems = [...soonNames, ...soonNames];
     <div class="grid grid-cols-2 gap-3 sm:hidden">
       {orbitApps.map((app) => (
         <a href={app.url} target="_blank" rel="noopener"
-          class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 dark:border-white/10 dark:bg-[#1e1e1e]">
+          class="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-4 py-3.5 max-[420px]:flex-col max-[420px]:items-start max-[420px]:gap-2 dark:border-white/10 dark:bg-[#1e1e1e]">
           <img src={app.logo} alt="" class={`${app.imgClass} shrink-0`} width="48" height="48" />
-          <span class="text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
+          <span class="min-w-0 text-sm font-semibold text-slate-800 dark:text-slate-100">{app.name}</span>
         </a>
       ))}
     </div>
@@ -211,6 +220,14 @@ const soonItems = [...soonNames, ...soonNames];
       });
       menu.querySelectorAll('.mobile-link').forEach(function (a) {
         a.addEventListener('click', function () { setOpen(false); });
+      });
+      // Escape closes the menu and returns focus to the button
+      // (WAI-ARIA menu-button pattern).
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+          setOpen(false);
+          btn.focus();
+        }
       });
     }
 

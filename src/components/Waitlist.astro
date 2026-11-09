@@ -43,6 +43,7 @@ const names = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
               type="button"
               data-notify={app}
               data-prefix={t.waitlist.subjectPrefix}
+              aria-label={t.waitlist.subjectPrefix + app}
               class="shrink-0 rounded-[10px] border border-[#4d90fe]/40 px-4 py-2 text-sm font-semibold text-[#4d90fe] transition-colors hover:bg-[#4d90fe] hover:text-white dark:hover:bg-[#4d90fe]"
             >
               {t.waitlist.notifyButton}

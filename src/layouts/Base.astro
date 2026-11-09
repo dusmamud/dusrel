@@ -246,6 +246,13 @@ const websiteLd =
             behavior: reduceMotion ? 'auto' : 'smooth',
             block: 'start',
           });
+          // Skip links: move keyboard focus to the target so keyboard
+          // users land where they skipped to (WCAG 2.4.1 / G1). Only
+          // targets that explicitly opt in with tabindex="-1" get focus —
+          // no other anchor target is affected.
+          if (target.getAttribute('tabindex') === '-1') {
+            target.focus({ preventScroll: true });
+          }
           // NOTE: no history.replaceState here on purpose — writing the hash
           // into the URL makes Chrome reopen the page mid-scroll on session
           // restore. Shared/typed deep links (/#faq) still work natively.

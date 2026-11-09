@@ -17,6 +17,9 @@ export const hi: Dict = {
     search: 'खोज',
     cta: 'ऐप्स देखें',
   },
+  a11y: {
+    skipToContent: 'मुख्य सामग्री पर जाएँ',
+  },
   hero: {
     eyebrow: 'Your privacy matters',
     titleAccent: 'एक कंपनी।',
