@@ -228,9 +228,18 @@ export const en = {
     ],
     button: 'View on GitHub',
     codeLines: [
-      { hash: '341c136', msg: 'docs: restore README clarifications reverted by a11y push' },
-      { hash: '3881fb6', msg: 'pass: a11y fix (aria labels, cursor pointers, focus-visible rings)' },
-      { hash: '156554b', msg: 'pass: password generator sticky result panel layout (no more scroll loop)' },
+      {
+        hash: '341c136',
+        msg: 'docs: restore README clarifications reverted by a11y push',
+      },
+      {
+        hash: '3881fb6',
+        msg: 'pass: a11y fix (aria labels, cursor pointers, focus-visible rings)',
+      },
+      {
+        hash: '156554b',
+        msg: 'pass: password generator sticky result panel layout (no more scroll loop)',
+      },
     ],
   },
   footNav: {
