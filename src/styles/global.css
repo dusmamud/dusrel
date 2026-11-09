@@ -36,6 +36,25 @@ section[id] {
       transform: translateY(0);
     }
   }
+  /* Coming-soon marquee: 32s linear loop, translateX(-50%) over a
+     duplicated track (both halves identical, so the loop is seamless).
+     Disabled entirely under prefers-reduced-motion (see below) — then
+     the strip is just the first 8 names, static. */
+  --animate-marquee: marquee 32s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Pause the marquee while the pointer is over it (WCAG 2.2.2).
+   Plain CSS, NOT Tailwind's group-hover:[animation-play-state:paused]:
+   that variant rule matches the element but does not pause this
+   animation in-browser (verified 2026-11-09, two CDP runs — selector
+   matches, computed play-state stays running); this rule pauses it. */
+.marquee:hover .animate-marquee {
+  animation-play-state: paused;
 }
 
 #site-header {
@@ -62,7 +81,8 @@ section[id] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-rise {
+  .animate-rise,
+  .animate-marquee {
     animation: none;
   }
   ::view-transition-old(root),

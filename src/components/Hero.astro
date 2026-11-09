@@ -20,6 +20,8 @@ const orbitApps = liveApps.map((app) => {
 });
 
 const soonNames = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
+// Duplicated for a seamless -50% marquee loop (both halves identical).
+const soonItems = [...soonNames, ...soonNames];
 ---
 
 <!-- Floating pill header -->
@@ -172,11 +174,13 @@ const soonNames = soonApps.map((a) => appContentFor(t.appContent, a.slug).name);
     </dl>
   </div>
 
-  <!-- coming-soon list (static) -->
-  <div class="relative mt-10 overflow-hidden border-y border-slate-200/70 py-4 dark:border-white/10" aria-hidden="true">
-    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4">
-      {soonNames.map((name) => (
-        <span class="flex items-center gap-10 whitespace-nowrap text-sm font-semibold text-slate-400 dark:text-slate-500">
+  <!-- coming-soon marquee (decorative: same names also appear in Waitlist/apps page) -->
+  <div class="marquee relative mt-10 overflow-hidden border-y border-slate-200/70 py-4 dark:border-white/10" aria-hidden="true">
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent dark:from-[#121212]"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent dark:from-[#121212]"></div>
+    <div class="animate-marquee flex w-max items-center">
+      {soonItems.map((name) => (
+        <span class="flex items-center gap-10 whitespace-nowrap pr-10 text-sm font-semibold text-slate-400 dark:text-slate-500">
           {name}
           <span class="h-1.5 w-1.5 rounded-full bg-[#4d90fe]/50"></span>
         </span>
