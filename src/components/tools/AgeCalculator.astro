@@ -174,7 +174,7 @@ const asOfFields =
       ] as const);
 
 const dobFieldCls =
-  'mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-center text-base text-slate-800 focus:border-[#4d90fe] focus:outline-none dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
+  'mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-center text-base text-slate-800 focus:border-[#4d90fe] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100';
 ---
 
 <div
@@ -241,7 +241,7 @@ const dobFieldCls =
   <button
     type="button"
     data-age-calc
-    class="mt-6 w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+    class="mt-6 w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe]"
   >
     {t.calculate}
   </button>

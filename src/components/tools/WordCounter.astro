@@ -63,7 +63,8 @@ const stats = [
     data-wc-text
     rows="8"
     placeholder={t.placeholder}
-    class="w-full resize-y rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-base leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[#4d90fe] focus:outline-none dark:border-white/10 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-500"
+    aria-label={t.placeholder}
+    class="w-full resize-y rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-base leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[#4d90fe] dark:border-white/10 dark:bg-black/40 dark:text-white dark:placeholder:text-slate-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe]"
   ></textarea>
 
   <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -79,7 +80,7 @@ const stats = [
     <button
       type="button"
       data-wc-clear
-      class="rounded-xl border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-200"
+      class="rounded-xl border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe]"
     >
       {t.clear}
     </button>

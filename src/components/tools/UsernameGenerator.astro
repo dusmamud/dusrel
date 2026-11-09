@@ -49,7 +49,7 @@ const L = {
 const t = L[lang];
 
 const pill =
-  'rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-200';
+  'rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-[#4d90fe] hover:text-[#4d90fe] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe] dark:border-white/20 dark:text-slate-200';
 ---
 
 <div
@@ -61,16 +61,16 @@ const pill =
     <div>
       <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.theme}</p>
       <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={t.theme}>
-        <button type="button" data-un-theme="cool" class={pill}>{t.cool}</button>
-        <button type="button" data-un-theme="nature" class={pill}>{t.nature}</button>
-        <button type="button" data-un-theme="tech" class={pill}>{t.tech}</button>
+        <button type="button" data-un-theme="cool" class={pill} aria-pressed="true">{t.cool}</button>
+        <button type="button" data-un-theme="nature" class={pill} aria-pressed="false">{t.nature}</button>
+        <button type="button" data-un-theme="tech" class={pill} aria-pressed="false">{t.tech}</button>
       </div>
     </div>
     <div>
       <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{t.caseLabel}</p>
       <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={t.caseLabel}>
-        <button type="button" data-un-case="lower" class={pill}>{t.lower}</button>
-        <button type="button" data-un-case="capitalized" class={pill}>{t.capitalized}</button>
+        <button type="button" data-un-case="lower" class={pill} aria-pressed="true">{t.lower}</button>
+        <button type="button" data-un-case="capitalized" class={pill} aria-pressed="false">{t.capitalized}</button>
       </div>
     </div>
     <div>
@@ -78,7 +78,7 @@ const pill =
       <select
         id="un-sep"
         data-un-sep
-        class="mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
+        class="mt-2.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe] dark:border-white/20 dark:bg-[#1e1e1e] dark:text-slate-100"
       >
         <option value="">{t.sepNone} (swiftwolf)</option>
         <option value="_">_ (swift_wolf)</option>
@@ -86,8 +86,8 @@ const pill =
         <option value="-">- (swift-wolf)</option>
       </select>
     </div>
-    <label class="flex cursor-pointer items-end gap-3 pb-1 text-sm font-medium text-slate-700 dark:text-slate-300">
-      <input type="checkbox" data-un-numbers class="h-4 w-4 accent-[#4d90fe]" />
+    <label class="flex cursor-pointer items-end gap-3 pb-1 text-sm font-medium text-slate-700 dark:text-slate-300" for="un-numbers">
+      <input type="checkbox" id="un-numbers" data-un-numbers class="h-4 w-4 accent-[#4d90fe] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe]" />
       {t.numbers}
     </label>
   </div>
@@ -95,12 +95,13 @@ const pill =
   <button
     type="button"
     data-un-generate
-    class="mt-7 w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0]"
+    class="mt-7 w-full rounded-2xl bg-[#4d90fe] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#3b7de0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe]"
   >
     {t.generate}
   </button>
 
   <div data-un-results class="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3"></div>
+  <span class="sr-only" aria-live="polite" data-un-copy-status></span>
   <p class="mt-4 text-center text-xs text-slate-500 dark:text-slate-400">{t.clickHint}</p>
   <p class="mt-1.5 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>
 </div>
@@ -136,6 +137,7 @@ const pill =
   document.querySelectorAll<HTMLElement>('[data-ungen]').forEach((root) => {
     const copiedText = root.dataset.copied || 'Copied!';
     const results = root.querySelector<HTMLElement>('[data-un-results]')!;
+    const copyStatus = root.querySelector<HTMLElement>('[data-un-copy-status]')!;
     const sepSelect = root.querySelector<HTMLSelectElement>('[data-un-sep]')!;
     const numbersInput = root.querySelector<HTMLInputElement>('[data-un-numbers]')!;
     let theme = 'cool';
@@ -146,6 +148,7 @@ const pill =
       root.querySelectorAll<HTMLElement>(selector).forEach((b) => {
         const on = b.dataset[attr] === value;
         ACTIVE.forEach((c) => b.classList.toggle(c, on));
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
     };
 
@@ -178,7 +181,7 @@ const pill =
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className =
-          'rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-800 transition hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/10 dark:bg-white/5 dark:text-slate-100';
+          'rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-800 transition hover:border-[#4d90fe] hover:text-[#4d90fe] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d90fe] dark:border-white/10 dark:bg-white/5 dark:text-slate-100';
         btn.textContent = name;
         btn.addEventListener('click', async () => {
           try {
@@ -188,7 +191,11 @@ const pill =
           }
           const original = btn.textContent;
           btn.textContent = copiedText;
-          setTimeout(() => (btn.textContent = original), 1200);
+          copyStatus.textContent = copiedText;
+          setTimeout(() => {
+            btn.textContent = original;
+            copyStatus.textContent = '';
+          }, 1200);
         });
         results.appendChild(btn);
       }
