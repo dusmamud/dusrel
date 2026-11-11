@@ -12,7 +12,7 @@ Dusrel is an independent project building a suite of web apps and small browser 
 
 ## Live apps
 
-<img src="/docs-sections/dusrel-apps-overview-s1.jpg" alt="Live apps" width="1200" height="675">
+<img src="/docs-sections/dusrel-apps-overview-s1.jpg" alt="Live apps" width="700" height="394">
 
 
 These apps are live and open to use. Each entry links to the app itself and to its detail page on this site.
@@ -24,7 +24,7 @@ These apps are live and open to use. Each entry links to the app itself and to i
 
 ## Pass tools
 
-<img src="/docs-sections/dusrel-apps-overview-s2.jpg" alt="Pass tools" width="1200" height="675">
+<img src="/docs-sections/dusrel-apps-overview-s2.jpg" alt="Pass tools" width="700" height="394">
 
 
 The tools at [dusrel.com/pass/](/pass/) are small single-purpose utilities. They run in the browser, need no account, and are free to use.
@@ -38,7 +38,7 @@ The tools at [dusrel.com/pass/](/pass/) are small single-purpose utilities. They
 
 ## Coming soon
 
-<img src="/docs-sections/dusrel-apps-overview-s3.jpg" alt="Coming soon" width="1200" height="675">
+<img src="/docs-sections/dusrel-apps-overview-s3.jpg" alt="Coming soon" width="700" height="394">
 
 
 The following products are planned but not available yet. They have no live URL, so no link is given here. Do not expect to sign up for or use them today.
@@ -54,7 +54,7 @@ The following products are planned but not available yet. They have no live URL,
 
 ## How this list is kept honest
 
-<img src="/docs-sections/dusrel-apps-overview-s4.jpg" alt="How this list is kept honest" width="1200" height="675">
+<img src="/docs-sections/dusrel-apps-overview-s4.jpg" alt="How this list is kept honest" width="700" height="394">
 
 
 This page is a reference, not a roadmap promise. A product moves from "Coming soon" to "Live apps" only when it has a public URL you can open. Dates and plans for unreleased products are deliberately not stated here, because they are not decided.

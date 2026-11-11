@@ -12,7 +12,7 @@ Dusrel's password generator creates a random password for you in the browser —
 
 ## Steps
 
-<img src="/docs-sections/how-to-generate-a-strong-password-s1.jpg" alt="Steps" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-strong-password-s1.jpg" alt="Steps" width="700" height="394">
 
 
 1. **Open the tool.** A password is generated for you straight away, using the default settings: 16 characters, with uppercase letters, lowercase letters, numbers, and symbols all included.
@@ -24,7 +24,7 @@ Dusrel's password generator creates a random password for you in the browser —
 
 ## What the strength meter tells you
 
-<img src="/docs-sections/how-to-generate-a-strong-password-s2.jpg" alt="What the strength meter tells you" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-strong-password-s2.jpg" alt="What the strength meter tells you" width="700" height="394">
 
 
 Under the password you will see a strength label, a number in "bits of entropy", and a coloured bar. Bits of entropy measure how hard the password is to guess: more bits means a larger number of possible combinations.
@@ -38,7 +38,7 @@ Two things raise the number: a longer password, and a wider mix of character typ
 
 ## Tips
 
-<img src="/docs-sections/how-to-generate-a-strong-password-s3.jpg" alt="Tips" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-strong-password-s3.jpg" alt="Tips" width="700" height="394">
 
 
 - **Every selected character type is always represented.** The generator guarantees at least one character from each type you ticked, so ticking `Symbols` really does put a symbol in the password.

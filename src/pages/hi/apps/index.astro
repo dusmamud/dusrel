@@ -60,7 +60,7 @@ const bell = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
               </div>
               <p class="mt-4 text-sm text-slate-600 dark:text-slate-400">{content(app.slug).desc}</p>
               <div class="mt-5 flex flex-wrap gap-3">
-                <a href={appDetailHref(app.slug, lang)} class="rounded-full bg-[#4d90fe] px-5 py-2 text-sm font-semibold text-white hover:opacity-90">{t.ecosystem.learnMore}</a>
+                <a href={appDetailHref(app.slug, lang)} class="rounded-full bg-[#4d90fe] px-5 py-2 text-sm font-semibold text-white hover:opacity-90">{t.ecosystem.learnMoreAbout.replace('{name}', content(app.slug).name)}</a>
                 <a href={app.url} target="_blank" rel="noopener" class="rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:border-[#4d90fe] hover:text-[#4d90fe] dark:border-white/20 dark:text-slate-300">{a.openApp}</a>
               </div>
             </div>

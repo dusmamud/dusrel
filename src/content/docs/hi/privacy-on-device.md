@@ -14,7 +14,7 @@ draft: false
 
 ## "ऑन-डिवाइस" का क्या मतलब है
 
-<img src="/docs-sections/privacy-on-device-s1.jpg" alt="&quot;ऑन-डिवाइस&quot; का क्या मतलब है" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s1.jpg" alt="&quot;ऑन-डिवाइस&quot; का क्या मतलब है" width="700" height="394">
 
 
 आपका ब्राउज़र टूल का कोड dusrel.com से डाउनलोड करता है, जैसे वह कोई भी वेब पेज डाउनलोड करता है। उसके बाद, सब कुछ स्थानीय रूप से होता है:
@@ -27,7 +27,7 @@ draft: false
 
 ## यह किन प्रोडक्ट्स पर लागू होता है
 
-<img src="/docs-sections/privacy-on-device-s2.jpg" alt="यह किन प्रोडक्ट्स पर लागू होता है" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s2.jpg" alt="यह किन प्रोडक्ट्स पर लागू होता है" width="700" height="394">
 
 
 यह दावा जानबूझकर सीमित है। यह ठीक इन्हीं प्रोडक्ट्स पर लागू होता है:
@@ -39,7 +39,7 @@ draft: false
 
 ## ऑन-डिवाइस प्रोसेसिंग क्या नहीं करती
 
-<img src="/docs-sections/privacy-on-device-s3.jpg" alt="ऑन-डिवाइस प्रोसेसिंग क्या नहीं करती" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s3.jpg" alt="ऑन-डिवाइस प्रोसेसिंग क्या नहीं करती" width="700" height="394">
 
 
 ऑन-डिवाइस प्रोसेसिंग एक असली सुरक्षा है, लेकिन यह जादू नहीं है। कुछ ईमानदार सीमाएँ:
@@ -50,14 +50,14 @@ draft: false
 
 ## Dusrel इस तरह क्यों बनाता है
 
-<img src="/docs-sections/privacy-on-device-s4.jpg" alt="Dusrel इस तरह क्यों बनाता है" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s4.jpg" alt="Dusrel इस तरह क्यों बनाता है" width="700" height="394">
 
 
 Dusrel के पीछे का विचार यह है कि उपयोगी सॉफ़्टवेयर को उसके इस्तेमाल की क़ीमत के रूप में आपका डेटा नहीं माँगना चाहिए। ऐसे टूल्स बनाना जो पूरी तरह ब्राउज़र में चलते हैं, इस वादे को ठोस बनाने का एक तरीक़ा है: किसी नीति पर भरोसा करने के लिए कहने के बजाय, टूल इस तरह डिज़ाइन किया गया है कि डेटा पहले ही कहीं बाहर नहीं जाता। जहाँ किसी भविष्य के प्रोडक्ट को सच में सर्वर की ज़रूरत होगी, वहाँ Dusrel को इसे बढ़ा-चढ़ाकर बताए बिना साफ़-साफ़ कहना होगा।
 
 ## संक्षेप में
 
-<img src="/docs-sections/privacy-on-device-s5.jpg" alt="संक्षेप में" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s5.jpg" alt="संक्षेप में" width="700" height="394">
 
 
 पास टूल्स और ShrinkIt के लिए: आपका इनपुट जाता है, काम आपके डिवाइस पर होता है, और नतीजा बाहर आता है — बीच में कोई अपलोड चरण नहीं। बाक़ी सबके लिए, कुछ भी मानने से पहले उस प्रोडक्ट का अपना पेज पढ़ें।

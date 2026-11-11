@@ -54,7 +54,8 @@ const techArticleLd = {
   headline: data.title,
   description: data.description,
   url: canonical,
-  dateModified: data.updated,
+  image: `https://dusrel.com/og-docs/${entry.id}.jpg`,
+  dateModified: `${data.updated}T00:00:00+05:30`,
   inLanguage: lang === 'hi' ? 'hi-IN' : 'en-US',
   author: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
   publisher: { '@type': 'Organization', name: 'Dusrel', url: 'https://dusrel.com/' },
@@ -265,7 +266,7 @@ const techArticleLd = {
     margin: 2rem 0;
     border-color: #e2e8f0;
   }
-  /* Section images carry width="1200" height="675" attributes, so the
+  /* Section images carry width="700" height="394" attributes, so the
      browser reserves the 16:9 space before load (no layout shift).
      max-width + height:auto (web.dev/MDN rule) keeps every image inside
      its container at every viewport width without stretching. */

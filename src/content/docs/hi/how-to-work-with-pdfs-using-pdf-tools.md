@@ -15,7 +15,7 @@ PDF Tools 11 मुफ़्त PDF टूल का एक सेट है ज
 
 ## 11 टूल
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s1.jpg" alt="11 टूल" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s1.jpg" alt="11 टूल" width="700" height="394">
 
 
 - **Merge** — कई PDF को मिलाकर एक दस्तावेज़ बनाएँ।
@@ -32,7 +32,7 @@ PDF Tools 11 मुफ़्त PDF टूल का एक सेट है ज
 
 ## मुझे कौन-सा टूल चाहिए?
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s2.jpg" alt="मुझे कौन-सा टूल चाहिए?" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s2.jpg" alt="मुझे कौन-सा टूल चाहिए?" width="700" height="394">
 
 
 - कई फ़ाइलें एक दस्तावेज़ में → **Merge**।
@@ -49,7 +49,7 @@ PDF Tools 11 मुफ़्त PDF टूल का एक सेट है ज
 
 ## किसी भी टूल का इस्तेमाल
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s3.jpg" alt="किसी भी टूल का इस्तेमाल" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s3.jpg" alt="किसी भी टूल का इस्तेमाल" width="700" height="394">
 
 
 हर टूल के लिए प्रक्रिया एक जैसी है:
@@ -65,7 +65,7 @@ PDF Tools 11 मुफ़्त PDF टूल का एक सेट है ज
 
 ## सुझाव
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s4.jpg" alt="सुझाव" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s4.jpg" alt="सुझाव" width="700" height="394">
 
 
 - **एडिट से पहले कन्वर्ज़न करें।** अगर किसी JPG को एडिट किए हुए PDF का

@@ -41,6 +41,7 @@ export const hi: Dict = {
     soonLabel: 'जल्द आ रहा है',
     visit: 'ऐप खोलें',
     learnMore: 'और जानें',
+    learnMoreAbout: '{name} के बारे में और जानें',
   },
   // Per-app content, keyed by slug from src/data/apps.ts.
   // `name` is required for every app; desc/tagline/features power

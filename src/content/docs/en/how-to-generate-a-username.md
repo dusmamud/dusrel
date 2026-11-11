@@ -12,7 +12,7 @@ Dusrel's username generator suggests names built from two-word combinations, suc
 
 ## Steps
 
-<img src="/docs-sections/how-to-generate-a-username-s1.jpg" alt="Steps" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-username-s1.jpg" alt="Steps" width="700" height="394">
 
 
 1. **Open the tool.** Twelve username suggestions appear straight away, using the default settings: the `Cool` style, all lowercase, with no separator.
@@ -28,7 +28,7 @@ Dusrel's username generator suggests names built from two-word combinations, suc
 
 ## Tips
 
-<img src="/docs-sections/how-to-generate-a-username-s2.jpg" alt="Tips" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-username-s2.jpg" alt="Tips" width="700" height="394">
 
 
 - **Keep generating until one fits.** There is no limit on how many batches you can generate, so run through a few sets before settling on a name.

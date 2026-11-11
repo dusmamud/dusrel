@@ -12,7 +12,7 @@ Dusrel का username generator दो शब्दों के संयो�
 
 ## चरण
 
-<img src="/docs-sections/how-to-generate-a-username-s1.jpg" alt="चरण" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-username-s1.jpg" alt="चरण" width="700" height="394">
 
 
 1. **टूल खोलें।** डिफ़ॉल्ट सेटिंग के साथ तुरंत बारह यूज़रनेम सुझाव दिखते हैं: `Cool` स्टाइल, सभी लोअरकेस, बिना किसी सेपरेटर के।
@@ -28,7 +28,7 @@ Dusrel का username generator दो शब्दों के संयो�
 
 ## टिप्स
 
-<img src="/docs-sections/how-to-generate-a-username-s2.jpg" alt="टिप्स" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-username-s2.jpg" alt="टिप्स" width="700" height="394">
 
 
 - **जब तक कोई नाम जँचे नहीं, बनाते रहें।** आप कितने भी बैच बना सकते हैं, इस पर कोई सीमा नहीं है, इसलिए नाम तय करने से पहले कुछ सेट देख लें।

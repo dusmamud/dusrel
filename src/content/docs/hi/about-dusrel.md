@@ -12,7 +12,7 @@ Dusrel मुफ़्त टूल्स और ऐप्स का एक स�
 
 ## इसे कौन बनाता है
 
-<img src="/docs-sections/about-dusrel-s1.jpg" alt="इसे कौन बनाता है" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s1.jpg" alt="इसे कौन बनाता है" width="700" height="394">
 
 
 Dusrel एक स्वतंत्र डेवलपर द्वारा बनाया जाता है। यह कोई रजिस्टर्ड कंपनी नहीं है, और यह कोई टीम नहीं है: एक ही व्यक्ति टूल्स और ऐप्स को डिज़ाइन, बनाता और संभालता है। यह साफ़-साफ़ कहना ज़रूरी है, क्योंकि इसी से तय होता है कि Dusrel ईमानदारी से क्या वादा कर सकता है। एक व्यक्ति का प्रोजेक्ट सावधानी से आगे बढ़ सकता है और अपने टूल्स को सरल रख सकता है, लेकिन वह उस तरह की चौबीसों घंटे की मदद भी नहीं दे सकता जो कोई बड़ी कंपनी दे सकती है।
@@ -21,7 +21,7 @@ Dusrel एक स्वतंत्र डेवलपर द्वारा ब
 
 ## आज क्या मौजूद है
 
-<img src="/docs-sections/about-dusrel-s2.jpg" alt="आज क्या मौजूद है" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s2.jpg" alt="आज क्या मौजूद है" width="700" height="394">
 
 
 लिखते समय, Dusrel यह देता है:
@@ -34,7 +34,7 @@ Dusrel एक स्वतंत्र डेवलपर द्वारा ब
 
 ## Dusrel क्या वादा करता है
 
-<img src="/docs-sections/about-dusrel-s3.jpg" alt="Dusrel क्या वादा करता है" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s3.jpg" alt="Dusrel क्या वादा करता है" width="700" height="394">
 
 
 पूरे प्रोजेक्ट में दो वादे चलते हैं:
@@ -44,7 +44,7 @@ Dusrel एक स्वतंत्र डेवलपर द्वारा ब
 
 ## Dusrel क्या दावा नहीं करता
 
-<img src="/docs-sections/about-dusrel-s4.jpg" alt="Dusrel क्या दावा नहीं करता" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s4.jpg" alt="Dusrel क्या दावा नहीं करता" width="700" height="394">
 
 
 सीमाओं के बारे में ईमानदारी इस प्रोजेक्ट का हिस्सा है:
@@ -55,7 +55,7 @@ Dusrel एक स्वतंत्र डेवलपर द्वारा ब
 
 ## संपर्क
 
-<img src="/docs-sections/about-dusrel-s5.jpg" alt="संपर्क" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s5.jpg" alt="संपर्क" width="700" height="394">
 
 
 Dusrel के बारे में सवालों के लिए, सार्वजनिक संपर्क पता hello@dusrel.com है। किसी खास टूल के इस्तेमाल में मदद के लिए, इन डॉक्स में उस टूल की अपनी गाइड से शुरुआत करें।

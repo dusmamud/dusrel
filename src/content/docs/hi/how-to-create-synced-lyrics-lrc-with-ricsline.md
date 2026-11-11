@@ -11,7 +11,7 @@ Ricsline एक मुफ़्त LRC मेकर है: यह सादे 
 
 ## सिंक्ड लिरिक्स फ़ाइल बनाएं
 
-<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s1.jpg" alt="सिंक्ड लिरिक्स फ़ाइल बनाएं" width="1200" height="675">
+<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s1.jpg" alt="सिंक्ड लिरिक्स फ़ाइल बनाएं" width="700" height="394">
 
 1. [Ricsline](https://dusmamud.github.io/ricsline/) खोलें और मेकर पर जाएं।
 2. अपने लिरिक्स पेस्ट करें या टाइप करें, हर लाइन एक रो में। अगर आप किसी मौजूदा `.lrc` फ़ाइल को ठीक करना या दोबारा सिंक करना चाहते हैं, तो उसे भी इंपोर्ट कर सकते हैं — उसके टैग और मेटाडेटा अपने आप पढ़ लिए जाते हैं।
@@ -22,7 +22,7 @@ Ricsline एक मुफ़्त LRC मेकर है: यह सादे 
 
 ## टाइमिंग की गलतियां ठीक करें
 
-<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s2.jpg" alt="टाइमिंग की गलतियां ठीक करें" width="1200" height="675">
+<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s2.jpg" alt="टाइमिंग की गलतियां ठीक करें" width="700" height="394">
 
 अगर कोई लाइन गलत है तो आपको शुरू से शुरू करने की ज़रूरत नहीं है:
 
@@ -32,7 +32,7 @@ Ricsline एक मुफ़्त LRC मेकर है: यह सादे 
 
 ## टिप्स
 
-<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s3.jpg" alt="टिप्स" width="1200" height="675">
+<img src="/docs-sections/how-to-create-synced-lyrics-lrc-with-ricsline-s3.jpg" alt="टिप्स" width="700" height="394">
 
 - **छोटे पास में सिंक करें।** एक पूरा पास बिना परफ़ेक्शन की चिंता के करें, फिर दोबारा चलाकर जो लाइनें गलत लगें उन्हें ठीक करें। पहली बार में हर टैप परफ़ेक्ट करने की कोशिश से यह तेज़ होता है।
 - **लाइन के अंत नहीं, शुरुआत पर ध्यान दें।** जिस पल किसी लाइन का पहला शब्द सुनाई दे, उसी पल टैप करें — लिरिक्स प्लेयर उसी टाइमस्टैम्प का इस्तेमाल करेगा।

@@ -13,7 +13,7 @@ Password Strength Checker आपके टाइप करते ही पा�
 
 ## पासवर्ड जांचें
 
-<img src="/docs-sections/how-to-check-password-strength-s1.jpg" alt="पासवर्ड जांचें" width="1200" height="675">
+<img src="/docs-sections/how-to-check-password-strength-s1.jpg" alt="पासवर्ड जांचें" width="700" height="394">
 
 1. [Password Strength Checker](/hi/pass/password-strength-checker/) खोलें।
 2. बॉक्स में पासवर्ड टाइप करें। नतीजा हर कीस्ट्रोक के साथ लाइव अपडेट होता है — दबाने के लिए कोई बटन नहीं है।
@@ -23,7 +23,7 @@ Password Strength Checker आपके टाइप करते ही पा�
 
 ## नतीजा कैसे पढ़ें
 
-<img src="/docs-sections/how-to-check-password-strength-s2.jpg" alt="नतीजा कैसे पढ़ें" width="1200" height="675">
+<img src="/docs-sections/how-to-check-password-strength-s2.jpg" alt="नतीजा कैसे पढ़ें" width="700" height="394">
 
 - **Strength** के चार स्तर हैं: `Weak`, `Fair`, `Strong` और `Excellent`। रेटिंग के साथ बार भरता है और उसका रंग बदलता है।
 - **Bits of entropy** एक संख्या है जो बताती है कि पासवर्ड कितना अप्रत्याशित है। लंबे पासवर्ड और अलग-अलग तरह के कैरेक्टर्स का मिश्रण — दोनों इसे बढ़ाते हैं। मोटे तौर पर: 40 बिट्स से कम `Weak`, 40 या ज़्यादा `Fair`, 60 या ज़्यादा `Strong`, और 80 या ज़्यादा `Excellent` रेट किया जाता है।
@@ -31,7 +31,7 @@ Password Strength Checker आपके टाइप करते ही पा�
 
 ## चेकलिस्ट
 
-<img src="/docs-sections/how-to-check-password-strength-s3.jpg" alt="चेकलिस्ट" width="1200" height="675">
+<img src="/docs-sections/how-to-check-password-strength-s3.jpg" alt="चेकलिस्ट" width="700" height="394">
 
 बार के नीचे पाँच जांचें बताती हैं कि ठीक क्या करना है:
 
@@ -45,7 +45,7 @@ Password Strength Checker आपके टाइप करते ही पा�
 
 ## पासवर्ड को मज़बूत बनाएं
 
-<img src="/docs-sections/how-to-check-password-strength-s4.jpg" alt="पासवर्ड को मज़बूत बनाएं" width="1200" height="675">
+<img src="/docs-sections/how-to-check-password-strength-s4.jpg" alt="पासवर्ड को मज़बूत बनाएं" width="700" height="394">
 
 सबसे असरदार दो बदलाव हैं — पहले लंबाई, फिर विविधता:
 
@@ -57,6 +57,6 @@ Password Strength Checker आपके टाइप करते ही पा�
 
 ## एक ईमानदार चेतावनी
 
-<img src="/docs-sections/how-to-check-password-strength-s5.jpg" alt="एक ईमानदार चेतावनी" width="1200" height="675">
+<img src="/docs-sections/how-to-check-password-strength-s5.jpg" alt="एक ईमानदार चेतावनी" width="700" height="394">
 
 किसी भी वेबसाइट टूल में — इस टूल में भी — वह असली पासवर्ड टाइप न करें जो आप अभी इस्तेमाल करते हैं। जांच सिर्फ आपके ब्राउज़र में होती है और कुछ भी भेजा या सहेजा नहीं जाता, लेकिन सबसे सुरक्षित आदत यही है कि असली पासवर्ड जैसा ही कोई बना हुआ पासवर्ड जांचें — जिसकी लंबाई और कैरेक्टर मिश्रण असली वाले जैसा ही हो। आपको उतनी ही अच्छी क्वालिटी का जवाब मिलेगा, बिना पासवर्ड को उजागर किए।

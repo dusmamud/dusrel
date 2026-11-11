@@ -39,6 +39,7 @@ export const en = {
     soonLabel: 'Coming soon',
     visit: 'Open app',
     learnMore: 'Learn more',
+    learnMoreAbout: 'Learn more about {name}',
   },
   // Per-app content, keyed by slug from src/data/apps.ts.
   // `name` is required for every app; desc/tagline/features power

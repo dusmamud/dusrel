@@ -191,7 +191,12 @@ const hexInputCls =
     <div class="lg:col-start-2 lg:row-start-1 lg:row-span-2">
       <div class="lg:sticky lg:top-24">
         <div class="rounded-2xl bg-white p-4 ring-1 ring-slate-200">
-          <div data-qr-preview class="mx-auto w-full max-w-[320px]"></div>
+          <!-- aspect-square reserves the preview space BEFORE the client script
+            injects the QR SVG (empty in SSR, so without this the card grows
+            from ~32px to ~352px at load and pushes everything below down =
+            CLS ~0.09). Default frame is 'none', so the SVG is square and
+            exactly fills this box; frame changes are user interactions. -->
+          <div data-qr-preview class="mx-auto aspect-square w-full max-w-[320px]"></div>
           <p data-qr-empty class="hidden py-10 text-center text-sm text-slate-500">{t.emptyMsg}</p>
         </div>
         <p id="qr-error" data-qr-error class="mt-3 hidden text-center text-sm font-medium text-red-500" role="alert">{t.errorMsg}</p>

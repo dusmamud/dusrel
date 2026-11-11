@@ -14,7 +14,7 @@ Dusrel मुफ़्त टूल और ऐप्स का एक स्व�
 
 ## कहाँ क्या मिलेगा
 
-<img src="/docs-sections/getting-started-with-dusrel-s1.jpg" alt="कहाँ क्या मिलेगा" width="1200" height="675">
+<img src="/docs-sections/getting-started-with-dusrel-s1.jpg" alt="कहाँ क्या मिलेगा" width="700" height="394">
 
 
 शुरुआत करने के दो ठिकाने हैं:
@@ -38,7 +38,7 @@ Dusrel मुफ़्त टूल और ऐप्स का एक स्व�
 
 ## वॉकथ्रू: एक QR कोड बनाएँ
 
-<img src="/docs-sections/getting-started-with-dusrel-s2.jpg" alt="वॉकथ्रू: एक QR कोड बनाएँ" width="1200" height="675">
+<img src="/docs-sections/getting-started-with-dusrel-s2.jpg" alt="वॉकथ्रू: एक QR कोड बनाएँ" width="700" height="394">
 
 
 QR code generator एक अच्छा पहला टूल है क्योंकि इसमें पूरा पैटर्न दिखता है: पेज खोलें, काम करें, नतीजा डाउनलोड करें। किसी भी चरण में खाते की ज़रूरत नहीं है।
@@ -54,7 +54,7 @@ QR code generator एक अच्छा पहला टूल है क्य
 
 ## पहली बार आने पर टिप्स
 
-<img src="/docs-sections/getting-started-with-dusrel-s3.jpg" alt="पहली बार आने पर टिप्स" width="1200" height="675">
+<img src="/docs-sections/getting-started-with-dusrel-s3.jpg" alt="पहली बार आने पर टिप्स" width="700" height="394">
 
 
 - अगर पूरा ऐप चाहिए तो ऐप्स हब से शुरुआत करें, और अगर कोई एक छोटा काम जल्दी करना है तो `/pass/` से।
@@ -63,7 +63,7 @@ QR code generator एक अच्छा पहला टूल है क्य
 
 ## आगे क्या पढ़ें
 
-<img src="/docs-sections/getting-started-with-dusrel-s4.jpg" alt="आगे क्या पढ़ें" width="1200" height="675">
+<img src="/docs-sections/getting-started-with-dusrel-s4.jpg" alt="आगे क्या पढ़ें" width="700" height="394">
 
 
 - [Privacy on your device](/hi/docs/privacy-on-device/) — पास टूल और ShrinkIt आपके डेटा को कैसे संभालते हैं।

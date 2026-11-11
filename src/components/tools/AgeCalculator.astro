@@ -359,15 +359,17 @@ const dobFieldCls =
   <div
     data-age-share-wrap
     aria-hidden="true"
-    style="position:fixed;top:0;left:-1300px;width:1200px;height:1200px;overflow:hidden;pointer-events:none;"
+    style="position:fixed;top:0;left:-9999px;width:1200px;height:1200px;overflow:hidden;pointer-events:none;"
   >
     <div data-age-share-card style="position:relative;width:1200px;height:1200px;background:#ffffff;overflow:hidden;">
       <img
         data-age-share-bg
-        src="/age-share/age-share-bg.png"
+        src="/age-share/age-share-bg.jpg"
         alt=""
         width="1200"
         height="1200"
+        loading="lazy"
+        decoding="async"
         style="position:absolute;inset:0;width:1200px;height:1200px;"
       />
       <p
@@ -869,6 +871,11 @@ const dobFieldCls =
         // never block sharing on it.
       }
       try {
+        // The bg image is loading="lazy" in a card parked far off-screen,
+        // so the browser never fetches it on its own — and decode() alone
+        // does NOT start the fetch for such an image (verified: decode()
+        // never resolves). Flip it eager first so the load actually starts.
+        shareBg.loading = 'eager';
         if (!shareBg.complete) await shareBg.decode();
       } catch {
         // decode() rejects for a broken image; capture then fails loudly below.

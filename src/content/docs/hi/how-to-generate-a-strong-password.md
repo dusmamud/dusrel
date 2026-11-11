@@ -12,7 +12,7 @@ Dusrel का password generator आपके ब्राउज़र में
 
 ## चरण
 
-<img src="/docs-sections/how-to-generate-a-strong-password-s1.jpg" alt="चरण" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-strong-password-s1.jpg" alt="चरण" width="700" height="394">
 
 
 1. **टूल खोलें।** डिफ़ॉल्ट सेटिंग के साथ आपके लिए तुरंत एक पासवर्ड बन जाता है: 16 कैरेक्टर, जिसमें अपरकेस अक्षर, लोअरकेस अक्षर, नंबर और सिंबल — सभी शामिल हैं।
@@ -24,7 +24,7 @@ Dusrel का password generator आपके ब्राउज़र में
 
 ## स्ट्रेंथ मीटर क्या बताता है
 
-<img src="/docs-sections/how-to-generate-a-strong-password-s2.jpg" alt="स्ट्रेंथ मीटर क्या बताता है" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-strong-password-s2.jpg" alt="स्ट्रेंथ मीटर क्या बताता है" width="700" height="394">
 
 
 पासवर्ड के नीचे आपको एक स्ट्रेंथ लेबल, "bits of entropy" में एक संख्या, और एक रंगीन बार दिखेगा। Bits of entropy बताते हैं कि पासवर्ड का अनुमान लगाना कितना मुश्किल है: ज़्यादा बिट्स का मतलब है संभावित संयोजनों की ज़्यादा संख्या।
@@ -38,7 +38,7 @@ Dusrel का password generator आपके ब्राउज़र में
 
 ## टिप्स
 
-<img src="/docs-sections/how-to-generate-a-strong-password-s3.jpg" alt="टिप्स" width="1200" height="675">
+<img src="/docs-sections/how-to-generate-a-strong-password-s3.jpg" alt="टिप्स" width="700" height="394">
 
 
 - **चुना गया हर कैरेक्टर टाइप हमेशा मौजूद रहता है।** जनरेटर गारंटी देता है कि आपने जो भी टाइप टिक किया है, उसमें से कम से कम एक कैरेक्टर ज़रूर होगा, इसलिए `Symbols` टिक करने पर पासवर्ड में सच में एक सिंबल आता है।

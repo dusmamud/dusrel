@@ -13,7 +13,7 @@ ShrinkIt एक मुफ़्त इमेज रीसाइज़र और 
 
 ## इमेज रीसाइज़ और कंप्रेस करें
 
-<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s1.jpg" alt="इमेज रीसाइज़ और कंप्रेस करें" width="1200" height="675">
+<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s1.jpg" alt="इमेज रीसाइज़ और कंप्रेस करें" width="700" height="394">
 
 1. [shrinkit.dusrel.com](https://shrinkit.dusrel.com) खोलें।
 2. ड्रॉपज़ोन या फ़ाइल पिकर से अपनी इमेज जोड़ें। आप एक बार में एक से ज़्यादा इमेज जोड़ सकते हैं।
@@ -25,7 +25,7 @@ ShrinkIt एक मुफ़्त इमेज रीसाइज़र और 
 
 ## टिप्स
 
-<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s2.jpg" alt="टिप्स" width="1200" height="675">
+<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s2.jpg" alt="टिप्स" width="700" height="394">
 
 - **जब बस छोटी फ़ाइलें चाहिए हों, तो प्रतिशत से शुरू करें।** ऑनलाइन फ़ोटो शेयर करने के लिए 50% तक रीसाइज़ करना आमतौर पर काफ़ी होता है, और आपको पिक्सल डाइमेंशन निकालने की ज़रूरत नहीं पड़ती।
 - **जब कोई साइट पिक्सल मांगे, तो सटीक पिक्सल इस्तेमाल करें।** प्रोफ़ाइल पिक्चर, पोस्ट कवर और फ़ॉर्म अपलोड अक्सर 800 × 800 जैसा साइज़ बताते हैं — वे नंबर सीधे डालें।

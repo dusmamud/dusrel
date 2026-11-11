@@ -100,7 +100,13 @@ const pill =
     {t.generate}
   </button>
 
-  <div data-un-results class="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3"></div>
+  <!-- Results grid: min-height reserves the exact space of the 12 generated
+    buttons BEFORE the client script fills it (empty in SSR, so without this
+    the hint + note below jump ~660px on mobile at load = CLS 0.15).
+    One button is 46px tall (py-3 24px + text-sm line 20px + 2px border),
+    gap 10px: 1 col = 12 rows = 662px; sm 2 cols = 6 rows = 326px;
+    lg 3 cols = 4 rows = 214px. Names stay one line (longest ~21 chars). -->
+  <div data-un-results class="mt-6 grid min-h-[662px] gap-2.5 sm:min-h-[326px] sm:grid-cols-2 lg:min-h-[214px] lg:grid-cols-3"></div>
   <span class="sr-only" aria-live="polite" data-un-copy-status></span>
   <p class="mt-4 text-center text-xs text-slate-500 dark:text-slate-400">{t.clickHint}</p>
   <p class="mt-1.5 text-center text-xs leading-relaxed text-slate-500 dark:text-slate-400">{t.note}</p>

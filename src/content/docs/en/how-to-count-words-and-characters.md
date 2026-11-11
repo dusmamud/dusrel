@@ -12,7 +12,7 @@ Dusrel's word counter measures your text as you type — no button to press, no 
 
 ## Steps
 
-<img src="/docs-sections/how-to-count-words-and-characters-s1.jpg" alt="Steps" width="1200" height="675">
+<img src="/docs-sections/how-to-count-words-and-characters-s1.jpg" alt="Steps" width="700" height="394">
 
 
 1. **Open the tool.** You will see an empty text box with six count cards underneath it, all starting at zero.
@@ -28,7 +28,7 @@ Dusrel's word counter measures your text as you type — no button to press, no 
 
 ## How each count works
 
-<img src="/docs-sections/how-to-count-words-and-characters-s2.jpg" alt="How each count works" width="1200" height="675">
+<img src="/docs-sections/how-to-count-words-and-characters-s2.jpg" alt="How each count works" width="700" height="394">
 
 
 - **Words** are counted by splitting the text on whitespace, ignoring extra spaces at the start and end. Pasting text with double spaces will not inflate the word count.
@@ -39,7 +39,7 @@ Dusrel's word counter measures your text as you type — no button to press, no 
 
 ## Tips
 
-<img src="/docs-sections/how-to-count-words-and-characters-s3.jpg" alt="Tips" width="1200" height="675">
+<img src="/docs-sections/how-to-count-words-and-characters-s3.jpg" alt="Tips" width="700" height="394">
 
 
 - **Check a limit before you post.** If a platform allows, say, 280 characters, watch the `Characters` card while you edit — or `Characters without spaces` if that platform ignores spaces.

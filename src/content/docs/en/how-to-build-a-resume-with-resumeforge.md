@@ -16,7 +16,7 @@ Open it at [dusmamud.github.io/resumeforge/](https://dusmamud.github.io/resumefo
 
 ## Build your resume
 
-<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s1.jpg" alt="Build your resume" width="1200" height="675">
+<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s1.jpg" alt="Build your resume" width="700" height="394">
 
 
 1. Open [ResumeForge](https://dusmamud.github.io/resumeforge/).
@@ -37,7 +37,7 @@ back to your resume later without losing your work.
 
 ## Tips
 
-<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s2.jpg" alt="Tips" width="1200" height="675">
+<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s2.jpg" alt="Tips" width="700" height="394">
 
 
 - **Write bullets as results, not duties.** Instead of listing what a

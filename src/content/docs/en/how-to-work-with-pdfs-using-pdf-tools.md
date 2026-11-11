@@ -15,7 +15,7 @@ Open it at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/
 
 ## The 11 tools
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s1.jpg" alt="The 11 tools" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s1.jpg" alt="The 11 tools" width="700" height="394">
 
 
 - **Merge** — combine several PDFs into one document.
@@ -32,7 +32,7 @@ Open it at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/
 
 ## Which tool do I need?
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s2.jpg" alt="Which tool do I need?" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s2.jpg" alt="Which tool do I need?" width="700" height="394">
 
 
 - Several files into one document → **Merge**.
@@ -49,7 +49,7 @@ Open it at [dusmamud.github.io/pdf-tools/](https://dusmamud.github.io/pdf-tools/
 
 ## Use any tool
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s3.jpg" alt="Use any tool" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s3.jpg" alt="Use any tool" width="700" height="394">
 
 
 The flow is the same for every tool:
@@ -65,7 +65,7 @@ responsive while processing runs.
 
 ## Tips
 
-<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s4.jpg" alt="Tips" width="1200" height="675">
+<img src="/docs-sections/how-to-work-with-pdfs-using-pdf-tools-s4.jpg" alt="Tips" width="700" height="394">
 
 
 - **Do conversions before edits.** If you need a JPG as part of an

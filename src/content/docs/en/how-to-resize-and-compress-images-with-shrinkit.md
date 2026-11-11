@@ -17,7 +17,7 @@ images in one batch.
 
 ## Resize and compress an image
 
-<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s1.jpg" alt="Resize and compress an image" width="1200" height="675">
+<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s1.jpg" alt="Resize and compress an image" width="700" height="394">
 
 
 1. Open [shrinkit.dusrel.com](https://shrinkit.dusrel.com).
@@ -36,7 +36,7 @@ resizing and encoding happen on your own device.
 
 ## Tips
 
-<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s2.jpg" alt="Tips" width="1200" height="675">
+<img src="/docs-sections/how-to-resize-and-compress-images-with-shrinkit-s2.jpg" alt="Tips" width="700" height="394">
 
 
 - **Start from percent when you just need smaller files.** Resizing to

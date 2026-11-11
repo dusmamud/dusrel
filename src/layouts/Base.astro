@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import sora700 from '@fontsource/sora/files/sora-latin-700-normal.woff2?url';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 import { dict, type Lang } from '../i18n';
 import { socials } from '../data/social';
 import { liveApps, appContentFor } from '../data/apps';
@@ -161,6 +163,12 @@ const websiteLd =
     <link rel="search" type="application/opensearchdescription+xml" title="Dusrel Search" href="/opensearch.xml" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" data-theme-color />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" data-theme-color />
+    <!-- Preload the two first-paint fonts (Sora 700 for headings, Inter 400
+         for body) so text renders in the final fonts before first paint —
+         avoids font-swap reflow (CLS) on doc pages. Only these two:
+         preloading more would delay other resources. -->
+    <link rel="preload" href={sora700} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
     <script is:inline>
       (function () {
         try {

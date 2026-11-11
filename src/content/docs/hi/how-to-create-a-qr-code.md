@@ -13,7 +13,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## एक बुनियादी QR कोड बनाएँ
 
-<img src="/docs-sections/how-to-create-a-qr-code-s1.jpg" alt="एक बुनियादी QR कोड बनाएँ" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s1.jpg" alt="एक बुनियादी QR कोड बनाएँ" width="700" height="394">
 
 1. [QR Code Generator](/hi/pass/qr-code-generator/) खोलें।
 2. `Text or URL` बॉक्स में अपना लिंक या टेक्स्ट टाइप करें। एक सैंपल लिंक पहले से भरा हुआ है, ताकि आप तुरंत एक कोड देख सकें।
@@ -23,7 +23,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## एक टेम्पलेट चुनें
 
-<img src="/docs-sections/how-to-create-a-qr-code-s2.jpg" alt="एक टेम्पलेट चुनें" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s2.jpg" alt="एक टेम्पलेट चुनें" width="700" height="394">
 
 `Templates` के नीचे आठ तैयार स्टाइल हैं। लगाने के लिए किसी भी प्रीव्यू पर क्लिक करें:
 
@@ -40,7 +40,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## स्टाइल बदलें
 
-<img src="/docs-sections/how-to-create-a-qr-code-s3.jpg" alt="स्टाइल बदलें" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s3.jpg" alt="स्टाइल बदलें" width="700" height="394">
 
 `Style` के नीचे तीन कंट्रोल हैं:
 
@@ -50,7 +50,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## रंग बदलें
 
-<img src="/docs-sections/how-to-create-a-qr-code-s4.jpg" alt="रंग बदलें" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s4.jpg" alt="रंग बदलें" width="700" height="394">
 
 `Colors` के नीचे आप `Code color` और `Background` सेट कर सकते हैं:
 
@@ -64,7 +64,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## लोगो जोड़ें
 
-<img src="/docs-sections/how-to-create-a-qr-code-s5.jpg" alt="लोगो जोड़ें" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s5.jpg" alt="लोगो जोड़ें" width="700" height="394">
 
 1. `Logo` के नीचे `Upload logo` पर क्लिक करें और एक इमेज फ़ाइल चुनें (2 MB तक)।
 2. `Logo size` स्लाइडर से लोगो का आकार सेट करें: कोड की चौड़ाई का 10% से 30% तक, जो 22% से शुरू होता है। बड़ा होना हमेशा बेहतर नहीं होता — बहुत बड़ा लोगो स्कैनिंग खराब कर सकता है।
@@ -74,7 +74,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## एरर करेक्शन
 
-<img src="/docs-sections/how-to-create-a-qr-code-s6.jpg" alt="एरर करेक्शन" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s6.jpg" alt="एरर करेक्शन" width="700" height="394">
 
 `Error correction` के नीचे आप चुन सकते हैं कि कोड कितना नुकसान झेलकर भी स्कैन हो सके:
 
@@ -86,7 +86,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## कोड डाउनलोड करें
 
-<img src="/docs-sections/how-to-create-a-qr-code-s7.jpg" alt="कोड डाउनलोड करें" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s7.jpg" alt="कोड डाउनलोड करें" width="700" height="394">
 
 - **PNG size** — `256 px`, `512 px` या `1024 px` चुनें। डिफ़ॉल्ट 512 px है, जो ज़्यादातर स्क्रीन और दस्तावेज़ों के लिए सही है। प्रिंट के लिए 1024 px चुनें।
 - तैयार इमेज के लिए `Download PNG` पर क्लिक करें, या किसी भी साइज़ में स्केल की जा सकने वाली वेक्टर फ़ाइल के लिए `Download SVG` पर क्लिक करें।
@@ -95,7 +95,7 @@ QR Code Generator किसी भी लिंक या टेक्स्ट 
 
 ## सुझाव
 
-<img src="/docs-sections/how-to-create-a-qr-code-s8.jpg" alt="सुझाव" width="1200" height="675">
+<img src="/docs-sections/how-to-create-a-qr-code-s8.jpg" alt="सुझाव" width="700" height="394">
 
 - प्रिंट या पब्लिश करने से पहले तैयार कोड को अपने फ़ोन कैमरे से टेस्ट करें, खासकर रंग बदलने या लोगो जोड़ने के बाद।
 - सबसे भरोसेमंद स्कैनिंग के लिए कोड को हल्के बैकग्राउंड पर गहरे कोड रंग के साथ रखें।

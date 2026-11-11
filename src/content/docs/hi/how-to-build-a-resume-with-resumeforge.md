@@ -16,7 +16,7 @@ ResumeForge एक मुफ़्त रिज़्यूमे बिल्�
 
 ## अपना रिज़्यूमे बनाएँ
 
-<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s1.jpg" alt="अपना रिज़्यूमे बनाएँ" width="1200" height="675">
+<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s1.jpg" alt="अपना रिज़्यूमे बनाएँ" width="700" height="394">
 
 
 1. [ResumeForge](https://dusmamud.github.io/resumeforge/) खोलें।
@@ -37,7 +37,7 @@ ResumeForge एक मुफ़्त रिज़्यूमे बिल्�
 
 ## सुझाव
 
-<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s2.jpg" alt="सुझाव" width="1200" height="675">
+<img src="/docs-sections/how-to-build-a-resume-with-resumeforge-s2.jpg" alt="सुझाव" width="700" height="394">
 
 
 - **बुलेट को नतीजों के रूप में लिखें, ज़िम्मेदारियों के रूप में नहीं।** किसी

@@ -14,7 +14,7 @@ This page explains what that means, which products it covers, and where its limi
 
 ## What "on-device" means
 
-<img src="/docs-sections/privacy-on-device-s1.jpg" alt="What &quot;on-device&quot; means" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s1.jpg" alt="What &quot;on-device&quot; means" width="700" height="394">
 
 
 Your browser downloads the tool's code from dusrel.com, just like it downloads any web page. After that, everything happens locally:
@@ -27,7 +27,7 @@ There is no server step in the middle for these tools, and no account is require
 
 ## Which products this covers
 
-<img src="/docs-sections/privacy-on-device-s2.jpg" alt="Which products this covers" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s2.jpg" alt="Which products this covers" width="700" height="394">
 
 
 This claim is deliberately narrow. It covers exactly these products:
@@ -39,7 +39,7 @@ That is the full list. This page does not claim the same for any other app, and 
 
 ## What on-device processing does not do
 
-<img src="/docs-sections/privacy-on-device-s3.jpg" alt="What on-device processing does not do" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s3.jpg" alt="What on-device processing does not do" width="700" height="394">
 
 
 On-device processing is a real protection, but it is not magic. A few honest limits:
@@ -50,14 +50,14 @@ On-device processing is a real protection, but it is not magic. A few honest lim
 
 ## Why Dusrel builds this way
 
-<img src="/docs-sections/privacy-on-device-s4.jpg" alt="Why Dusrel builds this way" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s4.jpg" alt="Why Dusrel builds this way" width="700" height="394">
 
 
 The idea behind Dusrel is that useful software should not demand your data as the price of using it. Building tools that run entirely in the browser is one way to keep that promise concrete: instead of asking you to trust a policy, the tool is designed so that the data never leaves in the first place. Where a future product genuinely needs a server, Dusrel will need to say so plainly rather than stretch this claim to cover it.
 
 ## In short
 
-<img src="/docs-sections/privacy-on-device-s5.jpg" alt="In short" width="1200" height="675">
+<img src="/docs-sections/privacy-on-device-s5.jpg" alt="In short" width="700" height="394">
 
 
 For the pass tools and ShrinkIt: your input goes in, the work happens on your device, and the result comes out — with no upload step in between. For everything else, read that product's own page before assuming anything.

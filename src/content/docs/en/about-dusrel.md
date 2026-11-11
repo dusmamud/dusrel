@@ -12,7 +12,7 @@ Dusrel is an independent, privacy-first collection of free tools and apps, built
 
 ## Who builds it
 
-<img src="/docs-sections/about-dusrel-s1.jpg" alt="Who builds it" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s1.jpg" alt="Who builds it" width="700" height="394">
 
 
 Dusrel is built by one independent developer. It is not a registered company, and it is not a team: a single person designs, builds and maintains the tools and apps. That is worth saying plainly, because it shapes what Dusrel can honestly promise. A one-person project can move carefully and keep its tools simple, but it also cannot offer the kind of round-the-clock support a large company might.
@@ -21,7 +21,7 @@ The project started from a simple frustration: every useful app seemed to want y
 
 ## What exists today
 
-<img src="/docs-sections/about-dusrel-s2.jpg" alt="What exists today" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s2.jpg" alt="What exists today" width="700" height="394">
 
 
 As of this writing, Dusrel offers:
@@ -34,7 +34,7 @@ Eight more apps â€” Drive, Chat, Docs, Sheets, Notes, Mail, Meet and Calendar â€
 
 ## What Dusrel promises
 
-<img src="/docs-sections/about-dusrel-s3.jpg" alt="What Dusrel promises" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s3.jpg" alt="What Dusrel promises" width="700" height="394">
 
 
 Two promises run through the whole project:
@@ -44,7 +44,7 @@ Two promises run through the whole project:
 
 ## What Dusrel does not claim
 
-<img src="/docs-sections/about-dusrel-s4.jpg" alt="What Dusrel does not claim" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s4.jpg" alt="What Dusrel does not claim" width="700" height="394">
 
 
 Honesty about limits is part of the project:
@@ -55,7 +55,7 @@ Honesty about limits is part of the project:
 
 ## Contact
 
-<img src="/docs-sections/about-dusrel-s5.jpg" alt="Contact" width="1200" height="675">
+<img src="/docs-sections/about-dusrel-s5.jpg" alt="Contact" width="700" height="394">
 
 
 For questions about Dusrel, the public contact address is hello@dusrel.com. For help using a specific tool, start with that tool's own guide in these docs.

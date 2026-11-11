@@ -13,7 +13,7 @@ Age Calculator आपकी जन्मतिथि से आपकी सट�
 
 ## अपनी उम्र निकालें
 
-<img src="/docs-sections/how-to-calculate-your-exact-age-s1.jpg" alt="अपनी उम्र निकालें" width="1200" height="675">
+<img src="/docs-sections/how-to-calculate-your-exact-age-s1.jpg" alt="अपनी उम्र निकालें" width="700" height="394">
 
 1. [Age Calculator](/hi/pass/age-calculator/) खोलें।
 2. `Date of birth` के नीचे तीन बॉक्स भरें: `Day`, `Month` और `Year`। हर बॉक्स पर लेबल लगा है, इसलिए बस लेबल का पालन करें। आपको leading zero की ज़रूरत नहीं है — `5`, `05` की तरह ही काम करता है।
@@ -24,7 +24,7 @@ Age Calculator आपकी जन्मतिथि से आपकी सट�
 
 ## तारीखें डालने के बारे में नोट्स
 
-<img src="/docs-sections/how-to-calculate-your-exact-age-s2.jpg" alt="तारीखें डालने के बारे में नोट्स" width="1200" height="675">
+<img src="/docs-sections/how-to-calculate-your-exact-age-s2.jpg" alt="तारीखें डालने के बारे में नोट्स" width="700" height="394">
 
 - **टाइप करते समय कुछ भी कैलकुलेट नहीं होता।** परिणाम तभी दिखता है जब आप `Calculate age` पर क्लिक करते हैं (या Enter दबाते हैं)। अगर कैलकुलेट करने के बाद आप कोई तारीख एडिट करते हैं, तो पुराना परिणाम साफ़ हो जाता है, ताकि कोई पुराना नंबर मौजूदा बताकर कभी न दिखे।
 - **फ़ोकस अपने आप आगे बढ़ जाता है**, जब कोई बॉक्स भर जाता है और वैध होता है, और उसी तारीख समूह के अंदर रहता है। खाली बॉक्स में Backspace दबाने पर फ़ोकस पीछे जाता है, और Tab सामान्य रूप से काम करता है।
@@ -37,7 +37,7 @@ Age Calculator आपकी जन्मतिथि से आपकी सट�
 
 ## किसी और तारीख पर उम्र निकालें
 
-<img src="/docs-sections/how-to-calculate-your-exact-age-s3.jpg" alt="किसी और तारीख पर उम्र निकालें" width="1200" height="675">
+<img src="/docs-sections/how-to-calculate-your-exact-age-s3.jpg" alt="किसी और तारीख पर उम्र निकालें" width="700" height="394">
 
 `As of date` का आज होना ज़रूरी नहीं है। उस तारीख पर अपनी उम्र देखने के लिए इसे किसी भी तारीख में बदलें — उदाहरण के लिए, किसी पिछली तारीख पर आपकी उम्र, या किसी भविष्य की तारीख पर आप कितने साल के होंगे। वही नियम लागू होता है: जन्मतिथि `As of date` से बाद की नहीं हो सकती।
 
@@ -45,7 +45,7 @@ Age Calculator आपकी जन्मतिथि से आपकी सट�
 
 ## अपना परिणाम शेयर करें
 
-<img src="/docs-sections/how-to-calculate-your-exact-age-s4.jpg" alt="अपना परिणाम शेयर करें" width="1200" height="675">
+<img src="/docs-sections/how-to-calculate-your-exact-age-s4.jpg" alt="अपना परिणाम शेयर करें" width="700" height="394">
 
 वैध कैलकुलेशन के बाद शेयर बटन सक्रिय हो जाते हैं:
 
@@ -56,7 +56,7 @@ Age Calculator आपकी जन्मतिथि से आपकी सट�
 
 ## सुझाव
 
-<img src="/docs-sections/how-to-calculate-your-exact-age-s5.jpg" alt="सुझाव" width="1200" height="675">
+<img src="/docs-sections/how-to-calculate-your-exact-age-s5.jpg" alt="सुझाव" width="700" height="394">
 
 - अगर आपको सिर्फ़ वर्षों में उम्र चाहिए, तो बड़ा `Years` नंबर ही जवाब है — महीने और दिन के आंकड़े उसके ऊपर का शेष हैं।
 - वर्ष वाला बॉक्स दोबारा जाँच लें: चार अंकों का वर्ष ज़रूरी है, और गलत टाइप किया गया वर्ष चौंकाने वाले परिणाम का सबसे आम कारण है।
